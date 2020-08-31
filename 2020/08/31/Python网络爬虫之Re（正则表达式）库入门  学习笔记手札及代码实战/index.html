@@ -25,29 +25,36 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":true,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="@TOC 学习笔记手札及单元小结 Re库的基本使用1import re re.search(pattern,string,flags&#x3D;0) 在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象  12345678&gt;&gt;&gt; import re&gt;&gt;&gt; match &#x3D; re.search(r&amp;#x27;[1-9]\d&amp;#123;5&amp;#125;&amp;#x27;,&amp;">
+<meta property="og:type" content="article">
 <meta property="og:title" content="张良信息咨询服务工作室">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/08/31/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B9%8BRe%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8%20%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%89%8B%E6%9C%AD%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/index.html">
 <meta property="og:site_name" content="张良信息咨询服务工作室">
+<meta property="og:description" content="@TOC 学习笔记手札及单元小结 Re库的基本使用1import re re.search(pattern,string,flags&#x3D;0) 在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象  12345678&gt;&gt;&gt; import re&gt;&gt;&gt; match &#x3D; re.search(r&amp;#x27;[1-9]\d&amp;#123;5&amp;#125;&amp;#x27;,&amp;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200703180200768.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200703180052237.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-08-31T00:01:51.998Z">
+<meta property="article:modified_time" content="2020-08-31T00:01:23.323Z">
 <meta property="article:author" content="张良">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200703180200768.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70">
 
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/08/31/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B9%8BRe%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8%20%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%89%8B%E6%9C%AD%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>张良信息咨询服务工作室 - 张良信息咨询服务工作室是全球领先的综合信息咨询、提供解决方案的专业服务商。通过为中小企业及个人提供专业与高效的资金解决方案，给与用户享有高效、便捷、专业的服务体验。咨询热线：18556506161</title>
+  <title> | 张良信息咨询服务工作室</title>
   
 
 
@@ -136,7 +143,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -148,6 +155,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%89%8B%E6%9C%AD%E5%8F%8A%E5%8D%95%E5%85%83%E5%B0%8F%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">学习笔记手札及单元小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Re库的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#re-search-pattern-string-flags-0"><span class="nav-number">2.1.</span> <span class="nav-text">re.search(pattern,string,flags&#x3D;0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match-pattern-string-flags-0"><span class="nav-number">2.2.</span> <span class="nav-text">re.match(pattern,string,flags&#x3D;0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-findall-pattern-string-flags-0"><span class="nav-number">2.3.</span> <span class="nav-text">re.findall(pattern,string,flags&#x3D;0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-split-pattern-string-maxsplit-0-flags-0"><span class="nav-number">2.4.</span> <span class="nav-text">re.split(pattern,string,maxsplit&#x3D;0,flags&#x3D;0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-finditer-pattern-string-flags-0"><span class="nav-number">2.5.</span> <span class="nav-text">re.finditer(pattern,string,flags&#x3D;0)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-sub-pattern-repl-string-count-0-flags-0"><span class="nav-number">2.6.</span> <span class="nav-text">re.sub(pattern,repl,string,count&#x3D;0,flags&#x3D;0)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E7%AD%89%E4%BB%B7%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">Re库的另一种等价用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#regex-re-compile-pattern-flags-0"><span class="nav-number">3.1.</span> <span class="nav-text">regex &#x3D; re.compile(pattern,flags&#x3D;0)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84Match%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">Re库的Match对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Match%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.1.</span> <span class="nav-text">Match对象介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Match%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">Match对象实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D%E5%92%8C%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">5.</span> <span class="nav-text">Re库的贪婪匹配和最小匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D"><span class="nav-number">5.1.</span> <span class="nav-text">贪婪匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">5.2.</span> <span class="nav-text">最小匹配</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -223,14 +231,15 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
       
 
       
-      
+
+    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/31/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B9%8BRe%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8%20%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%89%8B%E6%9C%AD%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -246,10 +255,9 @@
     
     
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/31/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B9%8BRe%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8%20%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%89%8B%E6%9C%AD%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -273,7 +281,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>@<a href="Re%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8">TOC</a></p>
+        <p>@<a href="Re%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8">TOC</a></p>
 <h1 id="学习笔记手札及单元小结"><a href="#学习笔记手札及单元小结" class="headerlink" title="学习笔记手札及单元小结"></a>学习笔记手札及单元小结</h1><p><img src="https://img-blog.csdnimg.cn/20200703180200768.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h1 id="Re库的基本使用"><a href="#Re库的基本使用" class="headerlink" title="Re库的基本使用"></a>Re库的基本使用</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br></pre></td></tr></table></figure>
 <h2 id="re-search-pattern-string-flags-0"><a href="#re-search-pattern-string-flags-0" class="headerlink" title="re.search(pattern,string,flags=0)"></a>re.search(pattern,string,flags=0)</h2><blockquote>
@@ -323,7 +331,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>match = re.search(<span class="string">r&#x27;PY.*N&#x27;</span>,<span class="string">&#x27;PYANBNCNDN&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>match.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;PYANBNCNDN&#x27;</span></span><br></pre></td></tr></table></figure>
 <h2 id="最小匹配"><a href="#最小匹配" class="headerlink" title="最小匹配"></a>最小匹配</h2><p><img src="https://img-blog.csdnimg.cn/20200703180052237.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
-      
     </div>
 
     
@@ -331,90 +338,59 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="张良 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张良 支付宝">
+        <span>支付宝</span>
+      </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="张良">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张良信息咨询服务工作室">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/28/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-28 16:00:59" itemprop="dateCreated datePublished" datetime="2020-08-28T16:00:59+08:00">2020-08-28</time>
-    </span>
-
-  
+  </div>
 </div>
 
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvLw==">Hexo<i class="fa fa-external-link-alt"></i></span>! This is your very first post. Check <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mv">documentation<i class="fa fa-external-link-alt"></i></span> for more info. If you get any problems when using Hexo, you can find the answer in <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvdHJvdWJsZXNob290aW5nLmh0bWw=">troubleshooting<i class="fa fa-external-link-alt"></i></span> or you can ask me on <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hleG9qcy9oZXhvL2lzc3Vlcw==">GitHub<i class="fa fa-external-link-alt"></i></span>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvd3JpdGluZy5odG1s">Writing<i class="fa fa-external-link-alt"></i></span></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvc2VydmVyLmh0bWw=">Server<i class="fa fa-external-link-alt"></i></span></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvZ2VuZXJhdGluZy5odG1s">Generating<i class="fa fa-external-link-alt"></i></span></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvb25lLWNvbW1hbmQtZGVwbG95bWVudC5odG1s">Deployment<i class="fa fa-external-link-alt"></i></span></p>
-
-      
     </div>
+  </div>
 
-    
-    
-    
 
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/08/28/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
   
   
-  
-
-
   
 
 
@@ -457,11 +433,11 @@
     </label>
     <select class="lang-select" data-canonical="">
       
-        <option value="zh-CN" data-href="/index.html" selected="">
+        <option value="zh-CN" data-href="/2020/08/31/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B9%8BRe%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8%20%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%89%8B%E6%9C%AD%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/" selected="">
           简体中文
         </option>
       
-        <option value="en" data-href="/en/index.html" selected="">
+        <option value="en" data-href="/en/2020/08/31/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B9%8BRe%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%BA%93%E5%85%A5%E9%97%A8%20%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%89%8B%E6%9C%AD%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/" selected="">
           English
         </option>
       
