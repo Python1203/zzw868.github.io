@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>离线 - zzw868 的金融科技博客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 500px;
+        }
+        
+        .icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .tips {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tips h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .tips ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .tips li {
+            padding: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .tips li:before {
+            content: "• ";
+            color: #ffd700;
+        }
+        
+        button {
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            background: #fff;
+            color: #667eea;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📡</div>
+        <h1>您已离线</h1>
+        <p>当前无法连接到互联网，请检查您的网络连接</p>
+        
+        <div class="tips">
+            <h3>💡 小提示</h3>
+            <ul>
+                <li>已缓存的页面仍可访问</li>
+                <li>检查网络连接后刷新页面</li>
+                <li>使用浏览器的离线模式查看已保存内容</li>
+            </ul>
+        </div>
+        
+        <button onclick="window.location.reload()">重试</button>
+    </div>
+    
+    <script>
+        // 监听网络状态变化
+        window.addEventListener('online', () => {
+            if (navigator.onLine) {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
