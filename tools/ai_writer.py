@@ -296,6 +296,12 @@ class AIClient:
                 presence_penalty=0.3
             )
             
+            # 调试输出：检查响应类型
+            print(f"🔍 响应类型：{type(response)}")
+            if isinstance(response, str):
+                print(f"⚠️  警告：API 返回字符串而非对象：{response[:200]}...")
+                return None
+            
             return response.choices[0].message.content
             
         except Exception as e:
