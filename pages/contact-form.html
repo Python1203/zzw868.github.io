@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系表单完整示例：HTML + CSS 响应式表单设计与验证教程 2025</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff00;
+            --error-color: #ff4444;
+            --success-color: #44ff44;
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --text-color: #ffffff;
+            --shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .form-group input[type="email"]:valid,
+        .form-group input[type="text"]:valid,
+        .form-group textarea:valid {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .form-group input:invalid:not(:placeholder-shown),
+        .form-group textarea:invalid:not(:placeholder-shown) {
+            border-color: var(--error-color);
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+            text-shadow: 0 0 5px var(--error-color);
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .submit-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            align-self: center;
+            margin-top: 10px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn:disabled:hover {
+            transform: none;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: var(--success-color);
+            font-size: 1.1rem;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(68, 255, 68, 0.1);
+            border: 1px solid var(--success-color);
+            border-radius: 8px;
+            text-shadow: 0 0 10px var(--success-color);
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--primary-color);
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 12px;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-form {
+                gap: 20px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="张良信息咨询服务工作室联系表单，使用 HTML5 表单验证与 CSS 响应式布局构建，支持姓名、邮箱、留言提交，含完整源码。" />
+  <meta name="keywords" content="联系表单,HTML表单,表单验证,响应式表单,前端开发,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="联系表单完整示例：HTML + CSS 响应式表单设计与验证教程 2025" />
+  <meta property="og:description" content="张良信息咨询服务工作室联系表单，使用 HTML5 表单验证与 CSS 响应式布局构建，支持姓名、邮箱、留言提交，含完整源码。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/contact-form/" />
+  <link rel="canonical" href="https://zzw868.github.io/contact-form/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "联系表单完整示例：HTML + CSS 响应式表单设计与验证教程 2025",
+    "description": "张良信息咨询服务工作室联系表单，使用 HTML5 表单验证与 CSS 响应式布局构建，支持姓名、邮箱、留言提交，含完整源码。",
+    "url": "https://zzw868.github.io/contact-form/",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"}
+  }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <h1>联系我们</h1>
+        <p class="subtitle">有任何问题或合作意向，请填写下方表单，我们会尽快回复您。</p>
+
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">姓名 *</label>
+                <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                <div class="error-message">请输入有效的姓名</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">邮箱 *</label>
+                <input type="email" id="email" name="email" placeholder="请输入您的邮箱地址" required>
+                <div class="error-message">请输入有效的邮箱地址</div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">留言 *</label>
+                <textarea id="message" name="message" placeholder="请输入您的留言内容" required></textarea>
+                <div class="error-message">请输入留言内容</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                发送消息
+            </button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            感谢您的留言！我们会尽快回复您。
+        </div>
+
+        <div class="contact-info">
+            <h3>其他联系方式</h3>
+            <p><strong>电话：</strong>18556506161</p>
+            <p><strong>邮箱：</strong><a href="mailto:contact@zzw868.com">contact@zzw868.com</a></p>
+            <p><strong>地址：</strong>中国</p>
+            <p><strong>社交媒体：</strong><a href="https://linktr.ee/zzw868" target="_blank" rel="noopener noreferrer">Linktree</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+
+            // Form validation
+            function validateField(field) {
+                const formGroup = field.closest('.form-group');
+                const errorMessage = formGroup.querySelector('.error-message');
+                let isValid = true;
+
+                // Reset error state
+                formGroup.classList.remove('error');
+
+                // Check if field is empty
+                if (!field.value.trim()) {
+                    formGroup.classList.add('error');
+                    errorMessage.textContent = '此字段不能为空';
+                    isValid = false;
+                } else if (field.type === 'email' && !isValidEmail(field.value)) {
+                    formGroup.classList.add('error');
+                    errorMessage.textContent = '请输入有效的邮箱地址';
+                    isValid = false;
+                } else if (field.name === 'name' && field.value.trim().length < 2) {
+                    formGroup.classList.add('error');
+                    errorMessage.textContent = '姓名至少需要2个字符';
+                    isValid = false;
+                } else if (field.name === 'message' && field.value.trim().length < 10) {
+                    formGroup.classList.add('error');
+                    errorMessage.textContent = '留言内容至少需要10个字符';
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            // Real-time validation
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+
+                input.addEventListener('input', function() {
+                    if (this.closest('.form-group').classList.contains('error')) {
+                        validateField(this);
+                    }
+                });
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validate all fields
+                let isFormValid = true;
+                inputs.forEach(input => {
+                    if (!validateField(input)) {
+                        isFormValid = false;
+                    }
+                });
+
+                if (!isFormValid) {
+                    return;
+                }
+
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '发送中<span class="loading"></span>';
+
+                // Simulate form submission (replace with actual submission logic)
+                setTimeout(function() {
+                    // Reset form
+                    form.reset();
+
+                    // Show success message
+                    successMessage.classList.add('show');
+
+                    // Reset button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '发送消息';
+
+                    // Hide success message after 5 seconds
+                    setTimeout(function() {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+
+                    // Clear any remaining error states
+                    document.querySelectorAll('.form-group').forEach(group => {
+                        group.classList.remove('error');
+                    });
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

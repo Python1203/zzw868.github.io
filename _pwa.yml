@@ -1,0 +1,50 @@
+# PWA Configuration for hexo-pwa
+manifest:
+  name: zzw868 的金融科技博客
+  short_name: zzw868 Blog
+  description: 专注 A 股分析、AI 工具与开源金融技术的个人博客
+  theme_color: '#ffffff'
+  background_color: '#ffffff'
+  display: standalone
+  orientation: portrait-primary
+  start_url: /
+  icons:
+    - src: /images/favicon-16x16-next.png
+      sizes: 16x16
+      type: image/png
+    - src: /images/favicon-32x32-next.png
+      sizes: 32x32
+      type: image/png
+    - src: /images/apple-touch-icon-next.png
+      sizes: 180x180
+      type: image/png
+
+# Service Worker options
+sw:
+  register: true
+  cacheSiteResources: true
+  prefetchHomepage: true
+  disableForDev: true
+  
+# Cache strategies
+cache:
+  js:
+    strategy: cacheFirst
+    maxAge: 604800 # 7 days
+  css:
+    strategy: cacheFirst
+    maxAge: 604800 # 7 days
+  images:
+    strategy: cacheFirst
+    maxAge: 2592000 # 30 days
+  fonts:
+    strategy: cacheFirst
+    maxAge: 2592000 # 30 days
+  pages:
+    strategy: networkFirst
+    maxAge: 86400 # 1 day
+
+# Offline page
+offline:
+  enabled: true
+  path: /offline.html

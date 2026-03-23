@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-03-23T09:24:51.670694",
+  "config_path": "_config.next.yml",
+  "summary": {
+    "total": 3,
+    "critical": 0,
+    "error": 0,
+    "warning": 0,
+    "info": 3
+  },
+  "issues": [
+    {
+      "code": "SCHEME_002",
+      "message": "当前方案：Muse，推荐升级到 Gemini",
+      "severity": "info",
+      "path": "scheme",
+      "suggestion": "Gemini 方案提供更多的功能和更好的用户体验",
+      "current_value": "Muse",
+      "recommended_value": "Gemini"
+    },
+    {
+      "code": "SEARCH_002",
+      "message": "搜索未启用预加载",
+      "severity": "info",
+      "path": "local_search.preload",
+      "suggestion": "启用预加载以加快搜索速度",
+      "current_value": false,
+      "recommended_value": true
+    },
+    {
+      "code": "PERF_002",
+      "message": "未启用文件压缩",
+      "severity": "info",
+      "path": "minify",
+      "suggestion": "启用文件压缩以减少文件大小",
+      "current_value": false,
+      "recommended_value": true
+    }
+  ]
+}

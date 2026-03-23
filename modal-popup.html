@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript 弹窗组件完整示例：Modal Popup 实战教程 2025</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#0d1117;color:#e6edf3;font-family:'Segoe UI',sans-serif;font-size:13px}
+    #root{padding:12px}
+    .header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+    .header h1{font-size:18px;color:#58a6ff}
+    select,button{background:#161b22;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:13px}
+    select:focus,button:focus{outline:none;border-color:#58a6ff}
+    button.active{background:#1f6feb;border-color:#58a6ff}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}}
+    .card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px}
+    .card h3{font-size:13px;color:#8b949e;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+    .price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+    .price{font-size:28px;font-weight:700;color:#e6edf3}
+    .change{font-size:14px;font-weight:600}
+    .up{color:#3fb950}.down{color:#f85149}
+    .indicators{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px}
+    .ind-item{background:#0d1117;border-radius:6px;padding:6px 8px}
+    .ind-label{color:#8b949e;font-size:11px}
+    .ind-value{font-size:14px;font-weight:600;margin-top:2px}
+    .signal-panel{display:flex;flex-direction:column;gap:6px}
+    .signal-row{display:flex;justify-content:space-between;align-items:center;background:#0d1117;border-radius:6px;padding:6px 10px}
+    .badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700}
+    .badge.buy{background:#1a4731;color:#3fb950}
+    .badge.sell{background:#4a1515;color:#f85149}
+    .badge.hold{background:#2d2d00;color:#d29922}
+    .badge.neutral{background:#1c2128;color:#8b949e}
+    .ai-score{font-size:32px;font-weight:700;text-align:center;padding:10px 0}
+    .lstm-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #21262d}
+    .lstm-row:last-child{border:none}
+    canvas{width:100%!important;max-height:200px}
+    .ws-dot{width:8px;height:8px;border-radius:50%;background:#3fb950;display:inline-block;margin-right:4px;animation:pulse 1.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .ws-dot.off{background:#f85149;animation:none}
+    .full-chart{grid-column:1/-1}
+    .tabs{display:flex;gap:4px;margin-bottom:8px}
+    .tab{padding:3px 10px;border-radius:4px;cursor:pointer;border:1px solid #30363d;background:#0d1117;font-size:12px}
+    .tab.active{background:#1f6feb;border-color:#58a6ff;color:#fff}
+  </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="使用原生 JavaScript 实现的模态弹窗组件，支持点击遮罩关闭、键盘 ESC 退出与动画过渡，无需任何框架依赖，含完整源码。" />
+  <meta name="keywords" content="Modal弹窗,JavaScript弹窗,模态框,前端组件,原生JS,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="JavaScript 弹窗组件完整示例：Modal Popup 实战教程 2025" />
+  <meta property="og:description" content="使用原生 JavaScript 实现的模态弹窗组件，支持点击遮罩关闭、键盘 ESC 退出与动画过渡，无需任何框架依赖，含完整源码。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/modal-popup/" />
+  <link rel="canonical" href="https://zzw868.github.io/modal-popup/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "JavaScript 弹窗组件完整示例：Modal Popup 实战教程 2025",
+    "description": "使用原生 JavaScript 实现的模态弹窗组件，支持点击遮罩关闭、键盘 ESC 退出与动画过渡，无需任何框架依赖，含完整源码。",
+    "keywords": "Modal弹窗,JavaScript弹窗,模态框,前端组件,原生JS,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/modal-popup/"}
+  }
+  </script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+const SYMBOLS = ['BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT'];
+const INTERVALS = ['1m','5m','15m','1h','4h'];
+
+// ── Technical Indicators ──────────────────────────────────────────────────────
+function calcSMA(data, n) {
+  return data.map((_, i) => i < n - 1 ? null : data.slice(i - n + 1, i + 1).reduce((a, b) => a + b, 0) / n);
+}
+function calcEMA(data, n) {
+  const k = 2 / (n + 1); let ema = [];
+  data.forEach((v, i) => {
+    if (i === 0) ema.push(v);
+    else ema.push(v * k + ema[i - 1] * (1 - k));
+  });
+  return ema;
+}
+function calcRSI(closes, n = 14) {
+  let gains = [], losses = [];
+  for (let i = 1; i < closes.length; i++) {
+    const d = closes[i] - closes[i - 1];
+    gains.push(d > 0 ? d : 0); losses.push(d < 0 ? -d : 0);
+  }
+  const avgG = gains.slice(0, n).reduce((a, b) => a + b, 0) / n;
+  const avgL = losses.slice(0, n).reduce((a, b) => a + b, 0) / n;
+  let ag = avgG, al = avgL, rsi = [null];
+  for (let i = 0; i < gains.length; i++) {
+    if (i < n - 1) { rsi.push(null); continue; }
+    if (i === n - 1) { rsi.push(al === 0 ? 100 : 100 - 100 / (1 + ag / al)); continue; }
+    ag = (ag * (n - 1) + gains[i]) / n; al = (al * (n - 1) + losses[i]) / n;
+    rsi.push(al === 0 ? 100 : 100 - 100 / (1 + ag / al));
+  }
+  return rsi;
+}
+function calcMACD(closes) {
+  const ema12 = calcEMA(closes, 12), ema26 = calcEMA(closes, 26);
+  const macd = ema12.map((v, i) => v - ema26[i]);
+  const signal = calcEMA(macd, 9);
+  const hist = macd.map((v, i) => v - signal[i]);
+  return { macd, signal, hist };
+}
+function calcBollinger(closes, n = 20, k = 2) {
+  const sma = calcSMA(closes, n);
+  return sma.map((mid, i) => {
+    if (mid === null) return { upper: null, mid: null, lower: null };
+    const slice = closes.slice(i - n + 1, i + 1);
+    const std = Math.sqrt(slice.reduce((a, b) => a + (b - mid) ** 2, 0) / n);
+    return { upper: mid + k * std, mid, lower: mid - k * std };
+  });
+}
+function calcMomentum(closes, n = 10) {
+  return closes.map((v, i) => i < n ? null : v - closes[i - n]);
+}
+
+// ── LSTM Fallback（后端离线时使用） ──────────────────────────────────────────
+function lstmFallback(closes) {
+  const last = closes[closes.length - 1];
+  const trend = (last - closes[closes.length - 10]) / 10;
+  return [1,2,3,4,5,6].map(h => ({ h, price: +(last + trend * h).toFixed(4) }));
+}
+
+// ── AI Signal ─────────────────────────────────────────────────────────────────
+function aiSignal(rsi, macd, boll, price, momentum) {
+  let score = 50;
+  if (rsi !== null) { if (rsi < 30) score += 20; else if (rsi > 70) score -= 20; else score += (50 - rsi) * 0.3; }
+  if (macd.hist > 0) score += 10; else score -= 10;
+  if (boll.lower && price < boll.lower) score += 15;
+  if (boll.upper && price > boll.upper) score -= 15;
+  if (momentum > 0) score += 5; else score -= 5;
+  score = Math.max(0, Math.min(100, score));
+  const label = score >= 65 ? 'BUY' : score <= 35 ? 'SELL' : 'HOLD';
+  return { score: Math.round(score), label };
+}
+
+// ── Chart Component ───────────────────────────────────────────────────────────
+// predictionPoint: { label, value } | null — 在图表末尾追加 AI 预测锚点
+function PriceChart({ candles, boll, predictionPoint }) {
+  const ref = useRef(); const chartRef = useRef();
+  useEffect(() => {
+    if (!candles.length || !ref.current) return;
+    if (chartRef.current) chartRef.current.destroy();
+    const labels = candles.map(c => new Date(c.t).toLocaleTimeString());
+    const closes = candles.map(c => c.c);
+
+    // 若有预测点，在末尾追加一个虚拟时间标签和 null 填充
+    const extLabels = predictionPoint ? [...labels, predictionPoint.label] : labels;
+    const extCloses = predictionPoint ? [...closes, null] : closes;
+    const predLine   = predictionPoint
+      ? [...Array(closes.length - 1).fill(null), closes[closes.length - 1], predictionPoint.value]
+      : [];
+
+    const datasets = [
+      { label: 'Price',    data: extCloses, borderColor: '#58a6ff', borderWidth: 1.5, pointRadius: 0, tension: 0.3, fill: false },
+      { label: 'BB Upper', data: predictionPoint ? [...boll.map(b => b.upper), null] : boll.map(b => b.upper), borderColor: '#d29922', borderWidth: 1, pointRadius: 0, borderDash: [4,4], fill: false },
+      { label: 'BB Mid',   data: predictionPoint ? [...boll.map(b => b.mid),   null] : boll.map(b => b.mid),   borderColor: '#8b949e', borderWidth: 1, pointRadius: 0, borderDash: [2,4], fill: false },
+      { label: 'BB Lower', data: predictionPoint ? [...boll.map(b => b.lower), null] : boll.map(b => b.lower), borderColor: '#d29922', borderWidth: 1, pointRadius: 0, borderDash: [4,4], fill: false },
+    ];
+    if (predictionPoint) datasets.push({
+      label: 'AI预测', data: predLine, borderColor: '#a371f7', borderWidth: 2,
+      borderDash: [6,3], pointRadius: [0,0,5], pointBackgroundColor: '#a371f7', fill: false,
+    });
+
+    chartRef.current = new Chart(ref.current, {
+      type: 'line',
+      data: { labels: extLabels, datasets },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { labels: { color: '#8b949e', boxWidth: 12, font: { size: 11 } } } },
+        scales: {
+          x: { ticks: { color: '#8b949e', maxTicksLimit: 8, font: { size: 10 } }, grid: { color: '#21262d' } },
+          y: { ticks: { color: '#8b949e', font: { size: 10 } }, grid: { color: '#21262d' } }
+        }
+      }
+    });
+    return () => chartRef.current?.destroy();
+  }, [candles, boll, predictionPoint]);
+  return <div style={{ height: 200 }}><canvas ref={ref} /></div>;
+}
+
+function MACDChart({ macdData }) {
+  const ref = useRef(); const chartRef = useRef();
+  useEffect(() => {
+    if (!macdData.macd.length || !ref.current) return;
+    if (chartRef.current) chartRef.current.destroy();
+    const n = macdData.macd.length;
+    const labels = Array.from({ length: n }, (_, i) => i);
+    chartRef.current = new Chart(ref.current, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { type: 'line', label: 'MACD', data: macdData.macd, borderColor: '#58a6ff', borderWidth: 1.5, pointRadius: 0, fill: false, yAxisID: 'y' },
+          { type: 'line', label: 'Signal', data: macdData.signal, borderColor: '#f85149', borderWidth: 1.5, pointRadius: 0, fill: false, yAxisID: 'y' },
+          { label: 'Hist', data: macdData.hist, backgroundColor: macdData.hist.map(v => v >= 0 ? '#1a4731' : '#4a1515'), yAxisID: 'y' },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { labels: { color: '#8b949e', boxWidth: 12, font: { size: 11 } } } },
+        scales: {
+          x: { display: false },
+          y: { ticks: { color: '#8b949e', font: { size: 10 } }, grid: { color: '#21262d' } }
+        }
+      }
+    });
+    return () => chartRef.current?.destroy();
+  }, [macdData]);
+  return <div style={{ height: 160 }}><canvas ref={ref} /></div>;
+}
+
+const LSTM_WS_URL = 'ws://localhost:8765';
+
+// ── Main App ──────────────────────────────────────────────────────────────────
+function App() {
+  const [symbol, setSymbol] = useState('BTCUSDT');
+  const [interval, setInterval] = useState('5m');
+  const [candles, setCandles] = useState([]);
+  const [ticker, setTicker] = useState({ price: 0, change: 0 });
+  const [wsStatus, setWsStatus] = useState(false);
+  // LSTM backend state
+  const [lstmPreds, setLstmPreds] = useState(null);   // {predictions, confidence, trend} | null
+  const [lstmStatus, setLstmStatus] = useState('off'); // 'off'|'connecting'|'on'|'warmup'
+  const [lstmWarmup, setLstmWarmup] = useState(0);    // remaining points needed
+  const wsRef = useRef(null);
+  const wsTickRef = useRef(null);
+  const wsLstmRef = useRef(null);
+
+  // ── Binance kline fetch ──
+  const fetchKlines = useCallback(async (sym, intv) => {
+    try {
+      const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}&interval=${intv}&limit=100`);
+      const data = await res.json();
+      setCandles(data.map(k => ({ t: k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4], v: +k[5] })));
+    } catch (e) { console.error(e); }
+  }, []);
+
+  // ── Binance WS ──
+  useEffect(() => {
+    fetchKlines(symbol, interval);
+    if (wsRef.current) wsRef.current.close();
+    if (wsTickRef.current) wsTickRef.current.close();
+
+    const ws = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@kline_${interval}`);
+    wsRef.current = ws;
+    ws.onopen = () => setWsStatus(true);
+    ws.onclose = () => setWsStatus(false);
+    ws.onmessage = e => {
+      const { k } = JSON.parse(e.data);
+      setCandles(prev => {
+        const updated = [...prev];
+        const last = updated[updated.length - 1];
+        const candle = { t: k.t, o: +k.o, h: +k.h, l: +k.l, c: +k.c, v: +k.v };
+        if (last && last.t === k.t) updated[updated.length - 1] = candle;
+        else updated.push(candle);
+        return updated.slice(-100);
+      });
+    };
+
+    const wsTick = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@miniTicker`);
+    wsTickRef.current = wsTick;
+    wsTick.onmessage = e => {
+      const d = JSON.parse(e.data);
+      setTicker({ price: +d.c, change: +(((+d.c - +d.o) / +d.o) * 100).toFixed(2) });
+    };
+
+    return () => { ws.close(); wsTick.close(); };
+  }, [symbol, interval]);
+
+  // ── LSTM Backend WS ──
+  useEffect(() => {
+    let ws; let alive = true;
+    function connect() {
+      if (!alive) return;
+      setLstmStatus('connecting');
+      ws = new WebSocket(LSTM_WS_URL);
+      wsLstmRef.current = ws;
+      ws.onopen  = () => setLstmStatus('on');
+      ws.onclose = () => { setLstmStatus('off'); if (alive) setTimeout(connect, 5000); };
+      ws.onerror = () => ws.close();
+      ws.onmessage = e => {
+        const msg = JSON.parse(e.data);
+        if (msg.type === 'AI_PREDICTION') {
+          setLstmPreds({ predictions: msg.predictions, confidence: msg.confidence, trend: msg.trend });
+          setLstmStatus('on');
+        } else if (msg.type === 'WARMING_UP') {
+          setLstmStatus('warmup');
+          setLstmWarmup(msg.need);
+        }
+      };
+    }
+    connect();
+    return () => { alive = false; ws?.close(); };
+  }, []);
+
+  // ── 每当 ticker 价格更新时，推送给 LSTM 后端 ──
+  useEffect(() => {
+    const ws = wsLstmRef.current;
+    if (!ticker.price || !ws || ws.readyState !== WebSocket.OPEN) return;
+    ws.send(JSON.stringify({ price: ticker.price }));
+  }, [ticker.price]);
+
+  const closes = candles.map(c => c.c);
+  const rsiArr = closes.length > 14 ? calcRSI(closes) : [];
+  const rsi = rsiArr[rsiArr.length - 1] ?? null;
+  const macdData = closes.length > 26 ? calcMACD(closes) : { macd: [], signal: [], hist: [] };
+  const lastMACD = { macd: macdData.macd.at(-1) ?? 0, signal: macdData.signal.at(-1) ?? 0, hist: macdData.hist.at(-1) ?? 0 };
+  const bollArr = closes.length > 20 ? calcBollinger(closes) : closes.map(() => ({ upper: null, mid: null, lower: null }));
+  const lastBoll = bollArr[bollArr.length - 1] ?? { upper: null, mid: null, lower: null };
+  const momArr = closes.length > 10 ? calcMomentum(closes) : [];
+  const momentum = momArr[momArr.length - 1] ?? 0;
+  const price = ticker.price || closes.at(-1) || 0;
+  const ai = price ? aiSignal(rsi, lastMACD, lastBoll, price, momentum) : { score: 50, label: 'HOLD' };
+  // 优先使用真实 LSTM，后端离线时降级到 fallback
+  const lstm = lstmPreds ? lstmPreds.predictions : (closes.length > 10 ? lstmFallback(closes) : []);
+  const lstmIsFallback = !lstmPreds;
+
+  // ── AI 预测锚点（+1h 预测值，驱动图表预测线）──
+  const predictionPoint = lstm.length
+    ? { label: `+${lstm[0].h}h (AI)`, value: lstm[0].price }
+    : null;
+
+  // ── v-trend 文本（对应原 document.getElementById('v-trend')）──
+  const vTrend = lstmPreds
+    ? `AI 预测: $${lstm[0]?.price.toFixed(2)} (${lstmPreds.trend})`
+    : lstm[0] ? `趋势估算: $${lstm[0].price.toFixed(2)}` : '—';
+
+  const rsiSignal = rsi === null ? 'NEUTRAL' : rsi < 30 ? 'BUY' : rsi > 70 ? 'SELL' : 'HOLD';
+  const macdSignal = lastMACD.hist > 0 ? 'BUY' : lastMACD.hist < 0 ? 'SELL' : 'HOLD';
+  const bollSignal = lastBoll.lower && price < lastBoll.lower ? 'BUY' : lastBoll.upper && price > lastBoll.upper ? 'SELL' : 'HOLD';
+  const momSignal = momentum > 0 ? 'BUY' : momentum < 0 ? 'SELL' : 'HOLD';
+
+  const scoreColor = ai.score >= 65 ? '#3fb950' : ai.score <= 35 ? '#f85149' : '#d29922';
+
+  return (
+    <div>
+      <div className="header">
+        <h1>📈 Crypto Dashboard</h1>
+        <span>{wsStatus ? 'Live' : 'Offline'}</span>
+        <select value={symbol} onChange={e => setSymbol(e.target.value)}>
+          {SYMBOLS.map(s => <option key={s}>{s}</option>)}
+        </select>
+        <div className="tabs">
+          {INTERVALS.map(i => (
+            <span key={i} className={`tab${interval === i ? ' active' : ''}`} onClick={() => setInterval(i)}>{i}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid">
+        {/* Price Card */}
+        <div className="card">
+          <h3>{symbol}</h3>
+          <div className="price-row">
+            <span className="price">${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            <span className={`change ${ticker.change >= 0 ? 'up' : 'down'}`}>{ticker.change >= 0 ? '+' : ''}{ticker.change}%</span>
+          </div>
+          <div className="indicators">
+            <div className="ind-item">
+              <div className="ind-label">RSI(14)</div>
+              <div className="ind-value" style={{ color: rsi < 30 ? '#3fb950' : rsi > 70 ? '#f85149' : '#e6edf3' }}>
+                {rsi !== null ? rsi.toFixed(1) : '—'}
+              </div>
+            </div>
+            <div className="ind-item">
+              <div className="ind-label">MACD Hist</div>
+              <div className="ind-value" style={{ color: lastMACD.hist >= 0 ? '#3fb950' : '#f85149' }}>
+                {lastMACD.hist.toFixed(4)}
+              </div>
+            </div>
+            <div className="ind-item">
+              <div className="ind-label">BB Upper</div>
+              <div className="ind-value">{lastBoll.upper ? lastBoll.upper.toFixed(2) : '—'}</div>
+            </div>
+            <div className="ind-item">
+              <div className="ind-label">BB Lower</div>
+              <div className="ind-value">{lastBoll.lower ? lastBoll.lower.toFixed(2) : '—'}</div>
+            </div>
+            <div className="ind-item">
+              <div className="ind-label">Momentum</div>
+              <div className="ind-value" style={{ color: momentum >= 0 ? '#3fb950' : '#f85149' }}>
+                {momentum.toFixed(2)}
+              </div>
+            </div>
+            <div className="ind-item">
+              <div className="ind-label">BB Mid</div>
+              <div className="ind-value">{lastBoll.mid ? lastBoll.mid.toFixed(2) : '—'}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* AI Signal Panel */}
+        <div className="card">
+          <h3>AI 综合信号</h3>
+          <div className="ai-score" style={{ color: scoreColor }}>{ai.score} / 100</div>
+          <div style={{ textAlign: 'center', marginBottom: 10 }}>
+            <span className={`badge ${ai.label.toLowerCase()}`} style={{ fontSize: 16, padding: '4px 16px' }}>{ai.label}</span>
+          </div>
+          <div className="signal-panel">
+            {[['RSI', rsiSignal], ['MACD', macdSignal], ['Bollinger', bollSignal], ['Momentum', momSignal]].map(([name, sig]) => (
+              <div className="signal-row" key={name}>
+                <span>{name}</span>
+                <span className={`badge ${sig.toLowerCase()}`}>{sig}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Price + Bollinger Chart */}
+        <div className="card full-chart">
+          <h3>
+            价格 + Bollinger Bands
+            {vTrend !== '—' && (
+              <span id="v-trend" style={{ marginLeft:10, fontSize:12, fontWeight:400,
+                color: lstmPreds?.trend === 'UP' ? '#3fb950' : lstmPreds?.trend === 'DOWN' ? '#f85149' : '#8b949e' }}>
+                {vTrend}
+              </span>
+            )}
+          </h3>
+          <PriceChart candles={candles} boll={bollArr} predictionPoint={predictionPoint} />
+        </div>
+
+        {/* MACD Chart */}
+        <div className="card full-chart">
+          <h3>MACD</h3>
+          <MACDChart macdData={macdData} />
+        </div>
+
+        {/* LSTM Prediction */}
+        <div className="card">
+          <h3>LSTM 价格预测
+            <span style={{ marginLeft: 8, fontSize: 11, fontWeight: 400 }}>
+              {lstmStatus === 'on'    && <span style={{color:'#3fb950'}}>● 真实模型</span>}
+              {lstmStatus === 'warmup'&& <span style={{color:'#d29922'}}>● 预热中 (还需{lstmWarmup}点)</span>}
+              {lstmStatus === 'connecting' && <span style={{color:'#8b949e'}}>● 连接中...</span>}
+              {lstmStatus === 'off'   && <span style={{color:'#f85149'}}>● 离线 (趋势估算)</span>}
+            </span>
+          </h3>
+          {lstmPreds && <div style={{fontSize:11,color:'#8b949e',marginBottom:6}}>
+            置信度 {Math.round(lstmPreds.confidence * 100)}%　趋势 <span style={{color: lstmPreds.trend==='UP'?'#3fb950':'#f85149'}}>{lstmPreds.trend}</span>
+          </div>}
+          {lstm.length ? lstm.map(({ h, price: p }) => (
+            <div className="lstm-row" key={h}>
+              <span style={{ color: '#8b949e' }}>+{h}h{lstmIsFallback ? ' ~' : ''}</span>
+              <span style={{ color: p >= price ? '#3fb950' : '#f85149', fontWeight: 600 }}>
+                ${p.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                <span style={{ fontSize: 11, marginLeft: 6, color: '#8b949e' }}>
+                  ({p >= price ? '+' : ''}{(((p - price) / price) * 100).toFixed(2)}%)
+                </span>
+              </span>
+            </div>
+          )) : <div style={{ color: '#8b949e' }}>等待数据...</div>}
+        </div>
+
+        {/* RSI Chart */}
+        <div className="card">
+          <h3>RSI(14) 趋势</h3>
+          <RSIChart rsiArr={rsiArr} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RSIChart({ rsiArr }) {
+  const ref = useRef(); const chartRef = useRef();
+  useEffect(() => {
+    if (!rsiArr.length || !ref.current) return;
+    if (chartRef.current) chartRef.current.destroy();
+    const labels = Array.from({ length: rsiArr.length }, (_, i) => i);
+    chartRef.current = new Chart(ref.current, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'RSI', data: rsiArr, borderColor: '#a371f7', borderWidth: 1.5, pointRadius: 0, fill: false },
+          { label: 'OB(70)', data: Array(rsiArr.length).fill(70), borderColor: '#f85149', borderWidth: 1, borderDash: [4, 4], pointRadius: 0, fill: false },
+          { label: 'OS(30)', data: Array(rsiArr.length).fill(30), borderColor: '#3fb950', borderWidth: 1, borderDash: [4, 4], pointRadius: 0, fill: false },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { labels: { color: '#8b949e', boxWidth: 12, font: { size: 11 } } } },
+        scales: {
+          x: { display: false },
+          y: { min: 0, max: 100, ticks: { color: '#8b949e', font: { size: 10 } }, grid: { color: '#21262d' } }
+        }
+      }
+    });
+    return () => chartRef.current?.destroy();
+  }, [rsiArr]);
+  return <div style={{ height: 160 }}><canvas ref={ref} /></div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

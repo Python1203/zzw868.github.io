@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张良工作室前端组件导航中心：React UI 组件库完整索引 2025</title>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #00ffff;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-color: #2d3748;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .component-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .component-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .component-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .component-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .component-description {
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .view-btn {
+            display: inline-block;
+            background: var(--bg-gradient);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .view-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .features-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .features-section h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .feature-text p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .component-card {
+                padding: 25px;
+            }
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="张良信息咨询服务工作室前端组件导航中心，汇聚所有 React UI 组件、布局示例与交互演示，一站式查找所需前端组件。" />
+  <meta name="keywords" content="React组件库,UI组件,前端导航,张良工作室,组件索引,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="张良工作室前端组件导航中心：React UI 组件库完整索引 2025" />
+  <meta property="og:description" content="张良信息咨询服务工作室前端组件导航中心，汇聚所有 React UI 组件、布局示例与交互演示，一站式查找所需前端组件。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/components-hub/" />
+  <link rel="canonical" href="https://zzw868.github.io/components-hub/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "张良工作室前端组件导航中心：React UI 组件库完整索引 2025",
+    "description": "张良信息咨询服务工作室前端组件导航中心，汇聚所有 React UI 组件、布局示例与交互演示，一站式查找所需前端组件。",
+    "url": "https://zzw868.github.io/components-hub/",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "datePublished": "2026-03-16"
+  }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 组件导航中心</h1>
+            <p>张良信息咨询服务工作室 - 全部功能组件一览</p>
+        </div>
+
+        <div class="components-grid">
+            <!-- 实时股票图表 -->
+            <div class="component-card" onclick="window.open('/test-stock-chart.html', '_blank')">
+                <span class="component-icon">📊</span>
+                <h3 class="component-title">实时股票价格预测</h3>
+                <p class="component-description">基于 React + WebSocket 的实时数据可视化系统，提供 AI 智能预测趋势分析，支持动态更新和交互式图表展示。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">React 18</span>
+                    <span class="tech-tag">WebSocket</span>
+                    <span class="tech-tag">Recharts</span>
+                    <span class="tech-tag">TypeScript</span>
+                </div>
+                <a href="/pages/test-stock-chart.html" class="view-btn">立即体验 →</a>
+            </div>
+
+            <!-- 加密货币仪表板 -->
+            <div class="component-card" onclick="window.open('/crypto-dashboard.html', '_blank')">
+                <span class="component-icon">₿</span>
+                <h3 class="component-title">加密货币仪表板</h3>
+                <p class="component-description">Vue3 + ECharts 打造的加密货币数据看板，实时追踪市场动态，多维度数据分析和可视化展示。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Vue 3</span>
+                    <span class="tech-tag">ECharts</span>
+                    <span class="tech-tag">Pinia</span>
+                    <span class="tech-tag">TypeScript</span>
+                </div>
+                <a href="/pages/crypto-dashboard.html" class="view-btn">查看看板 →</a>
+            </div>
+
+            <!-- 联系表单 -->
+            <div class="component-card" onclick="window.open('/contact-form.html', '_blank')">
+                <span class="component-icon">✉️</span>
+                <h3 class="component-title">联系我们</h3>
+                <p class="component-description">赛博朋克风格的联系表单，支持实时验证、错误处理和优雅的交互反馈，让您与用户保持紧密联系。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">表单验证</span>
+                </div>
+                <a href="/pages/contact-form.html" class="view-btn">发送消息 →</a>
+            </div>
+
+            <!-- 响应式导航栏 -->
+            <div class="component-card" onclick="window.open('/navbar.html', '_blank')">
+                <span class="component-icon">🧭</span>
+                <h3 class="component-title">响应式导航栏</h3>
+                <p class="component-description">现代化响应式导航组件，支持移动端汉堡菜单、滚动效果和平滑过渡动画。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Responsive</span>
+                    <span class="tech-tag">Mobile First</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">动画效果</span>
+                </div>
+                <a href="/navbar.html" class="view-btn">查看导航 →</a>
+            </div>
+
+            <!-- 网格布局 -->
+            < div class="component-card" onclick="window.open('/grid-layout.html', '_blank')">
+                <span class="component-icon">⊞</span>
+                <h3 class="component-title">CSS Grid 布局</h3>
+                <p class="component-description">强大的 CSS Grid 网格布局系统，支持 4 列 2 行响应式设计，展示灵活的页面排版能力。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">CSS Grid</span>
+                    <span class="tech-tag">Flexbox</span>
+                    <span class="tech-tag">响应式</span>
+                    <span class="tech-tag">布局系统</span>
+                </div>
+                <a href="/pages/grid-layout.html" class="view-btn">探索布局 →</a>
+            </div>
+
+            <!-- 三栏布局 -->
+            <div class="component-card" onclick="window.open('/3-column-layout.html', '_blank')">
+                <span class="component-icon">📑</span>
+                <h3 class="component-title">三栏 Flexbox 布局</h3>
+                <p class="component-description">经典的三栏布局设计，采用 Flexbox 技术，支持响应式适配和优雅的悬浮效果。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Flexbox</span>
+                    <span class="tech-tag">响应式</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">卡片设计</span>
+                </div>
+                <a href="/pages/3-column-layout.html" class="view-btn">查看布局 →</a>
+            </div>
+
+            <!-- 模态弹窗 -->
+            <div class="component-card" onclick="window.open('/modal-popup.html', '_blank')">
+                <span class="component-icon">🔲</span>
+                <h3 class="component-title">模态弹窗组件</h3>
+                <p class="component-description">优雅的模态弹窗组件，支持多种触发方式、动画效果和自定义内容区域。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Modal</span>
+                    <span class="tech-tag">动画</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">交互组件</span>
+                </div>
+                <a href="/modal-popup.html" class="view-btn">打开弹窗 →</a>
+            </div>
+
+            <!-- 淡入动画 -->
+            <div class="component-card" onclick="window.open('/fade-in-animation.html', '_blank')">
+                <span class="component-icon">✨</span>
+                <h3 class="component-title">CSS 淡入动画</h3>
+                <p class="component-description">精美的 CSS 淡入动画效果，支持延迟播放、多重动画组合和交互式控制。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">CSS Animation</span>
+                    <span class="tech-tag">@keyframes</span>
+                    <span class="tech-tag">过渡效果</span>
+                    <span class="tech-tag">视觉特效</span>
+                </div>
+                <a href="/pages/fade-in-animation.html" class="view-btn">观看动画 →</a>
+            </div>
+
+            <!-- 现代按钮 -->
+            <div class="component-card" onclick="window.open('/modern-button.html', '_blank')">
+                <span class="component-icon">🔘</span>
+                <h3 class="component-title">现代 CSS 按钮</h3>
+                <p class="component-description">系列化现代按钮设计，包含多种变体、悬浮效果、渐变背景和动画过渡。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">Hover Effects</span>
+                    <span class="tech-tag">渐变</span>
+                    <span class="tech-tag">动画</span>
+                </div>
+                <a href="/modern-button.html" class="view-btn">查看按钮 →</a>
+            </div>
+
+            <!-- Tailwind 卡片 -->
+            <div class="component-card" onclick="window.open('/tailwind-card-component.html', '_blank')">
+                <span class="component-icon">🎴</span>
+                <h3 class="component-title">Tailwind 卡片组件</h3>
+                <p class="component-description">基于 Tailwind CSS 的卡片组件集合，展示实用类优先的开发方式和赛博朋克主题设计。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Tailwind CSS</span>
+                    <span class="tech-tag">Utility-First</span>
+                    <span class="tech-tag">组件库</span>
+                    <span class="tech-tag">赛博朋克</span>
+                </div>
+                <a href="/pages/tailwind-card-component.html" class="view-btn">浏览卡片 →</a>
+            </div>
+
+            <!-- React 计数器 -->
+            <div class="component-card" onclick="window.open('/react-counter-demo.html', '_blank')">
+                <span class="component-icon">🔢</span>
+                <h3 class="component-title">React 计数器</h3>
+                <p class="component-description">React Hooks 实战演示，展示 useState 状态管理和组件化开发的最佳实践。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Hooks</span>
+                    <span class="tech-tag">useState</span>
+                    <span class="tech-tag">组件化</span>
+                </div>
+                <a href="/pages/react-counter-demo.html" class="view-btn">运行示例 →</a>
+            </div>
+
+            <!-- 财经期刊 -->
+            <div class="component-card" onclick="window.open('/archives/', '_blank')">
+                <span class="component-icon">📰</span>
+                <h3 class="component-title">财经期刊FM-Radio</h3>
+                <p class="component-description">每日更新的全球金融市场资讯，深度解析经济动态，专业的投资参考资源。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Hexo</span>
+                    <span class="tech-tag">博客</span>
+                    <span class="tech-tag">财经</span>
+                    <span class="tech-tag">资讯</span>
+                </div>
+                <a href="/archives" class="view-btn">浏览期刊 →</a>
+            </div>
+
+            <!-- 开源工具展示 -->
+            <div class="component-card" onclick="window.open('tools-showcase.html', '_blank')">
+                <span class="component-icon">🧩</span>
+                <h3 class="component-title">精选开源工具展示</h3>
+                <p class="component-description">涵盖效率笔记、AI 助手、多媒体娱乐、系统增强、智能居家、数字化生活等 9 大分类，30+ 款精选开源工具深度介绍。</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Tailwind CSS</span>
+                    <span class="tech-tag">深色主题</span>
+                    <span class="tech-tag">卡片布局</span>
+                    <span class="tech-tag">开源工具</span>
+                </div>
+                <a href="tools-showcase.html" class="view-btn">浏览工具 →</a>
+            </div>
+        </div>
+
+        <!-- 开源工具展示区内嵌 -->
+        <div style="margin-top:40px;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.25);">
+            <div style="background:linear-gradient(135deg,#667eea,#764ba2);padding:24px 32px;">
+                <h2 style="color:white;font-size:1.6rem;margin:0 0 6px;">🧩 精选开源工具展示</h2>
+                <p style="color:rgba(255,255,255,0.85);margin:0;font-size:0.95rem;">效率 · AI 助手 · 多媒体 · 系统增强 · 智能居家 · 数字化生活 · 财务健康</p>
+            </div>
+            <iframe
+                src="tools-showcase.html"
+                width="100%"
+                height="1200"
+                frameborder="0"
+                scrolling="yes"
+                title="精选开源工具展示"
+                style="display:block;border:none;background:#030712;min-height:1200px;"
+                onload="try{this.style.height=(this.contentWindow.document.documentElement.scrollHeight+20)+'px'}catch(e){}"
+            ></iframe>
+        </div>
+
+        <!-- 特性展示区 -->
+        <div class="features-section">
+            <h2>💡 核心特性</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">🎨</span>
+                    <div class="feature-text">
+                        <h3>现代化设计</h3>
+                        <p>采用最新的设计趋势和技术，打造优雅的用户体验</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-text">
+                        <h3>完全响应式</h3>
+                        <p>完美适配各种设备尺寸，从手机到桌面电脑</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-text">
+                        <h3>高性能</h3>
+                        <p>优化的代码结构和加载策略，确保快速响应</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔧</span>
+                    <div class="feature-text">
+                        <h3>易于定制</h3>
+                        <p>模块化的组件设计，方便根据需求灵活调整</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-text">
+                        <h3>跨浏览器兼容</h3>
+                        <p>支持所有主流浏览器，确保一致的使用体验</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <div class="feature-text">
+                        <h3>最佳实践</h3>
+                        <p>遵循 Web 标准和可访问性指南，打造专业品质</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 添加卡片进入动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.component-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+name: Generate AI-Friendly Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.html"
+      - "scripts/page_to_markdown.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ── 先对所有 HTML 应用 GEO 优化 ────────────────────────────────────────
+      - name: Apply GEO to all HTML pages
+        run: python3 scripts/apply_geo.py
+
+      # ── 为每个目标 HTML 生成 ai-friendly 版本 ──────────────────────────────
+      - name: Generate ai-friendly pages
+        run: |
+          python3 scripts/page_to_markdown.py \
+            "详细集成示例（React多功能+热门插件）.html" \
+            "ai-friendly"
+
+      # ── 将生成文件 commit 回仓库（供 Hexo 构建时一并打包）─────────────────
+      - name: Commit generated files
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ai-friendly/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "🤖 auto: regenerate ai-friendly pages [skip ci]"
+            git push
+          fi
+
+      # ── 同时把 ai-friendly/ 复制进 public/，配合 deploy.yml 一起发布 ──────
+      - name: Copy to public/
+        run: |
+          mkdir -p public/ai-friendly
+          cp ai-friendly/index.html public/ai-friendly/index.html
+          cp ai-friendly/index.md   public/ai-friendly/index.md
+
+      - name: Deploy ai-friendly to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public/ai-friendly
+          destination_dir: ai-friendly
+          publish_branch: gh-pages
+          keep_files: true
+          commit_message: "🤖 auto: deploy ai-friendly pages"
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"

@@ -1,0 +1,127 @@
+name: Auto Merge HTML Files
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  merge-html:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install beautifulsoup4
+    
+    - name: Check if my_pages directory exists
+      id: check_dir
+      run: |
+        if [ -d "my_pages" ] && [ "$(ls -A my_pages)" ]; then
+          echo "has_files=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_files=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Create sample HTML files (if no my_pages directory)
+      if: steps.check_dir.outputs.has_files == 'false'
+      run: |
+        mkdir -p my_pages
+        
+        cat > my_pages/page1.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>示例页面 1</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <h1>这是页面 1</h1>
+            <p>这是一个示例页面的内容。</p>
+        </body>
+        </html>
+        EOF
+        
+        cat > my_pages/page2.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>示例页面 2</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <h1>这是页面 2</h1>
+            <p>这是另一个示例页面的内容。</p>
+        </body>
+        </html>
+        EOF
+        
+        cat > my_pages/page3.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>示例页面 3</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <h1>这是页面 3</h1>
+            <p>这是第三个示例页面的内容。</p>
+        </body>
+        </html>
+        EOF
+    
+    - name: Merge HTML files
+      run: python merge_html.py
+    
+    - name: Verify merged file
+      run: |
+        if [ -f "merged.html" ]; then
+          echo "✅ Merged file created successfully"
+          ls -lh merged.html
+        else
+          echo "❌ Failed to create merged file"
+          exit 1
+        fi
+    
+    - name: Commit and push merged file
+      if: github.event_name == 'push'
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add merged.html
+        git diff --cached --exit-code || git commit -m "Auto-merge HTML files [skip ci]"
+        git push
+    
+    - name: Upload merged file as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: merged-html
+        path: merged.html
+        retention-days: 7
+    
+    - name: Deployment summary
+      run: |
+        echo "## 📊 合并报告" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ HTML 文件合并成功！" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**合并文件**: merged.html" >> $GITHUB_STEP_SUMMARY
+        echo "**文件大小**: $(du -h merged.html | cut -f1)" >> $GITHUB_STEP_SUMMARY
+        echo "**HTML 文件数量**: $(ls my_pages/*.html 2>/dev/null | wc -l)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 合并的文件列表:" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        for file in my_pages/*.html; do
+          echo "- $(basename $file)" >> $GITHUB_STEP_SUMMARY
+        done

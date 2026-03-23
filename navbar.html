@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式导航栏完整示例：CSS + JavaScript 移动端汉堡菜单教程 2025</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff00;
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.9));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary-color);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 15px var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 10px var(--primary-color));
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(45deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.95));
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transition: left 0.3s ease;
+                box-shadow: 2px 0 20px rgba(0, 255, 255, 0.3);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-link {
+                font-size: 1.2rem;
+                padding: 15px 30px;
+            }
+        }
+
+        .content {
+            margin-top: 100px;
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="使用 HTML/CSS/JavaScript 构建的响应式导航栏，包含移动端汉堡菜单、下拉子菜单与滚动固定效果，含完整源码与实现思路。" />
+  <meta name="keywords" content="响应式导航栏,汉堡菜单,CSS导航,移动端适配,前端教程,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="响应式导航栏完整示例：CSS + JavaScript 移动端汉堡菜单教程 2025" />
+  <meta property="og:description" content="使用 HTML/CSS/JavaScript 构建的响应式导航栏，包含移动端汉堡菜单、下拉子菜单与滚动固定效果，含完整源码与实现思路。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/navbar/" />
+  <link rel="canonical" href="https://zzw868.github.io/navbar/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "响应式导航栏完整示例：CSS + JavaScript 移动端汉堡菜单教程 2025",
+    "description": "使用 HTML/CSS/JavaScript 构建的响应式导航栏，包含移动端汉堡菜单、下拉子菜单与滚动固定效果，含完整源码与实现思路。",
+    "keywords": "响应式导航栏,汉堡菜单,CSS导航,移动端适配,前端教程,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/navbar/"}
+  }
+  </script>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                张良工作室
+            </a>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">服务</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">关于</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">联系</a>
+                </li>
+            </ul>
+
+            <div class="hamburger" id="hamburger">
+                
+                
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <section class="hero">
+            <h1>欢迎来到张良信息咨询服务工作室</h1>
+            <p>全球领先的综合信息咨询、提供解决方案的专业服务商。通过为中小企业及个人提供专业与高效的资金解决方案，给与用户享有高效、便捷、专业的服务体验。</p>
+        </section>
+
+        <div style="height: 1000px; padding: 20px;">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">页面内容</h2>
+            <p style="line-height: 1.6;">这里是页面的主要内容区域。您可以在这里添加更多内容，包括服务介绍、案例展示、联系方式等。</p>
+            <p style="line-height: 1.6; margin-top: 20px;">导航栏已经实现响应式设计，在移动设备上会显示汉堡菜单。</p>
+        </div>
+    </div>
+
+    <script>
+        // 汉堡菜单切换
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // 导航链接点击关闭菜单
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // 滚动时导航栏效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

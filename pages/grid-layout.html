@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid 四列两行布局完整示例：网格布局实战教程 2025</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff00;
+            --warning-color: #ffff00;
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --text-color: #ffffff;
+            --shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+            min-height: 400px;
+        }
+
+        .grid-item {
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4);
+            border-color: var(--secondary-color);
+        }
+
+        .grid-item:nth-child(1) {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 255, 0.05));
+        }
+
+        .grid-item:nth-child(2) {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05));
+        }
+
+        .grid-item:nth-child(3) {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.05));
+        }
+
+        .grid-item:nth-child(4) {
+            background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), rgba(255, 255, 0, 0.05));
+        }
+
+        .grid-item:nth-child(5) {
+            background: linear-gradient(135deg, rgba(255, 165, 0, 0.1), rgba(255, 165, 0, 0.05));
+        }
+
+        .grid-item:nth-child(6) {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+        }
+
+        .grid-item:nth-child(7) {
+            background: linear-gradient(135deg, rgba(128, 0, 128, 0.1), rgba(128, 0, 128, 0.05));
+        }
+
+        .grid-item:nth-child(8) {
+            background: linear-gradient(135deg, rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.05));
+        }
+
+        .grid-item h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .grid-item p {
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .grid-item .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            align-self: center;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Gap variations demo */
+        .gap-examples {
+            margin-top: 50px;
+        }
+
+        .gap-examples h2 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        .gap-demo {
+            margin-bottom: 40px;
+        }
+
+        .gap-demo h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin-bottom: 20px;
+            min-height: 120px;
+        }
+
+        .demo-item {
+            background: var(--primary-color);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .demo-grid.gap-10 {
+            gap: 10px;
+        }
+
+        .demo-grid.gap-20 {
+            gap: 20px;
+        }
+
+        .demo-grid.gap-30 {
+            gap: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+                min-height: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(8, 1fr);
+                gap: 15px;
+                min-height: auto;
+            }
+
+            .grid-item {
+                padding: 20px;
+            }
+
+            .demo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .grid-item {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Grid lines visualization */
+        .grid-lines-demo {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .grid-lines-demo h2 {
+            color: var(--warning-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--warning-color);
+        }
+
+        .grid-with-lines {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 100px);
+            gap: 20px;
+            background: repeating-linear-gradient(
+                to right,
+                transparent,
+                transparent 20%,
+                rgba(0, 255, 255, 0.1) 20%,
+                rgba(0, 255, 255, 0.1) 21%
+            );
+            background-size: calc(25% - 5px) 100%;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .line-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px dashed var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="使用 CSS Grid 实现的 4 列 2 行网格布局示例，展示 grid-template-columns/rows 核心用法，含响应式断点与完整源码。" />
+  <meta name="keywords" content="CSS Grid,网格布局,四列布局,响应式设计,前端教程,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="CSS Grid 四列两行布局完整示例：网格布局实战教程 2025" />
+  <meta property="og:description" content="使用 CSS Grid 实现的 4 列 2 行网格布局示例，展示 grid-template-columns/rows 核心用法，含响应式断点与完整源码。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/grid-layout/" />
+  <link rel="canonical" href="https://zzw868.github.io/grid-layout/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "CSS Grid 四列两行布局完整示例：网格布局实战教程 2025",
+    "description": "使用 CSS Grid 实现的 4 列 2 行网格布局示例，展示 grid-template-columns/rows 核心用法，含响应式断点与完整源码。",
+    "keywords": "CSS Grid,网格布局,四列布局,响应式设计,前端教程,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/grid-layout/"}
+  }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Grid Layout - 4 Columns, 2 Rows</h1>
+
+        <div class="grid-container">
+            <div class="grid-item">
+                <span class="icon">📊</span>
+                <h3>数据分析</h3>
+                <p>专业的市场数据分析，为您的投资决策提供有力支持。</p>
+                <a href="#" class="btn">查看详情</a>
+            </div>
+
+            <div class="grid-item">
+                <span class="icon">📈</span>
+                <h3>趋势预测</h3>
+                <p>利用AI技术预测市场趋势，帮助您把握投资机会。</p>
+                <a href="#" class="btn">了解更多</a>
+            </div>
+
+            <div class="grid-item">
+                <span class="icon">🛡️</span>
+                <h3>风险管理</h3>
+                <p>全面的风险评估和管理，确保您的资金安全。</p>
+                <a href="#" class="btn">风险评估</a>
+            </div>
+
+            <div class="grid-item">
+                <span class="icon">💰</span>
+                <h3>资产配置</h3>
+                <p>科学的资产配置策略，优化您的投资组合。</p>
+                <a href="#" class="btn">配置建议</a>
+            </div>
+
+            <div class="grid-item">
+                <span class="icon">📱</span>
+                <h3>移动交易</h3>
+                <p>随时随地进行交易，享受便捷的移动投资体验。</p>
+                <a href="#" class="btn">下载APP</a>
+            </div>
+
+            <div class="grid-item">
+                <span class="icon">🤖</span>
+                <h3>智能投顾</h3>
+                <p>AI驱动的智能投资顾问，为您量身定制投资方案。</p>
+                <a href="#" class="btn">开始使用</a>
+            </div>
+
+            <div class="grid-item">
+                <span class="icon">📚</span>
+                <h3>教育资源</h3>
+                <p>丰富的投资教育内容，帮助您提升投资技能。</p>
+                <a href="#" class="btn">学习中心</a>
+            </div>
+
+            <div class="grid-item">
+                <span class="icon">🎯</span>
+                <h3>目标规划</h3>
+                <p>帮助您设定投资目标，实现财务自由梦想。</p>
+                <a href="#" class="btn">制定计划</a>
+            </div>
+        </div>
+
+        <div class="gap-examples">
+            <h2>Grid Gap Variations</h2>
+
+            <div class="gap-demo">
+                <h3>Gap: 10px</h3>
+                <div class="demo-grid gap-10">
+                    <div class="demo-item">1</div>
+                    <div class="demo-item">2</div>
+                    <div class="demo-item">3</div>
+                    <div class="demo-item">4</div>
+                </div>
+            </div>
+
+            <div class="gap-demo">
+                <h3>Gap: 20px</h3>
+                <div class="demo-grid gap-20">
+                    <div class="demo-item">1</div>
+                    <div class="demo-item">2</div>
+                    <div class="demo-item">3</div>
+                    <div class="demo-item">4</div>
+                </div>
+            </div>
+
+            <div class="gap-demo">
+                <h3>Gap: 30px</h3>
+                <div class="demo-grid gap-30">
+                    <div class="demo-item">1</div>
+                    <div class="demo-item">2</div>
+                    <div class="demo-item">3</div>
+                    <div class="demo-item">4</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-lines-demo">
+            <h2>Grid Lines Visualization</h2>
+            <div class="grid-with-lines">
+                <div class="line-item">Column 1</div>
+                <div class="line-item">Column 2</div>
+                <div class="line-item">Column 3</div>
+                <div class="line-item">Column 4</div>
+                <div class="line-item">Row 2</div>
+                <div class="line-item">Row 2</div>
+                <div class="line-item">Row 2</div>
+                <div class="line-item">Row 2</div>
+            </div>
+            <p style="color: var(--text-color); margin-top: 10px;">The background pattern shows the grid column divisions</p>
+        </div>
+    </div>
+</body>
+</html>

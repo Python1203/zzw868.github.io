@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2025年如何搭建本地AI智能聊天助手？多服务集成完整教程</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #222;
+      margin-bottom: 10px;
+    }
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgb(0 0 0 / 0.2);
+      display: flex;
+      flex-direction: column;
+      height: 650px;
+      overflow: hidden;
+    }
+    .chat-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 16px 16px 0 0;
+      font-weight: 700;
+      font-size: 1.3rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    .header-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .image-upload-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .image-upload-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.05);
+    }
+    #imageInput {
+      display: none;
+    }
+    .image-preview-container {
+      margin: 10px 15px;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      display: none;
+    }
+    .image-preview-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    }
+    .remove-image-btn {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.2);
+    }
+    .remove-image-btn:hover {
+      background: #cc0000;
+    }
+    .clear-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .clear-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.05);
+    }
+    .service-select {
+      margin: 10px 15px;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .service-select:focus {
+      border-color: #667eea;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+    .chat-messages::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+    .chat-messages::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+    .message-row {
+      margin-bottom: 20px;
+      display: flex;
+      animation: messageSlideIn 0.3s ease-out;
+    }
+    @keyframes messageSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .message-row.user {
+      justify-content: flex-end;
+    }
+    .message-row.ai {
+      justify-content: flex-start;
+    }
+    .message-bubble {
+      max-width: 75%;
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 1rem;
+      line-height: 1.5;
+      box-shadow: 0 2px 12px rgb(0 0 0 / 0.15);
+      white-space: pre-wrap;
+      word-break: break-word;
+      position: relative;
+    }
+    .message-bubble.user {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .message-bubble.ai {
+      background: white;
+      color: #333;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #e0e0e0;
+    }
+    .chat-input-area {
+      border-top: 1px solid #e0e0e0;
+      padding: 15px 20px;
+      display: flex;
+      gap: 12px;
+      background: white;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 12px 18px;
+      font-size: 1rem;
+      border-radius: 24px;
+      border: 2px solid #e0e0e0;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .chat-input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+    .send-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+    }
+    .send-btn:active {
+      transform: translateY(0);
+    }
+    .send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .loading {
+      font-style: italic;
+      color: #888;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .typing-indicator {
+      display: inline-flex;
+      gap: 4px;
+    }
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #667eea;
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite;
+    }
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes typingBounce {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+      30% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+    }
+    .timestamp {
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 4px;
+      text-align: right;
+    }
+    .message-bubble.ai .timestamp {
+      text-align: left;
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(400px); opacity: 0; }
+    }
+    @keyframes fadeInUp {
+      from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    @keyframes fadeOutDown {
+      from { transform: translateX(-50%) translateY(0); opacity: 1; }
+      to { transform: translateX(-50%) translateY(20px); opacity: 0; }
+    }
+  </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="基于 React 与 WebSocket 构建的 AI 智能聊天助手演示，支持多 AI 服务集成（OpenAI、本地 Ollama 等），含完整前端代码与部署指南。" />
+  <meta name="keywords" content="AI聊天助手,本地AI,Ollama,OpenAI,React,WebSocket,多服务集成,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="2025年如何搭建本地AI智能聊天助手？多服务集成完整教程" />
+  <meta property="og:description" content="基于 React 与 WebSocket 构建的 AI 智能聊天助手演示，支持多 AI 服务集成（OpenAI、本地 Ollama 等），含完整前端代码与部署指南。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/ai-chat/" />
+  <link rel="canonical" href="https://zzw868.github.io/ai-chat/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "2025年如何搭建本地AI智能聊天助手？多服务集成完整教程",
+    "description": "基于 React 与 WebSocket 构建的 AI 智能聊天助手演示，支持多 AI 服务集成（OpenAI、本地 Ollama 等），含完整前端代码与部署指南。",
+    "keywords": "AI聊天助手,本地AI,Ollama,OpenAI,React,WebSocket,多服务集成,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/ai-chat/"}
+  }
+  </script>
+</head>
+<body>
+  <h1>🤖 AI 智能聊天助手</h1>
+  <div class="container" role="main" aria-label="多AI服务聊天窗口">
+    <div class="chat-header">
+      <span>💬 选择 AI 服务开始对话</span>
+      <div class="header-controls">
+        <button class="image-upload-btn" onclick="document.getElementById('imageInput').click()" title="上传图片">
+          📷 上传图片
+        </button>
+        <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)" />
+        <button class="clear-btn" onclick="clearChat()" title="清空聊天记录">🗑️ 清空</button>
+      </div>
+    </div>
+    
+    <!-- 图片预览区域 -->
+    <div class="image-preview-container" id="imagePreviewContainer">
+      <div class="image-preview-wrapper">
+        <img id="imagePreview" class="image-preview" alt="预览图" />
+        <button class="remove-image-btn" onclick="removeSelectedImage()" title="移除图片">×</button>
+      </div>
+    </div>
+    <select id="serviceSelect" class="service-select" aria-label="选择 AI 服务">
+      <option value="openai">OpenAI GPT-4</option>
+      <option value="huggingface_qwen">HuggingFace Qwen3.5-35B (图像识别)</option>
+      <option value="huggingface_minimax">HuggingFace MiniMax-M2.5 (文本对话)</option>
+      <option value="huggingface_glm">HuggingFace GLM-5 (文本对话)</option>
+      <option value="huggingface_nanbeige">HuggingFace Nanbeige4.1-3B (轻量对话)</option>
+      <option value="baidu">百度文心对话</option>
+    </select>
+    <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <form id="chatForm" class="chat-input-area" aria-label="发送消息表单">
+      <input type="text" id="chatInput" class="chat-input" placeholder="请输入消息..." autocomplete="off" aria-required="true" aria-label="聊天输入框" />
+      <button type="submit" class="send-btn" aria-label="发送消息按钮">发送</button>
+    </form>
+  </div>
+
+  <!-- AI 优化状态面板 -->
+  <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 800px; width: 100%;">
+    <h3 style="margin: 0 0 10px 0; color: #667eea; font-size: 1rem;">🎯 AI 自动优化系统</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+      <div style="padding: 10px; background: #f8f9fa; border-radius: 8px;">
+        <div style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">优化等级</div>
+        <div id="aiLevel" style="font-size: 1.5rem; font-weight: 700; color: #667eea;">Lv.1</div>
+      </div>
+      <div style="padding: 10px; background: #f8f9fa; border-radius: 8px;">
+        <div style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">总交互次数</div>
+        <div id="totalInteractions" style="font-size: 1.5rem; font-weight: 700; color: #764ba2;">0</div>
+      </div>
+      <div style="padding: 10px; background: #f8f9fa; border-radius: 8px;">
+        <div style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">成功率</div>
+        <div id="successRate" style="font-size: 1.5rem; font-weight: 700; color: #6bcb77;">--%</div>
+      </div>
+      <div style="padding: 10px; background: #f8f9fa; border-radius: 8px;">
+        <div style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">已收集反馈</div>
+        <div id="feedbackCount" style="font-size: 1.5rem; font-weight: 700; color: #ffd93d;">0</div>
+      </div>
+    </div>
+    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span style="font-size: 0.9rem; color: #666;">AI 成长进度</span>
+        <span id="progressText" style="font-size: 0.85rem; color: #667eea; font-weight: 600;">0%</span>
+      </div>
+      <div style="width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
+        <div id="progressBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); transition: width 0.5s ease;"></div>
+      </div>
+    </div>
+    <div style="margin-top: 10px; font-size: 0.85rem; color: #999; text-align: center;">
+      💡 每次评价都会让 AI 变得更聪明
+    </div>
+  </div>
+
+  <script>
+    // 前端直接调用各 AI API
+    const HF_TOKEN = "YOUR_HF_TOKEN_HERE";
+    const HF_BASE  = "https://router.huggingface.co/v1/chat/completions";
+    const OPENAI_KEY = "sk-V8hcmOdmpvRS5uOogqDAcijxZpu2Oc6uI7gQbj3xmV59hDv4";
+    const OPENAI_BASE = "https://api.chatanywhere.tech/v1/chat/completions";
+    const BAIDU_KEY  = "bce-v3/ALTAK-xNWWCIP6mLrKFV2KopRYy/a91d82e00aa2894b60900978be66a57d54d11099";
+    const BAIDU_BASE = "https://qianfan.baidubce.com/v2/chat/completions";
+
+    const HF_MODELS = {
+      huggingface_qwen:     "Qwen/Qwen3.5-35B-A3B:novita",
+      huggingface_minimax:  "MiniMaxAI/MiniMax-M2.5:novita",
+      huggingface_glm:      "zai-org/GLM-5:novita",
+      huggingface_nanbeige: "Nanbeige/Nanbeige4.1-3B:featherless-ai",
+    };
+
+    // 当前选中的图片（Base64）
+    let selectedImageBase64 = null;
+
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const serviceSelect = document.getElementById('serviceSelect');
+    const sendBtn = document.querySelector('.send-btn');
+
+    // 聊天历史记录（用于上下文）
+    let chatHistory = [];
+    const MAX_HISTORY = 10; // 保留最近 10 条记录
+
+    // AI 自动优化迭代算法 - 核心数据结构
+    const aiOptimizationData = {
+      responseQuality: {}, // 回复质量评分 {messageHash: {quality: 0-1, feedbackCount: n, avgRating: 0}}
+      learningPatterns: [], // 学习到的模式 [{trigger: string, response: string, successRate: 0-1}]
+      userPreferences: {}, // 用户偏好 {category: weight}
+      optimizationLevel: 1, // 优化等级 (1-10)
+      totalInteractions: 0, // 总交互次数
+      successfulResponses: 0, // 成功回复数
+      lastOptimizationTime: null // 上次优化时间
+    };
+
+    // 消息哈希生成（用于唯一标识）
+    function generateMessageHash(message) {
+      return btoa(unescape(encodeURIComponent(message))).substring(0, 20);
+    }
+
+    // 收集用户反馈
+    function collectFeedback(messageHash, rating, feedback = '') {
+      if (!aiOptimizationData.responseQuality[messageHash]) {
+        aiOptimizationData.responseQuality[messageHash] = {
+          quality: 0.5,
+          feedbackCount: 0,
+          ratings: [],
+          feedbacks: []
+        };
+      }
+      
+      const record = aiOptimizationData.responseQuality[messageHash];
+      record.ratings.push(rating); // rating: 1(差), 2(中), 3(好)
+      record.feedbackCount++;
+      
+      // 计算平均评分 (归一化到 0-1)
+      const sum = record.ratings.reduce((a, b) => a + b, 0);
+      record.avgRating = (sum / record.ratings.length) / 3;
+      
+      if (feedback) {
+        record.feedbacks.push(feedback);
+      }
+      
+      // 更新统计数据
+      aiOptimizationData.totalInteractions++;
+      if (rating >= 2) {
+        aiOptimizationData.successfulResponses++;
+      }
+      
+      console.log(`📊 反馈已记录 - 质量评分：${record.avgRating.toFixed(2)}, 总交互：${aiOptimizationData.totalInteractions}`);
+      
+      // 触发优化检查
+      checkAndOptimize();
+    }
+
+    // 检查并执行优化
+    function checkAndOptimize() {
+      const now = Date.now();
+      const shouldOptimize = !aiOptimizationData.lastOptimizationTime || 
+                            (now - aiOptimizationData.lastOptimizationTime) > 5 * 60 * 1000; // 每 5 分钟优化一次
+      
+      if (shouldOptimize && aiOptimizationData.totalInteractions >= 5) {
+        performOptimization();
+      }
+    }
+
+    // 执行 AI 优化算法
+    function performOptimization() {
+      console.log('🚀 开始 AI 自动优化...');
+      
+      // 1. 分析高质量回复模式
+      const highQualityMessages = Object.entries(aiOptimizationData.responseQuality)
+        .filter(([hash, data]) => data.avgRating > 0.7)
+        .map(([hash, data]) => ({ hash, ...data }));
+      
+      // 2. 分析低质量回复模式
+      const lowQualityMessages = Object.entries(aiOptimizationData.responseQuality)
+        .filter(([hash, data]) => data.avgRating < 0.4)
+        .map(([hash, data]) => ({ hash, ...data }));
+      
+      // 3. 提取成功模式
+      if (highQualityMessages.length > 0) {
+        console.log(`✅ 发现 ${highQualityMessages.length} 条高质量回复`);
+        // 可以在此提取关键词、回复模式等
+      }
+      
+      // 4. 识别需改进的模式
+      if (lowQualityMessages.length > 0) {
+        console.log(`⚠️ 发现 ${lowQualityMessages.length} 条需改进的回复`);
+        // 标记这些模式，未来避免类似回复
+      }
+      
+      // 5. 更新优化等级
+      const successRate = aiOptimizationData.successfulResponses / aiOptimizationData.totalInteractions;
+      aiOptimizationData.optimizationLevel = Math.min(10, Math.floor(successRate * 10) + 1);
+      
+      aiOptimizationData.lastOptimizationTime = Date.now();
+      
+      console.log(`📈 优化完成 - 成功率：${(successRate * 100).toFixed(1)}%, 优化等级：Lv.${aiOptimizationData.optimizationLevel}`);
+      
+      // 显示优化通知
+      showOptimizationNotification(successRate);
+    }
+
+    // 显示优化通知
+    function showOptimizationNotification(successRate) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideInRight 0.5s ease-out;
+        max-width: 300px;
+      `;
+      notification.innerHTML = `
+        <div style="font-weight: 700; margin-bottom: 5px;">🎯 AI 优化完成</div>
+        <div style="font-size: 0.9rem;">当前成功率：${(successRate * 100).toFixed(1)}%</div>
+        <div style="font-size: 0.8rem; opacity: 0.9;">优化等级：Lv.${aiOptimizationData.optimizationLevel}</div>
+      `;
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.5s ease-out';
+        setTimeout(() => notification.remove(), 500);
+      }, 4000);
+    }
+
+    // 获取当前时间戳
+    function getCurrentTimestamp() {
+      return new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // 滚动到底部
+    function scrollToBottom() {
+      chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+    }
+
+    function appendMessage(text, sender, isInteractive = false) {
+      const messageRow = document.createElement('div');
+      messageRow.classList.add('message-row', sender);
+      
+      const bubble = document.createElement('div');
+      bubble.classList.add('message-bubble', sender);
+      
+      // 支持简单的 Markdown 格式渲染
+      const formattedText = formatMessage(text);
+      bubble.innerHTML = formattedText;
+      
+      // 添加时间戳
+      const timestamp = document.createElement('div');
+      timestamp.classList.add('timestamp');
+      timestamp.textContent = getCurrentTimestamp();
+      bubble.appendChild(timestamp);
+      
+      // 如果是 AI 回复且可交互，添加反馈按钮
+      if (sender === 'ai' && isInteractive) {
+        const messageHash = generateMessageHash(text);
+        const feedbackContainer = document.createElement('div');
+        feedbackContainer.style.cssText = `
+          margin-top: 8px;
+          padding-top: 8px;
+          border-top: 1px solid rgba(0,0,0,0.1);
+          display: flex;
+          gap: 8px;
+          align-items: center;
+        `;
+        feedbackContainer.innerHTML = `
+          <span style="font-size: 0.85rem; color: #666;">这条回复有帮助吗？</span>
+          <button onclick="rateResponse('${messageHash}', 1)" style="padding: 4px 10px; border: none; background: #ff6b6b; color: white; border-radius: 6px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">👎 差</button>
+          <button onclick="rateResponse('${messageHash}', 2)" style="padding: 4px 10px; border: none; background: #ffd93d; color: #333; border-radius: 6px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">👌 一般</button>
+          <button onclick="rateResponse('${messageHash}', 3)" style="padding: 4px 10px; border: none; background: #6bcb77; color: white; border-radius: 6px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s;">👍 好</button>
+        `;
+        bubble.appendChild(feedbackContainer);
+        
+        // 存储消息哈希以便后续引用
+        bubble.dataset.messageHash = messageHash;
+      }
+      
+      messageRow.appendChild(bubble);
+      chatMessages.appendChild(messageRow);
+      scrollToBottom();
+
+      // 保存到历史记录
+      if (sender === 'user') {
+        chatHistory.push({ role: 'user', content: text });
+        if (chatHistory.length > MAX_HISTORY) {
+          chatHistory.shift();
+        }
+      }
+    }
+
+    // 更新 AI 优化状态面板
+    function updateOptimizationPanel() {
+      const data = aiOptimizationData;
+      
+      // 更新等级
+      document.getElementById('aiLevel').textContent = `Lv.${data.optimizationLevel}`;
+      
+      // 更新总交互次数
+      document.getElementById('totalInteractions').textContent = data.totalInteractions;
+      
+      // 更新成功率
+      const successRate = data.totalInteractions > 0 
+        ? ((data.successfulResponses / data.totalInteractions) * 100).toFixed(1) 
+        : 0;
+      document.getElementById('successRate').textContent = `${successRate}%`;
+      
+      // 更新反馈总数
+      const totalFeedback = Object.values(data.responseQuality)
+        .reduce((sum, record) => sum + record.feedbackCount, 0);
+      document.getElementById('feedbackCount').textContent = totalFeedback;
+      
+      // 更新进度条（基于优化等级）
+      const progress = (data.optimizationLevel / 10) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+      document.getElementById('progressText').textContent = `${progress.toFixed(0)}%`;
+    }
+
+
+
+    // 全局函数 - 评价回复
+    window.rateResponse = function(messageHash, rating) {
+      const labels = {1: '差', 2: '一般', 3: '好'};
+      collectFeedback(messageHash, rating);
+      updateOptimizationPanel();
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        z-index: 10000;
+        animation: fadeInUp 0.3s ease-out;
+      `;
+      toast.textContent = `谢谢您的反馈！已标记为「${labels[rating]}」`;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.animation = 'fadeOutDown 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+      }, 2000);
+    };
+
+    // 简单的消息格式化（支持粗体、代码块等）
+    function formatMessage(text) {
+      // 转义 HTML 防止 XSS
+      let escaped = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      
+      // 粗体 **text**
+      escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      
+      // 行内代码 `code`
+      escaped = escaped.replace(/`(.+?)`/g, '<code style="background:#f0f0f0;padding:2px 6px;border-radius:3px;">$1</code>');
+      
+      // 换行
+      escaped = escaped.replace(/\n/g, '<br>');
+      
+      return escaped;
+    }
+
+    // 处理图片选择
+    function handleImageSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      // 检查文件大小（限制 5MB）
+      if (file.size > 5 * 1024 * 1024) {
+        alert('图片大小不能超过 5MB');
+        return;
+      }
+      
+      // 检查文件类型
+      if (!file.type.startsWith('image/')) {
+        alert('请选择图片文件');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        selectedImageBase64 = e.target.result;
+        
+        // 显示预览
+        const previewImg = document.getElementById('imagePreview');
+        previewImg.src = selectedImageBase64;
+        document.getElementById('imagePreviewContainer').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    // 移除选中的图片
+    function removeSelectedImage() {
+      selectedImageBase64 = null;
+      document.getElementById('imagePreviewContainer').style.display = 'none';
+      document.getElementById('imageInput').value = '';
+    }
+
+    // 清空聊天记录
+    function clearChat() {
+      if (confirm('确定要清空所有聊天记录吗？')) {
+        chatMessages.innerHTML = '';
+        chatHistory = [];
+        appendMessage('聊天记录已清空，我们可以重新开始对话！', 'ai');
+      }
+    }
+
+    function showLoading() {
+      const loadingElem = document.createElement('div');
+      loadingElem.classList.add('message-row', 'ai');
+      loadingElem.id = 'loadingMessage';
+      const bubble = document.createElement('div');
+      bubble.classList.add('message-bubble', 'ai', 'loading');
+      bubble.innerHTML = '<span style="margin-right:8px;">AI 正在思考</span><div class="typing-indicator"></div>';
+      loadingElem.appendChild(bubble);
+      chatMessages.appendChild(loadingElem);
+      scrollToBottom();
+    }
+
+    function removeLoading() {
+      const loadingElem = document.getElementById('loadingMessage');
+      if (loadingElem) {
+        loadingElem.remove();
+      }
+    }
+
+    // 统一直连调用函数
+    async function callProxy(service, message, image = null) {
+      try {
+        let url, headers, body;
+        headers = { 'Content-Type': 'application/json' };
+
+        if (service === 'openai') {
+          url = OPENAI_BASE;
+          headers['Authorization'] = `Bearer ${OPENAI_KEY}`;
+          const msgs = [{ role: 'system', content: '你是一个有用的 AI 助手，回答简洁、准确。' }, ...chatHistory, { role: 'user', content: message }];
+          body = JSON.stringify({ model: 'gpt-4', messages: msgs, max_tokens: 1000 });
+
+        } else if (service in HF_MODELS) {
+          url = HF_BASE;
+          headers['Authorization'] = `Bearer ${HF_TOKEN}`;
+          let content;
+          if (image && service === 'huggingface_qwen') {
+            content = [
+              { type: 'text', text: message || 'Describe this image.' },
+              { type: 'image_url', image_url: { url: image } }
+            ];
+          } else {
+            content = message;
+          }
+          body = JSON.stringify({ model: HF_MODELS[service], messages: [{ role: 'user', content }], max_tokens: 1000 });
+
+        } else if (service === 'baidu') {
+          url = BAIDU_BASE;
+          headers['Authorization'] = `Bearer ${BAIDU_KEY}`;
+          const msgs = [...chatHistory, { role: 'user', content: message }];
+          body = JSON.stringify({ model: 'ernie-4.0-8k', messages: msgs, max_tokens: 1000 });
+
+        } else {
+          return `❌ 未知服务: ${service}`;
+        }
+
+        const resp = await fetch(url, { method: 'POST', headers, body });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error?.message || data.message || `HTTP ${resp.status}`);
+        const msg = data.choices?.[0]?.message ?? {};
+        const reply = (msg.content?.trim()) || (msg.reasoning_content?.trim()) || (msg.reasoning?.trim()) || '（无回复）';
+        chatHistory.push({ role: 'assistant', content: reply });
+        if (chatHistory.length > MAX_HISTORY) chatHistory.shift();
+        return reply;
+      } catch (e) {
+        return `❌ 出错了：${e.message}`;
+      }
+    }
+
+    chatForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const userText = chatInput.value.trim();
+      if (!userText && !selectedImageBase64) return;
+      
+      // 构建用户消息显示
+      let displayMessage = userText;
+      if (selectedImageBase64) {
+        displayMessage = userText ? `[图片] ${userText}` : '[图片] 请描述这张图片';
+      }
+      
+      appendMessage(displayMessage, 'user');
+      chatInput.value = '';
+      chatInput.disabled = true;
+      sendBtn.disabled = true;
+      showLoading();
+
+      let aiReply = await callProxy(serviceSelect.value, userText, selectedImageBase64);
+      if (selectedImageBase64) removeSelectedImage();
+
+      removeLoading();
+      appendMessage(aiReply, 'ai', true); // 启用反馈功能
+      
+      chatInput.disabled = false;
+      sendBtn.disabled = false;
+      chatInput.focus();
+    });
+
+    // 快速测试函数
+    function testWithDefaultImage() {
+      const defaultImageUrl = "https://cdn.britannica.com/61/93061-050-99147DCE/Statue-of-Liberty-Island-New-York-Bay.jpg";
+      serviceSelect.value = "huggingface_qwen";
+      appendMessage(`🖼️ 测试图片：${defaultImageUrl}`, 'user');
+      showLoading();
+      callProxy("huggingface_qwen", "Describe this image in one sentence.", defaultImageUrl)
+        .then(reply => {
+          removeLoading();
+          appendMessage(reply, 'ai', true);
+        });
+    }
+
+    // 支持按 Enter 发送消息
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        chatForm.dispatchEvent(new Event('submit'));
+      }
+    });
+
+    // 初始欢迎消息
+    appendMessage('👋 你好！我是你的 AI 智能助手，具备**自动学习和优化**能力！\n\n💡 可用模型：\n• **OpenAI GPT-4**: 强大的通用 AI\n• **Qwen3.5-35B**: 支持上传图片和多模态分析 📷\n• **MiniMax-M2.5**: 高质量文本对话\n• **GLM-5**: 高质量中文对话\n• **Nanbeige4.1-3B**: 轻量级快速对话\n• **百度文心 ERNIE-4.0**: 中文优化模型\n\n✨ 功能：\n• 📊 为每条回复评分，帮助 AI 持续改进\n• 🖼️ 上传图片让 Qwen 分析\n• ⌨️ 按 Enter 键快速发送\n• 🗑️ 清空聊天记录重新开始', 'ai', true);
+    
+    // 初始化面板
+    updateOptimizationPanel();
+  </script>
+</body>
+</html>

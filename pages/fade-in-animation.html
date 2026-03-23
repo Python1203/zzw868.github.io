@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Fade-In 淡入动画完整示例：纯 CSS 过渡动效实战教程 2025</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff00;
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 15px;
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .subtitle {
+            color: var(--text-color);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        /* Different animation delays for multiple elements */
+        .fade-in.delay-1 { animation-delay: 0.5s; }
+        .fade-in.delay-2 { animation-delay: 1s; }
+        .fade-in.delay-3 { animation-delay: 1.5s; }
+
+        /* Keyframe animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animated content box */
+        .content-box {
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .content-box:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .content-box h2 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        .content-box p {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Control buttons */
+        .controls {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Code display */
+        .code-section {
+            margin-top: 50px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--secondary-color);
+        }
+
+        .code-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            display: block;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary-color);
+            color: var(--accent-color);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .content-box {
+                padding: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="使用纯 CSS @keyframes 与 animation 属性实现的淡入动画效果，包含多种触发方式（页面加载、滚动、悬停），含完整源码。" />
+  <meta name="keywords" content="CSS动画,淡入效果,fade-in,@keyframes,CSS过渡,前端动效,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="CSS Fade-In 淡入动画完整示例：纯 CSS 过渡动效实战教程 2025" />
+  <meta property="og:description" content="使用纯 CSS @keyframes 与 animation 属性实现的淡入动画效果，包含多种触发方式（页面加载、滚动、悬停），含完整源码。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/fade-in-animation/" />
+  <link rel="canonical" href="https://zzw868.github.io/fade-in-animation/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "CSS Fade-In 淡入动画完整示例：纯 CSS 过渡动效实战教程 2025",
+    "description": "使用纯 CSS @keyframes 与 animation 属性实现的淡入动画效果，包含多种触发方式（页面加载、滚动、悬停），含完整源码。",
+    "keywords": "CSS动画,淡入效果,fade-in,@keyframes,CSS过渡,前端动效,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/fade-in-animation/"}
+  }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="fade-in">CSS Fade-In Animation</h1>
+        <p class="subtitle fade-in delay-1">演示简单的CSS淡入动画效果</p>
+
+        <div class="content-box fade-in delay-2">
+            <h2>动画原理</h2>
+            <p>这个淡入动画使用了CSS的@keyframes规则，从透明度0开始，逐渐过渡到完全不透明。同时还添加了轻微的向上移动效果，使动画更加自然。</p>
+            <p>动画时长为2秒，使用ease-in-out缓动函数，创建平滑的过渡效果。</p>
+        </div>
+
+        <div class="content-box fade-in delay-3">
+            <h2>使用方法</h2>
+            <p>只需为元素添加<code>fade-in</code>类名即可应用动画效果。可以通过<code>animation-delay</code>属性控制多个元素的动画顺序。</p>
+            <p>这种动画技术在现代网页设计中非常常用，用于提升用户体验和页面视觉效果。</p>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="replayAnimation()">重新播放动画</button>
+            <button class="btn" onclick="toggleAnimation()">切换动画</button>
+        </div>
+
+        <div class="code-section">
+            <h3>CSS动画代码</h3>
+            <code>/* 淡入动画类 */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+/* 关键帧动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}</code>
+        </div>
+    </div>
+
+    <script>
+        function replayAnimation() {
+            // 移除所有动画类
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; // 触发重绘
+                el.style.animation = '';
+            });
+        }
+
+        function toggleAnimation() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => {
+                if (el.style.animationPlayState === 'paused') {
+                    el.style.animationPlayState = 'running';
+                } else {
+                    el.style.animationPlayState = 'paused';
+                }
+            });
+        }
+
+        // 页面加载完成后自动开始动画
+        document.addEventListener('DOMContentLoaded', function() {
+            // 动画会在CSS中自动开始
+        });
+    </script>
+</body>
+</html>

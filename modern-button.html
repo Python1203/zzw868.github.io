@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现代 CSS 按钮设计：悬停动效与渐变样式完整示例 2025</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff00;
+            --warning-color: #ffff00;
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .button-container {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 15px;
+            border: 1px solid var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        /* Modern Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: 2px solid transparent;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            margin: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.5);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            color: #000;
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Different Button Variants */
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), #00cccc);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #00cccc, var(--primary-color));
+            box-shadow: 0 10px 25px rgba(0, 204, 204, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--secondary-color), #cc00cc);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #cc00cc, var(--secondary-color));
+            box-shadow: 0 10px 25px rgba(204, 0, 204, 0.5);
+        }
+
+        .btn-accent {
+            background: linear-gradient(45deg, var(--accent-color), #00cc00);
+        }
+
+        .btn-accent:hover {
+            background: linear-gradient(45deg, #00cc00, var(--accent-color));
+            box-shadow: 0 10px 25px rgba(0, 204, 0, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn-ghost {
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Button Sizes */
+        .btn-sm {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .btn-lg {
+            padding: 20px 40px;
+            font-size: 1.3rem;
+        }
+
+        /* Button Groups */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        /* Animation Classes */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 5px 15px rgba(0, 255, 255, 0.6);
+            }
+            100% {
+                box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            }
+        }
+
+        .glow {
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            }
+            to {
+                box-shadow: 0 5px 25px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .button-container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 5px 0;
+            }
+        }
+
+        /* Code Display */
+        .code-section {
+            margin-top: 50px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--secondary-color);
+        }
+
+        .code-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            display: block;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary-color);
+            color: var(--accent-color);
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="使用 CSS 实现的现代风格按钮组件，包含渐变背景、悬停缩放、波纹点击效果与暗色模式支持，可直接复用于任何前端项目。" />
+  <meta name="keywords" content="CSS按钮,悬停动效,渐变按钮,UI设计,前端组件,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="现代 CSS 按钮设计：悬停动效与渐变样式完整示例 2025" />
+  <meta property="og:description" content="使用 CSS 实现的现代风格按钮组件，包含渐变背景、悬停缩放、波纹点击效果与暗色模式支持，可直接复用于任何前端项目。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/modern-button/" />
+  <link rel="canonical" href="https://zzw868.github.io/modern-button/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "现代 CSS 按钮设计：悬停动效与渐变样式完整示例 2025",
+    "description": "使用 CSS 实现的现代风格按钮组件，包含渐变背景、悬停缩放、波纹点击效果与暗色模式支持，可直接复用于任何前端项目。",
+    "keywords": "CSS按钮,悬停动效,渐变按钮,UI设计,前端组件,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/modern-button/"}
+  }
+  </script>
+</head>
+<body>
+    <div class="button-container">
+        <h1>Modern CSS Buttons</h1>
+
+        <!-- Primary Button -->
+        <a href="#" class="btn btn-primary">Primary Button</a>
+
+        <!-- Button Variants -->
+        <div class="button-group">
+            <a href="#" class="btn btn-primary">Primary</a>
+            <a href="#" class="btn btn-secondary">Secondary</a>
+            <a href="#" class="btn btn-accent">Accent</a>
+        </div>
+
+        <!-- Outline and Ghost Buttons -->
+        <div class="button-group">
+            <a href="#" class="btn btn-outline">Outline</a>
+            <a href="#" class="btn btn-ghost">Ghost</a>
+        </div>
+
+        <!-- Button Sizes -->
+        <div class="button-group">
+            <a href="#" class="btn btn-primary btn-sm">Small</a>
+            <a href="#" class="btn btn-primary">Normal</a>
+            <a href="#" class="btn btn-primary btn-lg">Large</a>
+        </div>
+
+        <!-- Animated Buttons -->
+        <div class="button-group">
+            <a href="#" class="btn btn-secondary pulse">Pulse Effect</a>
+            <a href="#" class="btn btn-accent glow">Glow Effect</a>
+        </div>
+
+        <!-- Code Section -->
+        <div class="code-section">
+            <h2>CSS Button Code</h2>
+            <code>.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.5);
+}</code>
+        </div>
+    </div>
+</body>
+</html>

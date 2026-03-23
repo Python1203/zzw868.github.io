@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox 三栏布局完整示例：响应式三列页面布局教程 2025</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #00ff00;
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --text-color: #ffffff;
+            --shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .column {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .column:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+            border-color: var(--secondary-color);
+        }
+
+        .column h2 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .column p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .column ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .column li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .column li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            text-shadow: 0 0 5px var(--primary-color);
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid var(--primary-color);
+            margin: 15px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .column {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .column h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .column {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Additional spacing examples */
+        .spacing-demo {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .spacing-demo h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        .demo-grid {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .demo-item {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-color);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .demo-grid.gap-20 {
+            gap: 20px;
+        }
+
+        .demo-grid.gap-30 {
+            gap: 30px;
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="使用 CSS Flexbox 实现的三栏响应式布局示例，包含左侧边栏、主内容区与右侧边栏，适配移动端，含完整 HTML/CSS 源码。" />
+  <meta name="keywords" content="CSS Flexbox,三栏布局,响应式布局,前端布局,CSS教程,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="CSS Flexbox 三栏布局完整示例：响应式三列页面布局教程 2025" />
+  <meta property="og:description" content="使用 CSS Flexbox 实现的三栏响应式布局示例，包含左侧边栏、主内容区与右侧边栏，适配移动端，含完整 HTML/CSS 源码。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/3-column-layout/" />
+  <link rel="canonical" href="https://zzw868.github.io/3-column-layout/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "CSS Flexbox 三栏布局完整示例：响应式三列页面布局教程 2025",
+    "description": "使用 CSS Flexbox 实现的三栏响应式布局示例，包含左侧边栏、主内容区与右侧边栏，适配移动端，含完整 HTML/CSS 源码。",
+    "keywords": "CSS Flexbox,三栏布局,响应式布局,前端布局,CSS教程,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/3-column-layout/"}
+  }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <h1>3-Column Flexbox Layout</h1>
+
+        <div class="flex-container">
+            <div class="column">
+                <h2>服务一</h2>
+                <p>我们提供专业的金融咨询服务，帮助客户做出明智的投资决策。</p>
+                <div class="highlight">
+                    <strong>核心优势：</strong>
+                    <ul>
+                        <li>专业的市场分析</li>
+                        <li>个性化的投资建议</li>
+                        <li>24/7在线支持</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn">了解更多</a>
+            </div>
+
+            <div class="column">
+                <h2>服务二</h2>
+                <p>通过先进的技术手段，为客户提供实时的数据分析和市场洞察。</p>
+                <div class="highlight">
+                    <strong>技术特色：</strong>
+                    <ul>
+                        <li>实时数据监控</li>
+                        <li>AI智能分析</li>
+                        <li>可视化图表展示</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn">立即体验</a>
+            </div>
+
+            <div class="column">
+                <h2>服务三</h2>
+                <p>为企业和个人提供全面的风险管理解决方案，确保资金安全。</p>
+                <div class="highlight">
+                    <strong>安全保障：</strong>
+                    <ul>
+                        <li>多重风险控制</li>
+                        <li>加密数据传输</li>
+                        <li>专业团队支持</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn">联系我们</a>
+            </div>
+        </div>
+
+        <div class="spacing-demo">
+            <h2>Flexbox Spacing Examples</h2>
+            <p>Gap: 10px</p>
+            <div class="demo-grid gap-10">
+                <div class="demo-item">1</div>
+                <div class="demo-item">2</div>
+                <div class="demo-item">3</div>
+            </div>
+
+            <p>Gap: 20px</p>
+            <div class="demo-grid gap-20">
+                <div class="demo-item">1</div>
+                <div class="demo-item">2</div>
+                <div class="demo-item">3</div>
+            </div>
+
+            <p>Gap: 30px</p>
+            <div class="demo-grid gap-30">
+                <div class="demo-item">1</div>
+                <div class="demo-item">2</div>
+                <div class="demo-item">3</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+name: Global Finance AI Blog
+
+on:
+  # 定时触发：每天北京时间 9:30 (UTC 时间 1:30)
+  schedule:
+    - cron: '30 1 * * *'
+  
+  # 手动触发：允许在 GitHub Actions 页面手动执行
+  workflow_dispatch:
+    inputs:
+      count:
+        description: '生成文章数量'
+        required: false
+        default: '1'
+      template:
+        description: '文章模板 (base/quick/deep)'
+        required: false
+        default: 'base'
+      category:
+        description: '指定分类（可选）'
+        required: false
+        default: ''
+
+# 防止重复执行
+concurrency:
+  group: finance-auto-blog
+  cancel-in-progress: true
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: npm
+      
+      - name: Install AI Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openai
+      
+      - name: Install Hexo Dependencies
+        run: |
+          npm install -g hexo-cli
+          npm install
+          mkdir -p themes
+          [ -L themes/next ] || ln -sf ../node_modules/hexo-theme-next themes/next
+      
+      - name: Run AI Writer
+        env:
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          AI_BASE_URL: ${{ secrets.AI_BASE_URL }}
+        run: |
+          # 获取手动触发的参数（如果有）
+          COUNT="${{ github.event.inputs.count }}"
+          TEMPLATE="${{ github.event.inputs.template }}"
+          CATEGORY="${{ github.event.inputs.category }}"
+          
+          # 如果是定时触发，默认生成 1 篇
+          if [ -z "$COUNT" ]; then
+            COUNT=1
+          fi
+          
+          # 构建命令（注意：目录已改为 custom_scripts）
+          CMD="python custom_scripts/ai_writer.py --count $COUNT"
+          
+          if [ -n "$TEMPLATE" ]; then
+            CMD="$CMD --template $TEMPLATE"
+          fi
+          
+          if [ -n "$CATEGORY" ]; then
+            CMD="$CMD --category $CATEGORY"
+          fi
+          
+          echo "🤖 运行 AI 创作：$CMD"
+          eval $CMD
+      
+      - name: Check Generated Files
+        id: check_files
+        run: |
+          # 查找新生成的文件
+          TODAY=$(date +%Y-%m-%d)
+          NEW_FILES=$(find source/_posts -name "$TODAY-*.md" -type f 2>/dev/null || echo "")
+          
+          if [ -n "$NEW_FILES" ]; then
+            echo "✅ 找到新生成的文件:"
+            echo "$NEW_FILES"
+            
+            # 统计数量
+            FILE_COUNT=$(echo "$NEW_FILES" | wc -l)
+            echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
+            
+            # 保存文件列表
+            echo "$NEW_FILES" > new_articles.txt
+          else
+            echo "⚠️ 未找到新生成的文件"
+            echo "file_count=0" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and Push Source Code
+        if: steps.check_files.outputs.file_count > 0
+        run: |
+          git config --global user.name "AI-Financial-Analyst"
+          git config --global user.email "bot@github.com"
+          
+          # 添加新文件
+          git add source/_posts/*.md
+          
+          # 检查是否有变更
+          if ! git diff --staged --quiet; then
+            # 提交变更
+            git commit -m "🤖 AI Auto-generated Articles $(date +%Y-%m-%d) [skip ci]"
+            
+            # 使用 token 推送（确保有权限）
+            git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+            git push origin HEAD:master
+            
+            echo "✅ 已推送 ${FILE_COUNT:-0} 篇文章到仓库"
+          else
+            echo "ℹ️ 没有变更需要提交"
+          fi
+      
+      - name: Build and Deploy Hexo
+        if: steps.check_files.outputs.file_count > 0
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          # 等待片刻确保代码推送完成
+          sleep 3
+          
+          # 重新拉取最新代码
+          git pull origin master
+          
+          # 配置 Git 用户信息
+          git config --global user.name "AI-Financial-Analyst"
+          git config --global user.email "bot@github.com"
+          
+          # 清理可能存在的 .deploy_git 子模块问题
+          rm -rf .deploy_git 2>/dev/null || true
+          git submodule deinit -f .deploy_git 2>/dev/null || true
+          
+          # 修改 _config.yml 中的 deploy 配置，使用 token 认证
+          sed -i "s|repo: https://github.com/|repo: https://x-access-token:${GH_TOKEN}@github.com/|g" _config.yml
+          
+          # 使用 hexo-deployer-git 的标准方式部署
+          npx hexo clean
+          npx hexo generate
+          npx hexo deploy
+          
+          echo "✅ 部署完成！"
+      
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-generated-articles
+          path: |
+            new_articles.txt
+            source/_posts/*.md
+          retention-days: 30
+      
+      - name: Generate Summary
+        run: |
+          echo "## 🤖 AI 自动创作与部署报告" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 执行统计" >> $GITHUB_STEP_SUMMARY
+          echo "- 触发方式：${{ github.event_name == 'schedule' && '⏰ 定时任务' || '👆 手动触发' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 生成数量：${{ steps.check_files.outputs.file_count }} 篇" >> $GITHUB_STEP_SUMMARY
+          echo "- 执行时间：$(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M:%S') BJT" >> $GITHUB_STEP_SUMMARY
+          echo "- Commit: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 新增文章" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f new_articles.txt ] && [ -s new_articles.txt ]; then
+            while IFS= read -r file; do
+              filename=$(basename "$file")
+              echo "- 📄 \`$filename\`" >> $GITHUB_STEP_SUMMARY
+            done < new_articles.txt
+          else
+            echo "_暂无新文章_" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 相关链接" >> $GITHUB_STEP_SUMMARY
+          echo "- [查看博客](https://zzw868.github.io)" >> $GITHUB_STEP_SUMMARY
+          echo "- [查看 Commits](https://github.com/${{ github.repository }}/commits)" >> $GITHUB_STEP_SUMMARY
+          echo "- [查看 Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          
+          # 输出到控制台
+          cat $GITHUB_STEP_SUMMARY

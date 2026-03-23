@@ -1,0 +1,139 @@
+name: Auto Generate Index
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - '**.html'  # 当任何 HTML 文件变更时触发
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - '**.html'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Check if pages directory exists
+        id: check_pages
+        run: |
+          if [ -d "pages" ]; then
+            echo "has_pages=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_pages=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create pages directory (if not exists)
+        if: steps.check_pages.outputs.has_pages == 'false'
+        run: |
+          mkdir -p pages
+          echo "<!-- 示例页面 -->" > pages/example.html
+
+      - name: Generate Index File
+        run: |
+          python <<EOF
+import os
+import json
+
+# 假设你的网页都放在 'pages' 文件夹下
+target_dir = 'pages'
+files = sorted([f for f in os.listdir(target_dir) if f.endswith('.html')])
+
+# 构建 JS 数组内容
+pages_config = []
+for f in files:
+    # 美化显示名称
+    name = f.replace('.html', '').replace('-', ' ').replace('_', ' ')
+    name = ' '.join(word.capitalize() for word in name.split())
+    pages_config.append({"name": name, "url": f"{target_dir}/{f}"})
+
+print(f"📁 找到 {len(files)} 个 HTML 文件:")
+for page in pages_config:
+    print(f"   - {page['name']}: {page['url']}")
+
+config_json = json.dumps(pages_config, ensure_ascii=False, indent=2)
+
+# 读取模板并替换占位符
+template_file = 'template.html'
+if os.path.exists(template_file):
+    with open(template_file, 'r', encoding='utf-8') as t:
+        content = t.read()
+    
+    # 替换占位符为 JSON 数组
+    final_content = content.replace('<!-- CONFIG_PLACEHOLDER -->', config_json)
+    
+    with open('index.html', 'w', encoding='utf-8') as f:
+        f.write(final_content)
+    
+    print(f"\n✅ 成功生成 index.html")
+    print(f"📊 包含 {len(files)} 个页面")
+else:
+    print(f"❌ 模板文件不存在：{template_file}")
+    exit(1)
+EOF
+
+      - name: Verify generated file
+        run: |
+          if [ -f "index.html" ]; then
+            echo "✅ index.html 生成成功"
+            ls -lh index.html
+          else
+            echo "❌ index.html 生成失败"
+            exit 1
+          fi
+
+      - name: Commit and push changes
+        if: github.event_name == 'push'
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add index.html
+          git diff --cached --exit-code || git commit -m "Auto-generate index.html [skip ci]"
+          git push
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          keep_files: true
+          force_orphan: false
+
+      - name: Upload index.html as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: html-navigation
+          path: index.html
+          retention-days: 7
+
+      - name: Deployment summary
+        run: |
+          echo "## 📊 导航生成报告" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ HTML 导航页面自动生成成功！" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**生成文件**: index.html" >> $GITHUB_STEP_SUMMARY
+          echo "**文件大小**: $(du -h index.html | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          
+          # 统计 HTML 文件数量
+          if [ -d "pages" ]; then
+            HTML_COUNT=$(find pages -name "*.html" | wc -l)
+            echo "**HTML 文件数量**: $HTML_COUNT" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 包含的文件:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            for file in $(find pages -name "*.html" | sort); do
+              echo "- $(basename $file)" >> $GITHUB_STEP_SUMMARY
+            done
+          fi

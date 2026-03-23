@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Counter 组件实战演示：useState Hook 入门教程 2025</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 100%);
+            color: #00ffff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            color: #ff00ff;
+            text-shadow: 0 0 20px #ff00ff;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            background: rgba(10, 10, 20, 0.8);
+            border: 1px solid #00ffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .demo-section h3 {
+            color: #ff00ff;
+            text-shadow: 0 0 15px #ff00ff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .code-section {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #ff00ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .code-section h3 {
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            display: block;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border: 1px solid #00ffff;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "▶";
+            color: #ff00ff;
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="React Counter 计数器组件完整演示，通过 useState Hook 实现状态管理，适合 React 初学者理解组件状态与事件处理机制。" />
+  <meta name="keywords" content="React,useState,Hook,计数器组件,前端教程,React入门,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="React Counter 组件实战演示：useState Hook 入门教程 2025" />
+  <meta property="og:description" content="React Counter 计数器组件完整演示，通过 useState Hook 实现状态管理，适合 React 初学者理解组件状态与事件处理机制。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/react-counter-demo/" />
+  <link rel="canonical" href="https://zzw868.github.io/react-counter-demo/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "React Counter 组件实战演示：useState Hook 入门教程 2025",
+    "description": "React Counter 计数器组件完整演示，通过 useState Hook 实现状态管理，适合 React 初学者理解组件状态与事件处理机制。",
+    "keywords": "React,useState,Hook,计数器组件,前端教程,React入门,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/react-counter-demo/"}
+  }
+  </script>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>React Counter Component</h1>
+            <p>Functional component with increment/decrement functionality</p>
+        </div>
+
+        <div class="demo-grid">
+            <div class="demo-section">
+                <h3>Basic Counter</h3>
+                <div id="counter-basic"></div>
+            </div>
+
+            <div class="demo-section">
+                <h3>Counter with Step 5</h3>
+                <div id="counter-step5"></div>
+            </div>
+
+            <div class="demo-section">
+                <h3>Counter Starting at 100</h3>
+                <div id="counter-start100"></div>
+            </div>
+        </div>
+
+        <div class="code-section">
+            <h3>Component Features</h3>
+            <ul class="feature-list">
+                <li>Functional component using React hooks (useState)</li>
+                <li>Customizable initial value and step size</li>
+                <li>Increment and decrement buttons</li>
+                <li>Reset functionality</li>
+                <li>Accessible with proper ARIA labels</li>
+                <li>Cyberpunk-themed styling</li>
+                <li>Smooth hover animations</li>
+            </ul>
+
+            <h3>Usage Example</h3>
+            <code>import Counter from './Counter';
+
+// Basic usage
+&lt;Counter /&gt;
+
+// With custom initial value
+&lt;Counter initialValue={10} /&gt;
+
+// With custom step size
+&lt;Counter step={5} /&gt;
+
+// Combined
+&lt;Counter initialValue={50} step={10} /&gt;</code>
+
+            <h3>Component Code</h3>
+            <code>const Counter = ({ initialValue = 0, step = 1 }) => {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () => setCount(prev => prev + step);
+  const decrement = () => setCount(prev => prev - step);
+  const reset = () => setCount(initialValue);
+
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;React Counter&lt;/h2&gt;
+      &lt;div&gt;{count}&lt;/div&gt;
+      &lt;button onClick={decrement}&gt;-&lt;/button&gt;
+      &lt;button onClick={reset}&gt;Reset&lt;/button&gt;
+      &lt;button onClick={increment}&gt;+&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};</code>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        // Counter Component Definition (inline for demo)
+        const Counter = ({ initialValue = 0, step = 1 }) => {
+            const [count, setCount] = React.useState(initialValue);
+
+            const increment = () => {
+                setCount(prevCount => prevCount + step);
+            };
+
+            const decrement = () => {
+                setCount(prevCount => prevCount - step);
+            };
+
+            const reset = () => {
+                setCount(initialValue);
+            };
+
+            const styles = {
+                container: {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: '20px',
+                    border: '2px solid #00ffff',
+                    borderRadius: '15px',
+                    background: 'rgba(10, 10, 20, 0.9)',
+                    boxShadow: '0 0 20px rgba(0, 255, 255, 0.3)',
+                    fontFamily: 'Courier New, monospace',
+                    color: '#00ffff',
+                },
+                title: {
+                    fontSize: '1.2rem',
+                    marginBottom: '15px',
+                    textShadow: '0 0 10px #00ffff',
+                    color: '#ff00ff',
+                },
+                display: {
+                    marginBottom: '15px',
+                },
+                count: {
+                    fontSize: '2.5rem',
+                    fontWeight: 'bold',
+                    color: '#00ffff',
+                    textShadow: '0 0 20px #00ffff',
+                },
+                buttonContainer: {
+                    display: 'flex',
+                    gap: '8px',
+                    marginBottom: '15px',
+                },
+                button: {
+                    padding: '8px 12px',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '1rem',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    minWidth: '50px',
+                },
+                decrementButton: {
+                    background: '#ff4444',
+                    color: 'white',
+                    boxShadow: '0 0 10px rgba(255, 68, 68, 0.5)',
+                },
+                resetButton: {
+                    background: '#888888',
+                    color: 'white',
+                    boxShadow: '0 0 10px rgba(136, 136, 136, 0.5)',
+                },
+                incrementButton: {
+                    background: '#44ff44',
+                    color: 'white',
+                    boxShadow: '0 0 10px rgba(68, 255, 68, 0.5)',
+                },
+                info: {
+                    fontSize: '0.8rem',
+                    opacity: 0.7,
+                    textAlign: 'center',
+                },
+            };
+
+            return (
+                <div style={styles.container}>
+                    <div style={styles.display}>
+                        <span style={styles.count}>{count}</span>
+                    </div>
+                    <div style={styles.buttonContainer}>
+                        <button
+                            onClick={decrement}
+                            style={{...styles.button, ...styles.decrementButton}}
+                            aria-label="Decrease count"
+                        >
+                            -
+                        </button>
+                        <button
+                            onClick={reset}
+                            style={{...styles.button, ...styles.resetButton}}
+                            aria-label="Reset count"
+                        >
+                            Reset
+                        </button>
+                        <button
+                            onClick={increment}
+                            style={{...styles.button, ...styles.incrementButton}}
+                            aria-label="Increase count"
+                        >
+                            +
+                        </button>
+                    </div>
+                    <div style={styles.info}>
+                        <p>Step: {step} | Initial: {initialValue}</p>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render different counter instances
+        ReactDOM.render(<Counter />, document.getElementById('counter-basic'));
+        ReactDOM.render(<Counter step={5} />, document.getElementById('counter-step5'));
+        ReactDOM.render(<Counter initialValue={100} />, document.getElementById('counter-start100'));
+    </script>
+</body>
+</html>

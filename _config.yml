@@ -1,0 +1,95 @@
+# ── 站点信息 ──────────────────────────────────────────────────────────────────
+title: 张良信息咨询服务工作室 - 专业资金解决方案服务商
+subtitle: 中小企业融资咨询 | 个人资金规划 | 高效便捷服务
+description: 张良信息咨询服务工作室是全球领先的综合信息咨询解决方案提供商，专注为中小企业及个人提供专业高效的资金解决方案。服务热线：18556506161，了解更多请访问 https://linktr.ee/zzw868
+keywords: 张良信息咨询，资金解决方案，中小企业融资，个人资金规划，金融咨询服务，高效便捷服务
+author: zzw868
+language: zh-CN
+timezone: Asia/Shanghai
+
+# ── URL ───────────────────────────────────────────────────────────────────────
+url: https://zzw868.github.io
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true   # 生成 about/index.html，兼容 GitHub Pages
+  trailing_html: false   # 文章链接不带.html
+
+# ── 目录 ──────────────────────────────────────────────────────────────────────
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+  - "*.html"           # 保留根目录已有的 HTML 文件（已移除，让 Hexo 管理）
+  - "financial-ai-dashboard/**"
+  - "ai-friendly/**"
+  - "scripts/**"       # 忽略 scripts 目录，不作为 Hexo 脚本加载
+
+# ── 写作 ──────────────────────────────────────────────────────────────────────
+new_post_name: :year-:month-:day-:title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace: '  '
+  wrap: true
+  hljs: false
+prismjs:
+  enable: false
+
+# ── 分类 & 标签 ───────────────────────────────────────────────────────────────
+default_category: 金融资讯
+category_map:
+tag_map:
+
+# ── 日期格式 ──────────────────────────────────────────────────────────────────
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: 'mtime'
+
+# ── 分页 ──────────────────────────────────────────────────────────────────────
+per_page: 10
+pagination_dir: page
+
+# ── 主题 ──────────────────────────────────────────────────────────────────────
+theme: next
+
+# ── 部署 ──────────────────────────────────────────────────────────────────────
+# 本地开发：直接用此配置，需本机配置好 SSH Key
+# CI 环境：auto_post.yml 在 hexo deploy 前执行：
+#   git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Python1203/zzw868.github.io.git
+# 从而让 hexo-deployer-git 有权限推送，无需在此文件硬编码 token
+deploy:
+  type: git
+  repo: https://github.com/Python1203/zzw868.github.io.git
+  branch: gh-pages
+  message: '🤖 hexo deploy: {{ now("YYYY-MM-DD HH:mm:ss") }}'
+
+# ── 搜索（hexo-generator-searchdb）────────────────────────────────────────────
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
+
+# ── Feed（hexo-generator-feed）────────────────────────────────────────────────
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20

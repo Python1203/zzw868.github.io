@@ -1,0 +1,81 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'source/**'
+      - '_config.yml'
+      - '_config.next.yml'
+      - 'package.json'
+      - 'themes/**'
+  workflow_dispatch:
+
+# 启用 Node.js 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+# 排队等待，不取消正在运行的部署
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # auto_post 的 bot commit 已经在自身 job 里完成了 hexo deploy
+    # 这里只处理人工 push 或手动触发，避免双重部署
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install Dependencies
+        run: |
+          npm install -g hexo-cli
+          npm install
+          # 强制安装并链接 Next 主题
+          npm install hexo-theme-next --save
+          rm -rf themes/next
+          ln -s node_modules/hexo-theme-next themes/next
+          echo "=== Themes directory ==="
+          ls -la themes/
+          echo "=== Checking next theme ==="
+          test -d themes/next && echo "✓ Next theme exists" || echo "✗ Next theme missing"
+          test -L themes/next && echo "✓ Next is symlink" || echo "✗ Next is not symlink"
+
+      - name: Copy standalone HTML pages
+        run: |
+          # 保留根目录已有的独立 HTML 页面
+          for f in test-stock-chart.html crypto-dashboard.html \
+                   "详细集成示例（React多功能+热门插件）.html"; do
+            [ -f "$f" ] && cp "$f" source/ 2>/dev/null && echo "✓ $f" || true
+          done
+
+      - name: Deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin \
+            https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
+          hexo clean
+          hexo generate
+          hexo deploy
+
+      - name: Summary
+        run: |
+          echo "## 🚀 Deploy Complete" >> $GITHUB_STEP_SUMMARY
+          echo "- 站点：https://zzw868.github.io"  >> $GITHUB_STEP_SUMMARY
+          echo "- Commit：\`${{ github.sha }}\`"   >> $GITHUB_STEP_SUMMARY
+          echo "- 时间：$(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M:%S') BJT" >> $GITHUB_STEP_SUMMARY

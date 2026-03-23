@@ -1,0 +1,5107 @@
+Index: 2021/05/20/【财经期刊FM-Radio｜2021年05月20日】/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/2021/05/20/【财经期刊FM-Radio｜2021年05月20日】/index.html b/2021/05/20/【财经期刊FM-Radio｜2021年05月20日】/index.html
+--- a/2021/05/20/【财经期刊FM-Radio｜2021年05月20日】/index.html
++++ b/2021/05/20/【财经期刊FM-Radio｜2021年05月20日】/index.html	(date 1773602559127)
+@@ -1,13 +1,13 @@
+ <!DOCTYPE html>
+-<html lang="zh-CN,en,default">
++<html lang="zh-CN">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+   <meta name="theme-color" content="#FFD700">
+-  <meta name="generator" content="Hexo 5.1.1">
++
+   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
++  <link rel="icon" sizes="32x32" href="/images/favicon-32x32-next.png">
++  <link rel="icon" sizes="16x16" href="/images/favicon-16x16-next.png">
+   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+   <meta http-equiv="Cache-Control" content="no-transform">
+   <meta http-equiv="Cache-Control" content="no-siteapp">
+@@ -18,3668 +18,157 @@
+   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+ 
+-  <script class="hexo-configurations">
+-    var NexT = window.NexT || {};
+-    var CONFIG = {"hostname":"www.zzw868.com","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":true,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+-  </script>
+-
+-    
+-
+-<head>
+-    <meta charset="UTF-8">
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-    <title>【财经期刊FM-Radio｜2021 年 05 月 20 日】 - AI 智能聊天集成版</title>
+-    <style>
+-        /* 基础样式 */
+-        body {
+-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+-            margin: 0;
+-            padding: 20px;
+-            background: #f5f5f5;
+-        }
++  <style>
++    /* ===== AI 优化布局 ===== */
+ 
+-        .container {
+-            max-width: 1200px;
+-            margin: 0 auto;
+-            background: white;
+-            padding: 40px;
+-            border-radius: 12px;
+-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+-        }
++    /* 全局平滑滚动 & 字体渲染 */
++    html { scroll-behavior: smooth; }
++    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
++
++    /* 阅读进度条 */
++    .reading-progress-bar {
++      height: 3px;
++      background: linear-gradient(90deg, #FFD700, #ff6b35);
++      box-shadow: 0 0 6px rgba(255,215,0,.6);
++    }
+ 
+-        h1 {
+-            color: #333;
+-            border-bottom: 3px solid #667eea;
+-            padding-bottom: 15px;
+-        }
+-
+-        .content {
+-            line-height: 1.8;
+-            color: #444;
+-        }
++    /* 文章主体：更宽松的行距与字号 */
++    .post-body {
++      font-size: 16px;
++      line-height: 1.9;
++      color: #333;
++      max-width: 780px;
++    }
++    .post-body p { margin-bottom: 1.2em; }
++    .post-body h1, .post-body h2, .post-body h3 {
++      margin-top: 2em;
++      margin-bottom: .6em;
++      font-weight: 700;
++      border-left: 4px solid #FFD700;
++      padding-left: 12px;
++    }
++    .post-body blockquote {
++      border-left: 4px solid #FFD700;
++      background: #fffbea;
++      padding: 12px 18px;
++      border-radius: 0 8px 8px 0;
++      color: #555;
++      margin: 1.5em 0;
++    }
+ 
+-        /* AI 聊天悬浮按钮样式 */
+-        #aiChatFloatingBtn {
+-            position: fixed;
+-            bottom: 30px;
+-            right: 30px;
+-            width: 60px;
+-            height: 60px;
+-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-            border: none;
+-            border-radius: 50%;
+-            box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+-            cursor: pointer;
+-            z-index: 9999;
+-            display: flex;
+-            align-items: center;
+-            justify-content: center;
+-            font-size: 1.8rem;
+-            transition: all 0.3s ease;
+-            animation: pulse 2s infinite;
+-        }
+-
+-        /* AI 聊天窗口样式 */
+-        #aiChatWindow {
+-            display: none;
+-            position: fixed;
+-            bottom: 100px;
+-            right: 30px;
+-            width: 400px;
+-            max-width: calc(100vw - 60px);
+-            height: 600px;
+-            background: white;
+-            border-radius: 16px;
+-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+-            z-index: 10000;
+-            overflow: hidden;
+-            flex-direction: column;
+-            animation: slideInUp 0.3s ease-out;
+-        }
+-
+-        /* 聊天窗口内部样式 */
+-        .chat-container {
+-            display: flex;
+-            flex-direction: column;
+-            height: 100%;
+-        }
+-
+-        .chat-header {
+-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-            color: white;
+-            padding: 15px 20px;
+-            display: flex;
+-            align-items: center;
+-            justify-content: space-between;
+-            gap: 10px;
+-        }
+-
+-        .header-controls {
+-            display: flex;
+-            gap: 8px;
+-            align-items: center;
+-        }
+-
+-        .image-upload-btn,
+-        .clear-btn {
+-            background: rgba(255,255,255,0.2);
+-            border: none;
+-            color: white;
+-            padding: 6px 12px;
+-            border-radius: 6px;
+-            cursor: pointer;
+-            font-size: 0.85rem;
+-            transition: all 0.3s ease;
+-            display: flex;
+-            align-items: center;
+-            gap: 4px;
+-        }
+-
+-        .image-upload-btn:hover,
+-        .clear-btn:hover {
+-            background: rgba(255,255,255,0.3);
+-            transform: scale(1.05);
+-        }
+-
+-        #imageInput {
+-            display: none;
+-        }
+-
+-        .image-preview-container {
+-            margin: 10px 15px;
+-            padding: 10px;
+-            background: #f0f0f0;
+-            border-radius: 8px;
+-            display: none;
+-        }
+-
+-        .image-preview-wrapper {
+-            position: relative;
+-            display: inline-block;
+-        }
+-
+-        .image-preview {
+-            max-width: 200px;
+-            max-height: 200px;
+-            border-radius: 6px;
+-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+-        }
+-
+-        .remove-image-btn {
+-            position: absolute;
+-            top: -8px;
+-            right: -8px;
+-            background: #ff4444;
+-            color: white;
+-            border: none;
+-            border-radius: 50%;
+-            width: 24px;
+-            height: 24px;
+-            cursor: pointer;
+-            font-size: 14px;
+-            display: flex;
+-            align-items: center;
+-            justify-content: center;
+-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+-        }
+-
+-        .service-select {
+-            margin: 10px 15px;
+-            font-size: 0.9rem;
+-            padding: 8px 12px;
+-            border-radius: 8px;
+-            border: 2px solid #e0e0e0;
+-            background: white;
+-            cursor: pointer;
+-            transition: all 0.3s ease;
+-        }
+-
+-        .service-select:focus {
+-            border-color: #667eea;
+-            outline: none;
+-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+-        }
+-
+-        .chat-messages {
+-            flex: 1;
+-            padding: 15px;
+-            overflow-y: auto;
+-            background: #f9f9f9;
+-            scroll-behavior: smooth;
+-        }
+-
+-        .chat-messages::-webkit-scrollbar {
+-            width: 6px;
+-        }
+-
+-        .chat-messages::-webkit-scrollbar-track {
+-            background: #f1f1f1;
+-            border-radius: 3px;
+-        }
+-
+-        .chat-messages::-webkit-scrollbar-thumb {
+-            background: #c1c1c1;
+-            border-radius: 3px;
+-        }
+-
+-        .message-row {
+-            margin-bottom: 15px;
+-            display: flex;
+-            animation: messageSlideIn 0.3s ease-out;
+-        }
+-
+-        .message-row.user {
+-            justify-content: flex-end;
+-        }
+-
+-        .message-row.ai {
+-            justify-content: flex-start;
+-        }
+-
+-        .message-bubble {
+-            max-width: 75%;
+-            padding: 12px 16px;
+-            border-radius: 16px;
+-            font-size: 0.95rem;
+-            line-height: 1.4;
+-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+-            white-space: pre-wrap;
+-            word-break: break-word;
+-            position: relative;
+-        }
++    /* 文章标题区 */
++    .post-title {
++      font-size: 1.8rem;
++      line-height: 1.4;
++      letter-spacing: .02em;
++    }
++    .post-meta { font-size: .85rem; color: #888; margin-top: .4em; }
+ 
+-        .message-bubble.user {
+-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-            color: white;
+-            border-bottom-right-radius: 4px;
+-        }
+-
+-        .message-bubble.ai {
+-            background: white;
+-            color: #333;
+-            border-bottom-left-radius: 4px;
+-            border: 1px solid #e0e0e0;
+-        }
++    /* 侧边栏优化 */
++    .sidebar {
++      background: #fafafa;
++      border-right: 1px solid #f0f0f0;
++    }
++    .sidebar-inner { padding: 20px 16px; }
++    .post-toc .nav-link {
++      font-size: .88rem;
++      line-height: 1.7;
++      color: #555;
++      transition: color .2s;
++    }
++    .post-toc .nav-link:hover,
++    .post-toc .nav-link.active { color: #FFD700; font-weight: 600; }
++    .post-toc .nav-item { border-left: 2px solid transparent; padding-left: 8px; }
++    .post-toc .nav-item.active-current { border-left-color: #FFD700; }
+ 
+-        .chat-input-area {
+-            border-top: 1px solid #e0e0e0;
+-            padding: 12px 15px;
+-            display: flex;
+-            gap: 10px;
+-            background: white;
+-        }
++    /* 导航栏 */
++    .header {
++      backdrop-filter: blur(8px);
++      background: rgba(255,255,255,.92);
++      box-shadow: 0 1px 8px rgba(0,0,0,.08);
++    }
++    .site-title { font-size: 1.3rem; letter-spacing: .04em; }
++    .menu-item a {
++      transition: color .2s;
++      font-size: .9rem;
++    }
++    .menu-item a:hover { color: #FFD700; }
+ 
+-        .chat-input {
+-            flex: 1;
+-            padding: 10px 15px;
+-            font-size: 0.95rem;
+-            border-radius: 20px;
+-            border: 2px solid #e0e0e0;
+-            outline: none;
+-            transition: all 0.3s ease;
+-        }
++    /* 文章卡片悬停效果 */
++    .post-block {
++      border-radius: 10px;
++      transition: box-shadow .25s;
++    }
++    .post-block:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+ 
+-        .chat-input:focus {
+-            border-color: #667eea;
+-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+-        }
+-
+-        .send-btn {
+-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-            border: none;
+-            color: white;
+-            padding: 10px 20px;
+-            font-size: 0.95rem;
+-            font-weight: 600;
+-            border-radius: 20px;
+-            cursor: pointer;
+-            transition: all 0.3s ease;
+-            display: flex;
+-            align-items: center;
+-            gap: 5px;
+-        }
+-
+-        .send-btn:hover {
+-            transform: translateY(-2px);
+-            box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+-        }
+-
+-        .send-btn:disabled {
+-            opacity: 0.5;
+-            cursor: not-allowed;
+-            transform: none;
+-        }
+-
+-        .loading {
+-            font-style: italic;
+-            color: #888;
+-            display: flex;
+-            align-items: center;
+-            gap: 6px;
+-        }
+-
+-        .typing-indicator {
+-            display: inline-flex;
+-            gap: 4px;
+-        }
+-
+-        .typing-indicator span {
+-            width: 6px;
+-            height: 6px;
+-            background: #667eea;
+-            border-radius: 50%;
+-            animation: typingBounce 1.4s infinite;
+-        }
+-
+-        .typing-indicator span:nth-child(2) {
+-            animation-delay: 0.2s;
+-        }
+-
+-        .typing-indicator span:nth-child(3) {
+-            animation-delay: 0.4s;
+-        }
+-
+-        .timestamp {
+-            font-size: 0.7rem;
+-            color: #999;
+-            margin-top: 3px;
+-            text-align: right;
+-        }
+-
+-        .message-bubble.ai .timestamp {
+-            text-align: left;
+-        }
+-
+-        /* AI 优化面板 */
+-        .optimization-panel {
+-            margin-top: 10px;
+-            padding: 10px;
+-            background: white;
+-            border-top: 1px solid #e0e0e0;
+-            display: none;
+-        }
+-
+-        .optimization-panel.show {
+-            display: block;
+-        }
++    /* 打赏 & 关注区域 */
++    .reward-container {
++      text-align: center;
++      padding: 20px 0;
++      border-top: 1px solid #f0f0f0;
++      margin-top: 24px;
++    }
++    .reward-container button {
++      background: linear-gradient(135deg, #FFD700, #ff9500);
++      color: #fff;
++      border: none;
++      padding: 8px 28px;
++      border-radius: 20px;
++      font-size: .95rem;
++      cursor: pointer;
++      transition: opacity .2s;
++    }
++    .reward-container button:hover { opacity: .85; }
+ 
+-        .stats-grid {
+-            display: grid;
+-            grid-template-columns: repeat(2, 1fr);
+-            gap: 8px;
+-        }
+-
+-        .stat-item {
+-            padding: 8px;
+-            background: #f8f9fa;
+-            border-radius: 6px;
+-            text-align: center;
+-        }
+-
+-        .stat-label {
+-            font-size: 0.75rem;
+-            color: #666;
+-            margin-bottom: 3px;
+-        }
+-
+-        .stat-value {
+-            font-size: 1.2rem;
+-            font-weight: 700;
+-        }
+-
+-        .progress-container {
+-            margin-top: 8px;
+-            padding-top: 8px;
+-            border-top: 1px solid #e0e0e0;
+-        }
+-
+-        .progress-bar {
+-            width: 100%;
+-            height: 6px;
+-            background: #e0e0e0;
+-            border-radius: 3px;
+-            overflow: hidden;
+-        }
+-
+-        .progress-fill {
+-            height: 100%;
+-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+-            transition: width 0.5s ease;
+-        }
+-
+-        /* 动画 */
+-        @keyframes pulse {
+-            0%, 100% { transform: scale(1); }
+-            50% { transform: scale(1.1); }
+-        }
+-
+-        @keyframes slideInUp {
+-            from { opacity: 0; transform: translateY(20px); }
+-            to { opacity: 1; transform: translateY(0); }
+-        }
+-
+-        @keyframes messageSlideIn {
+-            from { opacity: 0; transform: translateY(10px); }
+-            to { opacity: 1; transform: translateY(0); }
+-        }
+-
+-        @keyframes typingBounce {
+-            0%, 60%, 100% {
+-                transform: translateY(0);
+-                opacity: 0.4;
+-            }
+-            30% {
+-                transform: translateY(-8px);
+-                opacity: 1;
+-            }
+-        }
+-
+-        /* 响应式适配 */
+-        @media (max-width: 768px) {
+-            #aiChatWindow {
+-                right: 10px;
+-                bottom: 80px;
+-                width: calc(100vw - 20px);
+-                height: calc(100vh - 100px);
+-            }
+-
+-            #aiChatFloatingBtn {
+-                bottom: 20px;
+-                right: 20px;
+-                width: 50px;
+-                height: 50px;
+-                font-size: 1.5rem;
+-            }
+-        }
+-    </style>
+-</head>
+-<body>
+-    <!-- 博客文章内容 -->
+-    <div class="container">
+-        <h1>📰 财经期刊FM-Radio｜2021 年 05 月 20 日</h1>
+-        <div class="content">
+-            <p>这是博客文章的正文内容区域。你可以在这里添加任何你想要的内容。</p>
+-            <p>右下角的 AI 聊天助手已经内嵌到页面中，点击 🤖 按钮即可开始对话！</p>
+-        </div>
+-    </div>
+-
+-    <!-- AI 聊天悬浮按钮 -->
+-    <button id="aiChatFloatingBtn" onclick="toggleAIChat()">
+-        🤖
+-    </button>
+-
+-    <!-- AI 聊天窗口 -->
+-    <div id="aiChatWindow">
+-        <div class="chat-container">
+-            <div class="chat-header">
+-                <span>💬 AI 智能助手</span>
+-                <div class="header-controls">
+-                    <button class="image-upload-btn" onclick="document.getElementById('imageInput').click()">
+-                        📷 图片
+-                    </button>
+-                    <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)" />
+-                    <button class="clear-btn" onclick="clearChat()">🗑️ 清空</button>
+-                </div>
+-            </div>
+-
+-            <!-- 图片预览 -->
+-            <div class="image-preview-container" id="imagePreviewContainer">
+-                <div class="image-preview-wrapper">
+-                    <img id="imagePreview" class="image-preview" alt="预览图" />
+-                    <button class="remove-image-btn" onclick="removeSelectedImage()">×</button>
+-                </div>
+-            </div>
+-
+-            <!-- 服务选择 -->
+-            <select id="serviceSelect" class="service-select">
+-                <option value="openai">OpenAI GPT-4</option>
+-                <option value="huggingface_qwen">Qwen3.5-35B (图像识别)</option>
+-                <option value="huggingface_minimax">MiniMax-M2.5 (文本对话)</option>
+-                <option value="huggingface_glm">GLM-5 (中文对话)</option>
+-                <option value="huggingface_nanbeige">Nanbeige4.1-3B (轻量对话)</option>
+-                <option value="baidu">百度文心</option>
+-            </select>
+-
+-            <!-- 聊天消息区域 -->
+-            <div class="chat-messages" id="chatMessages"></div>
+-
+-            <!-- 输入区域 -->
+-            <form id="chatForm" class="chat-input-area">
+-                <input type="text" id="chatInput" class="chat-input" placeholder="请输入消息..." autocomplete="off" />
+-                <button type="submit" class="send-btn">发送</button>
+-            </form>
+-
+-            <!-- AI 优化面板 -->
+-            <div class="optimization-panel" id="optimizationPanel">
+-                <div style="font-size: 0.85rem; color: #667eea; font-weight: 600; margin-bottom: 8px;">🎯 AI 自动优化系统</div>
+-                <div class="stats-grid">
+-                    <div class="stat-item">
+-                        <div class="stat-label">优化等级</div>
+-                        <div class="stat-value" id="aiLevel" style="color: #667eea;">Lv.1</div>
+-                    </div>
+-                    <div class="stat-item">
+-                        <div class="stat-label">总交互次数</div>
+-                        <div class="stat-value" id="totalInteractions" style="color: #764ba2;">0</div>
+-                    </div>
+-                    <div class="stat-item">
+-                        <div class="stat-label">成功率</div>
+-                        <div class="stat-value" id="successRate" style="color: #6bcb77;">--%</div>
+-                    </div>
+-                    <div class="stat-item">
+-                        <div class="stat-label">已收集反馈</div>
+-                        <div class="stat-value" id="feedbackCount" style="color: #ffd93d;">0</div>
+-                    </div>
+-                </div>
+-                <div class="progress-container">
+-                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+-                        <span style="color: #666;">AI 成长进度</span>
+-                        <span id="progressText" style="color: #667eea; font-weight: 600;">0%</span>
+-                    </div>
+-                    <div class="progress-bar">
+-                        <div class="progress-fill" id="progressBar"></div>
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-    </div>
+-
+-    <script>
+-        // ==================== 配置区 ====================
+-        const OPENAI_API_KEY = "sk-V8hcmOdmpvRS5uOogqDAcijxZpu2Oc6uI7gQbj3xmV59hDv4";
+-        const HF_TOKEN = "YOUR_HF_TOKEN_HERE";
+-        const BAIDU_API_KEY = "你的百度文心 API_Key";
+-        const BAIDU_SECRET_KEY = "你的百度文心 Secret_Key";
+-
+-        // 全局变量
+-        let selectedImageBase64 = null;
+-        let chatHistory = [];
+-        const MAX_HISTORY = 10;
+-
+-        // DOM 元素
+-        const chatForm = document.getElementById('chatForm');
+-        const chatInput = document.getElementById('chatInput');
+-        const chatMessages = document.getElementById('chatMessages');
+-        const serviceSelect = document.getElementById('serviceSelect');
+-        const sendBtn = document.querySelector('.send-btn');
+-        const optimizationPanel = document.getElementById('optimizationPanel');
+-
+-        // AI 优化数据
+-        const aiOptimizationData = {
+-            responseQuality: {},
+-            learningPatterns: [],
+-            userPreferences: {},
+-            optimizationLevel: 1,
+-            totalInteractions: 0,
+-            successfulResponses: 0,
+-            lastOptimizationTime: null
+-        };
+-
+-        // ==================== 工具函数 ====================
+-        function generateMessageHash(message) {
+-            return btoa(unescape(encodeURIComponent(message))).substring(0, 20);
+-        }
+-
+-        function getCurrentTimestamp() {
+-            return new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+-        }
+-
+-        function formatMessage(text) {
+-            let escaped = text
+-                .replace(/&/g, '&amp;')
+-                .replace(/</g, '&lt;')
+-                .replace(/>/g, '&gt;');
+-            escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+-            escaped = escaped.replace(/`(.+?)`/g, '<code style="background:#f0f0f0;padding:2px 6px;border-radius:3px;">$1</code>');
+-            escaped = escaped.replace(/\n/g, '<br>');
+-            return escaped;
+-        }
+-
+-        // ==================== 图片处理 ====================
+-        function handleImageSelect(event) {
+-            const file = event.target.files[0];
+-            if (!file) return;
+-
+-            if (file.size > 5 * 1024 * 1024) {
+-                alert('图片大小不能超过 5MB');
+-                return;
+-            }
+-
+-            if (!file.type.startsWith('image/')) {
+-                alert('请选择图片文件');
+-                return;
+-            }
+-
+-            const reader = new FileReader();
+-            reader.onload = function(e) {
+-                selectedImageBase64 = e.target.result;
+-                document.getElementById('imagePreview').src = selectedImageBase64;
+-                document.getElementById('imagePreviewContainer').style.display = 'block';
+-            };
+-            reader.readAsDataURL(file);
+-        }
+-
+-        function removeSelectedImage() {
+-            selectedImageBase64 = null;
+-            document.getElementById('imagePreviewContainer').style.display = 'none';
+-            document.getElementById('imageInput').value = '';
+-        }
+-
+-        // ==================== 聊天功能 ====================
+-        function toggleAIChat() {
+-            const chatWindow = document.getElementById('aiChatWindow');
+-            const floatingBtn = document.getElementById('aiChatFloatingBtn');
+-
+-            if (chatWindow.style.display === 'none' || !chatWindow.style.display) {
+-                chatWindow.style.display = 'flex';
+-                floatingBtn.style.animation = 'none';
+-                floatingBtn.innerHTML = '❌';
+-                setTimeout(() => updateOptimizationPanel(), 100);
+-            } else {
+-                chatWindow.style.display = 'none';
+-                floatingBtn.style.animation = 'pulse 2s infinite';
+-                floatingBtn.innerHTML = '🤖';
+-            }
+-        }
+-
+-        function clearChat() {
+-            if (confirm('确定要清空所有聊天记录吗？')) {
+-                chatMessages.innerHTML = '';
+-                chatHistory = [];
+-                appendMessage('聊天记录已清空！', 'ai');
+-            }
+-        }
+-
+-        function appendMessage(text, sender, isInteractive = false) {
+-            const messageRow = document.createElement('div');
+-            messageRow.classList.add('message-row', sender);
+-
+-            const bubble = document.createElement('div');
+-            bubble.classList.add('message-bubble', sender);
+-
+-            const formattedText = formatMessage(text);
+-            bubble.innerHTML = formattedText;
+-
+-            const timestamp = document.createElement('div');
+-            timestamp.classList.add('timestamp');
+-            timestamp.textContent = getCurrentTimestamp();
+-            bubble.appendChild(timestamp);
+-
+-            if (sender === 'ai' && isInteractive) {
+-                const messageHash = generateMessageHash(text);
+-                const feedbackContainer = document.createElement('div');
+-                feedbackContainer.style.cssText = `
+-                    margin-top: 8px;
+-                    padding-top: 8px;
+-                    border-top: 1px solid rgba(0,0,0,0.1);
+-                    display: flex;
+-                    gap: 6px;
+-                    align-items: center;
+-                `;
+-                feedbackContainer.innerHTML = `
+-                    <span style="font-size: 0.8rem; color: #666;">有帮助吗？</span>
+-                    <button onclick="rateResponse('${messageHash}', 1)" style="padding: 3px 8px; border: none; background: #ff6b6b; color: white; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">👎</button>
+-                    <button onclick="rateResponse('${messageHash}', 2)" style="padding: 3px 8px; border: none; background: #ffd93d; color: #333; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">👌</button>
+-                    <button onclick="rateResponse('${messageHash}', 3)" style="padding: 3px 8px; border: none; background: #6bcb77; color: white; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">👍</button>
+-                `;
+-                bubble.appendChild(feedbackContainer);
+-                bubble.dataset.messageHash = messageHash;
+-            }
+-
+-            messageRow.appendChild(bubble);
+-            chatMessages.appendChild(messageRow);
+-
+-            chatMessages.scrollTo({
+-                top: chatMessages.scrollHeight,
+-                behavior: 'smooth'
+-            });
+-
+-            if (sender === 'user') {
+-                chatHistory.push({ role: 'user', content: text });
+-                if (chatHistory.length > MAX_HISTORY) {
+-                    chatHistory.shift();
+-                }
+-            }
+-        }
+-
+-        function showLoading() {
+-            const loadingElem = document.createElement('div');
+-            loadingElem.classList.add('message-row', 'ai');
+-            loadingElem.id = 'loadingMessage';
+-            const bubble = document.createElement('div');
+-            bubble.classList.add('message-bubble', 'ai', 'loading');
+-            bubble.innerHTML = '<span style="margin-right:6px;">AI 思考中</span><div class="typing-indicator"><span></span><span></span><span></span></div>';
+-            loadingElem.appendChild(bubble);
+-            chatMessages.appendChild(loadingElem);
+-            chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+-        }
+-
+-        function removeLoading() {
+-            const loadingElem = document.getElementById('loadingMessage');
+-            if (loadingElem) loadingElem.remove();
+-        }
+-
+-        // ==================== AI 优化系统 ====================
+-        function collectFeedback(messageHash, rating, feedback = '') {
+-            if (!aiOptimizationData.responseQuality[messageHash]) {
+-                aiOptimizationData.responseQuality[messageHash] = {
+-                    quality: 0.5,
+-                    feedbackCount: 0,
+-                    ratings: [],
+-                    feedbacks: []
+-                };
+-            }
+-
+-            const record = aiOptimizationData.responseQuality[messageHash];
+-            record.ratings.push(rating);
+-            record.feedbackCount++;
+-
+-            const sum = record.ratings.reduce((a, b) => a + b, 0);
+-            record.avgRating = (sum / record.ratings.length) / 3;
+-
+-            if (feedback) {
+-                record.feedbacks.push(feedback);
+-            }
+-
+-            aiOptimizationData.totalInteractions++;
+-            if (rating >= 2) {
+-                aiOptimizationData.successfulResponses++;
+-            }
+-
+-            console.log(`📊 反馈已记录 - 质量评分：${record.avgRating.toFixed(2)}`);
+-            updateOptimizationPanel();
+-        }
+-
+-        function updateOptimizationPanel() {
+-            const data = aiOptimizationData;
+-
+-            document.getElementById('aiLevel').textContent = `Lv.${data.optimizationLevel}`;
+-            document.getElementById('totalInteractions').textContent = data.totalInteractions;
+-
+-            const successRate = data.totalInteractions > 0
+-                ? ((data.successfulResponses / data.totalInteractions) * 100).toFixed(1)
+-                : 0;
+-            document.getElementById('successRate').textContent = `${successRate}%`;
+-
+-            const totalFeedback = Object.values(data.responseQuality)
+-                .reduce((sum, record) => sum + record.feedbackCount, 0);
+-            document.getElementById('feedbackCount').textContent = totalFeedback;
+-
+-            const progress = (data.optimizationLevel / 10) * 100;
+-            document.getElementById('progressBar').style.width = `${progress}%`;
+-            document.getElementById('progressText').textContent = `${progress.toFixed(0)}%`;
+-        }
+-
+-        window.rateResponse = function(messageHash, rating) {
+-            const labels = {1: '差', 2: '一般', 3: '好'};
+-            collectFeedback(messageHash, rating);
+-
+-            const toast = document.createElement('div');
+-            toast.style.cssText = `
+-                position: fixed;
+-                bottom: 20px;
+-                left: 50%;
+-                transform: translateX(-50%);
+-                background: #333;
+-                color: white;
+-                padding: 8px 16px;
+-                border-radius: 6px;
+-                font-size: 0.85rem;
+-                z-index: 10001;
+-                animation: fadeInUp 0.3s ease-out;
+-            `;
+-            toast.textContent = `谢谢评价！标记为「${labels[rating]}」`;
+-            document.body.appendChild(toast);
+-
+-            setTimeout(() => toast.remove(), 2000);
+-        };
+-
+-        // ==================== API 调用函数 ====================
+-        async function callOpenAIAPI(message) {
+-            try {
+-                const messages = [
+-                    { role: 'system', content: '你是一个有用的 AI 助手。' },
+-                    ...chatHistory,
+-                    { role: 'user', content: message }
+-                ];
+-
+-                const response = await fetch("https://api.openai.com/v1/chat/completions", {
+-                    method: "POST",
+-                    headers: {
+-                        "Content-Type": "application/json",
+-                        "Authorization": `Bearer ${OPENAI_API_KEY}`
+-                    },
+-                    body: JSON.stringify({
+-                        model: "gpt-4",
+-                        messages: messages,
+-                        temperature: 0.7,
+-                        max_tokens: 1000,
+-                    })
+-                });
+-
+-                if (!response.ok) {
+-                    const err = await response.json();
+-                    throw new Error(err.error?.message || "OpenAI API 请求失败");
+-                }
+-
+-                const data = await response.json();
+-                return data.choices[0].message.content.trim();
+-            } catch (error) {
+-                return `❌ 出错了：${error.message}`;
+-            }
+-        }
+-
+-        async function callHuggingFaceQwenAPI(message) {
+-            try {
+-                const content = [];
+-
+-                if (selectedImageBase64) {
+-                    content.push(
+-                        { type: "text", text: message || "Describe this image." },
+-                        { type: "image_url", image_url: { url: selectedImageBase64 } }
+-                    );
+-                } else {
+-                    content.push({ type: "text", text: message });
+-                }
+-
+-                const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
+-                    method: "POST",
+-                    headers: {
+-                        "Authorization": `Bearer ${HF_TOKEN}`,
+-                        "Content-Type": "application/json"
+-                    },
+-                    body: JSON.stringify({
+-                        model: "Qwen/Qwen3.5-35B-A3B:novita",
+-                        messages: [{ role: "user", content: content }],
+-                        max_tokens: 1000
+-                    })
+-                });
+-
+-                if (!response.ok) {
+-                    const errData = await response.json();
+-                    throw new Error(errData.error?.message || "HuggingFace API 请求失败");
+-                }
+-
+-                const data = await response.json();
+-                if (selectedImageBase64) removeSelectedImage();
+-
+-                return data.choices[0].message.content.trim();
+-            } catch (error) {
+-                return `❌ 出错了：${error.message}`;
+-            }
+-        }
+-
+-        async function callHuggingFaceMiniMaxAPI(message) {
+-            try {
+-                const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
+-                    method: "POST",
+-                    headers: {
+-                        "Authorization": `Bearer ${HF_TOKEN}`,
+-                        "Content-Type": "application/json"
+-                    },
+-                    body: JSON.stringify({
+-                        model: "MiniMaxAI/MiniMax-M2.5:novita",
+-                        messages: [{ role: "user", content: message }],
+-                        max_tokens: 1000
+-                    })
+-                });
+-
+-                if (!response.ok) {
+-                    const errData = await response.json();
+-                    throw new Error(errData.error?.message || "HuggingFace API 请求失败");
+-                }
+-
+-                const data = await response.json();
+-                return data.choices[0].message.content.trim();
+-            } catch (error) {
+-                return `❌ 出错了：${error.message}`;
+-            }
+-        }
+-
+-        async function callHuggingFaceGLMAPI(message) {
+-            try {
+-                const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
+-                    method: "POST",
+-                    headers: {
+-                        "Authorization": `Bearer ${HF_TOKEN}`,
+-                        "Content-Type": "application/json"
+-                    },
+-                    body: JSON.stringify({
+-                        model: "zai-org/GLM-5:novita",
+-                        messages: [{ role: "user", content: message }],
+-                        max_tokens: 1000
+-                    })
+-                });
+-
+-                if (!response.ok) {
+-                    const errData = await response.json();
+-                    throw new Error(errData.error?.message || "HuggingFace API 请求失败");
+-                }
+-
+-                const data = await response.json();
+-                return data.choices[0].message.content.trim();
+-            } catch (error) {
+-                return `❌ 出错了：${error.message}`;
+-            }
+-        }
+-
+-        async function callHuggingFaceNanbeigeAPI(message) {
+-            try {
+-                const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
+-                    method: "POST",
+-                    headers: {
+-                        "Authorization": `Bearer ${HF_TOKEN}`,
+-                        "Content-Type": "application/json"
+-                    },
+-                    body: JSON.stringify({
+-                        model: "Nanbeige/Nanbeige4.1-3B:featherless-ai",
+-                        messages: [{ role: "user", content: message }],
+-                        max_tokens: 1000
+-                    })
+-                });
+-
+-                if (!response.ok) {
+-                    const errData = await response.json();
+-                    throw new Error(errData.error?.message || "HuggingFace API 请求失败");
+-                }
+-
+-                const data = await response.json();
+-                return data.choices[0].message.content.trim();
+-            } catch (error) {
+-                return `❌ 出错了：${error.message}`;
+-            }
+-        }
+-
+-        async function callBaiduWenxinAPI(message) {
+-            try {
+-                const tokenUrl = `https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=${BAIDU_API_KEY}&client_secret=${BAIDU_SECRET_KEY}`;
+-                const tokenRes = await fetch(tokenUrl);
+-                const tokenData = await tokenRes.json();
+-
+-                if (!tokenData.access_token) {
+-                    throw new Error("获取百度 AccessToken 失败");
+-                }
+-
+-                const apiUrl = `https://wenxin.baidu.com/younger/portal/api/rest/1.0/ernie_3.0_large_chat/stream?access_token=${tokenData.access_token}`;
+-                const apiRes = await fetch(apiUrl, {
+-                    method: "POST",
+-                    headers: { "Content-Type": "application/json" },
+-                    body: JSON.stringify({
+-                        prompt: message,
+-                        max_tokens: 1000,
+-                        temperature: 0.7
+-                    })
+-                });
+-
+-                const apiData = await apiRes.json();
+-                return apiData.result ? apiData.result.trim() : "未收到有效回复";
+-            } catch (error) {
+-                return `出错了：${error.message}`;
+-            }
+-        }
+-
+-        // ==================== 表单提交处理 ====================
+-        chatForm.addEventListener('submit', async e => {
+-            e.preventDefault();
+-            const userText = chatInput.value.trim();
+-            if (!userText && !selectedImageBase64) return;
+-
+-            let displayMessage = userText;
+-            if (selectedImageBase64) {
+-                displayMessage = userText ? `[图片] ${userText}` : '[图片] 请描述这张图片';
+-            }
+-
+-            appendMessage(displayMessage, 'user');
+-            chatInput.value = '';
+-            chatInput.disabled = true;
+-            sendBtn.disabled = true;
+-            showLoading();
+-
+-            let aiReply = "";
+-            const service = serviceSelect.value;
+-
+-            if (service === "openai") {
+-                aiReply = await callOpenAIAPI(userText);
+-            } else if (service === "huggingface_qwen") {
+-                aiReply = await callHuggingFaceQwenAPI(userText);
+-            } else if (service === "huggingface_minimax") {
+-                aiReply = await callHuggingFaceMiniMaxAPI(userText);
+-            } else if (service === "huggingface_glm") {
+-                aiReply = await callHuggingFaceGLMAPI(userText);
+-            } else if (service === "huggingface_nanbeige") {
+-                aiReply = await callHuggingFaceNanbeigeAPI(userText);
+-            } else if (service === "baidu") {
+-                aiReply = await callBaiduWenxinAPI(userText);
+-            } else {
+-                aiReply = "未知服务";
+-            }
+-
+-            removeLoading();
+-            appendMessage(aiReply, 'ai', true);
+-
+-            chatInput.disabled = false;
+-            sendBtn.disabled = false;
+-            chatInput.focus();
+-
+-            // 显示优化面板
+-            optimizationPanel.classList.add('show');
+-        });
+-
+-        // Enter 键发送
+-        chatInput.addEventListener('keydown', (e) => {
+-            if (e.key === 'Enter' && !e.shiftKey) {
+-                e.preventDefault();
+-                chatForm.dispatchEvent(new Event('submit'));
+-            }
+-        });
+-
+-        // 点击外部关闭聊天窗口
+-        document.addEventListener('click', function(e) {
+-            const chatWindow = document.getElementById('aiChatWindow');
+-            const floatingBtn = document.getElementById('aiChatFloatingBtn');
+-
+-            if (!chatWindow.contains(e.target) && !floatingBtn.contains(e.target) &&
+-                chatWindow.style.display !== 'none') {
+-                chatWindow.style.display = 'none';
+-                floatingBtn.style.animation = 'pulse 2s infinite';
+-                floatingBtn.innerHTML = '🤖';
+-            }
+-        });
+-
+-        // 初始化欢迎消息
+-        appendMessage('👋 你好！我是你的 AI 智能助手！\n\n💡 支持的服务：\n• OpenAI GPT-4\n• Qwen3.5 (图像识别) 📷\n• MiniMax-M2.5\n• GLM-5 (中文)\n• Nanbeige4.1\n• 百度文心\n\n🎯 请对我的每条回复进行评价，帮助我变得更好！', 'ai', true);
+-
+-        // CSS 动画样式
+-        const style = document.createElement('style');
+-        style.textContent = `
+-            @keyframes fadeInUp {
+-                from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+-                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+-            }
+-        `;
+-        document.head.appendChild(style);
+-    </script>
+-</body>
+-
+-
+-
+-  <title>加密货币交易仪表板 - 张良信息咨询服务工作室</title>
+-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap">
+-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+-  <script src="https://unpkg.com/@vueuse/core@10.7.2/index.iife.js"></script>
+-  <script src="https://unpkg.com/pinia@2/dist/pinia.iife.js"></script>
+-  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+-  <style>
+-    /* Global styles */
+-    body {
+-      margin: 0;
+-      padding: 0;
+-      font-family: 'Orbitron', sans-serif;
+-      background: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 100%);
+-      color: #00ffff;
+-      overflow-x: hidden;
+-    }
+-
+-    /* 现代化导航栏 */
+-    .modern-navbar {
+-      position: sticky;
+-      top: 0;
+-      z-index: 1000;
+-      background: rgba(10, 10, 20, 0.95);
+-      backdrop-filter: blur(20px);
+-      border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+-      box-shadow: 0 5px 30px rgba(0, 255, 255, 0.2);
+-      padding: 15px 0;
+-    }
+-
+-    .navbar-content {
+-      max-width: 1400px;
+-      margin: 0 auto;
+-      padding: 0 20px;
++    /* 上下篇导航 */
++    .post-nav {
+       display: flex;
+       justify-content: space-between;
+-      align-items: center;
+-    }
+-
+-    .navbar-brand {
+-      font-size: 24px;
+-      font-weight: bold;
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      -webkit-background-clip: text;
+-      -webkit-text-fill-color: transparent;
+-      background-clip: text;
+-      text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+-    }
+-
+-    .navbar-menu {
+-      display: flex;
+-      gap: 25px;
+-      list-style: none;
+-    }
+-
+-    .navbar-menu a {
+-      color: #00ffff;
+-      text-decoration: none;
+-      font-weight: 600;
+-      transition: all 0.3s ease;
+-      padding: 8px 16px;
+-      border-radius: 8px;
+-    }
+-
+-    .navbar-menu a:hover {
+-      background: rgba(0, 255, 255, 0.1);
+-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+-    }
+-
+-    /* 主体内容优化 */
+-    .main-container {
+-      max-width: 1400px;
+-      margin: 0 auto;
+-      padding: 20px;
+-    }
+-
+-    /* 德州扑克 AI 游戏区域样式 */
+-    .poker-ai-section {
+-      margin: 40px 0;
+-      padding: 30px;
+-      background: rgba(10, 10, 20, 0.8);
+-      border-radius: 20px;
+-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+-      backdrop-filter: blur(10px);
+-      border: 2px solid rgba(0, 255, 255, 0.3);
++      gap: 16px;
++      margin-top: 32px;
++      padding-top: 20px;
++      border-top: 1px solid #f0f0f0;
+     }
+-
+-    .poker-ai-header {
+-      text-align: center;
+-      margin-bottom: 30px;
+-    }
+-
+-    .poker-ai-header h2 {
+-      font-size: 2rem;
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      -webkit-background-clip: text;
+-      -webkit-text-fill-color: transparent;
+-      background-clip: text;
+-      margin-bottom: 10px;
+-    }
+-
+-    .poker-ai-description {
+-      color: #00ffff;
+-      font-size: 1rem;
+-      line-height: 1.6;
+-    }
+-
+-    .feature-tags {
+-      display: flex;
+-      flex-wrap: wrap;
+-      gap: 10px;
+-      justify-content: center;
+-      margin-top: 15px;
+-    }
+-
+-    .feature-tag {
++    .post-nav-item a {
++      display: inline-block;
+       padding: 8px 16px;
+-      background: rgba(102, 126, 234, 0.2);
+-      border: 1px solid #667eea;
+-      border-radius: 20px;
+-      color: #667eea;
+-      font-size: 0.9rem;
+-      font-weight: 600;
+-    }
+-
+-    .dashboard {
+-      max-width: 1200px;
+-      margin: 20px auto;
+-      padding: 20px;
+-      background: rgba(10, 10, 20, 0.9);
+-      border-radius: 20px;
+-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+-      backdrop-filter: blur(10px);
+-    }
+-
+-    .filter-panel {
+-      display: flex;
+-      flex-wrap: wrap;
+-      gap: 20px;
+-      margin-bottom: 30px;
+-      align-items: center;
+-    }
+-
+-    .filter-panel label {
+-      font-weight: bold;
+-      color: #ff00ff;
+-    }
+-
+-    .filter-panel select {
+-      background: rgba(17, 17, 34, 0.8);
+-      border: 2px solid #ff00ff;
+       border-radius: 8px;
+-      padding: 8px 12px;
+-      color: #ff00ff;
+-      font-weight: bold;
+-      font-size: 1rem;
+-      cursor: pointer;
+-      transition: all 0.3s ease;
+-      backdrop-filter: blur(5px);
+-    }
+-
+-    .filter-panel select:hover,
+-    .filter-panel select:focus {
+-      border-color: #00ffff;
+-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+-      outline: none;
+-    }
+-
+-    .charts-container {
+-      display: grid;
+-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+-      gap: 20px;
+-    }
+-
+-    .chart-wrapper {
+-      background: rgba(17, 17, 34, 0.8);
+-      border-radius: 15px;
+-      padding: 20px;
+-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+-      backdrop-filter: blur(10px);
+-      transition: transform 0.3s ease;
++      background: #f7f7f7;
++      font-size: .9rem;
++      transition: background .2s, color .2s;
+     }
++    .post-nav-item a:hover { background: #FFD700; color: #fff; }
+ 
+-    .chart-wrapper:hover {
+-      transform: translateY(-5px);
+-    }
+-
+-    .chart-wrapper h3 {
+-      text-align: center;
+-      margin-bottom: 15px;
+-      color: #ff00ff;
+-      text-shadow: 0 0 15px #ff00ff;
+-      font-size: 1.2rem;
+-    }
+-
+-    .chart {
+-      width: 100%;
+-      height: 350px;
+-      border-radius: 10px;
+-    }
+-
+-    /* Responsive design */
+-    @media (max-width: 768px) {
+-      .dashboard {
+-        margin: 10px;
+-        padding: 15px;
+-      }
+-
+-      .filter-panel {
+-        flex-direction: column;
+-        align-items: stretch;
+-      }
+-
+-      .charts-container {
+-        grid-template-columns: 1fr;
+-      }
+-
+-      .chart {
+-        height: 300px;
+-      }
+-    }
+-
+-    /* Loading animation */
+-    .loading {
+-      display: flex;
+-      justify-content: center;
+-      align-items: center;
+-      height: 350px;
+-      color: #00ffff;
+-      font-size: 1.5rem;
+-    }
+-
+-    .loading::after {
+-      content: '';
+-      width: 20px;
+-      height: 20px;
+-      border: 2px solid #00ffff;
+-      border-top: 2px solid transparent;
+-      border-radius: 50%;
+-      animation: spin 1s linear infinite;
+-      margin-left: 10px;
+-    }
+-
+-    @keyframes spin {
+-      0% { transform: rotate(0deg); }
+-      100% { transform: rotate(360deg); }
+-    }
+-
+-    /* AI 聊天机器人样式 */
+-    .ai-chat-widget {
+-      position: fixed;
+-      bottom: 30px;
+-      right: 30px;
+-      z-index: 9999;
+-      font-family: 'Orbitron', sans-serif;
+-    }
+-
+-    .chat-toggle-btn {
+-      width: 70px;
+-      height: 70px;
+-      border-radius: 50%;
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      border: 3px solid #00ffff;
+-      color: white;
+-      font-size: 32px;
+-      cursor: pointer;
+-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+-      transition: all 0.3s ease;
+-      display: flex;
+-      align-items: center;
+-      justify-content: center;
+-      animation: pulse-glow 2s infinite;
+-    }
+-
+-    .chat-toggle-btn:hover {
+-      transform: scale(1.1);
+-      box-shadow: 0 0 50px rgba(0, 255, 255, 0.8);
+-    }
+-
+-    @keyframes pulse-glow {
+-      0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); }
+-      50% { box-shadow: 0 0 50px rgba(0, 255, 255, 0.8); }
+-    }
+-
+-    .chat-window {
+-      position: absolute;
+-      bottom: 90px;
+-      right: 0;
+-      width: 400px;
+-      max-width: calc(100vw - 60px);
+-      height: 600px;
+-      max-height: calc(100vh - 150px);
+-      background: rgba(10, 10, 20, 0.95);
+-      backdrop-filter: blur(20px);
+-      border-radius: 20px;
+-      border: 2px solid #00ffff;
+-      box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+-      display: none;
+-      flex-direction: column;
+-      overflow: hidden;
+-      animation: slideIn 0.3s ease;
+-    }
+-
+-    .chat-window.active {
+-      display: flex;
+-    }
+-
+-    @keyframes slideIn {
+-      from {
+-        opacity: 0;
+-        transform: translateY(20px);
+-      }
+-      to {
+-        opacity: 1;
+-        transform: translateY(0);
+-      }
+-    }
+-
+-    .chat-header {
+-      padding: 20px;
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      border-bottom: 2px solid #00ffff;
+-      display: flex;
+-      align-items: center;
+-      justify-content: space-between;
+-    }
+-
+-    .chat-header h3 {
+-      margin: 0;
+-      color: white;
+-      font-size: 18px;
+-      display: flex;
+-      align-items: center;
+-      gap: 10px;
+-    }
+-
+-    .chat-header .status-dot {
+-      width: 10px;
+-      height: 10px;
+-      background: #48bb78;
+-      border-radius: 50%;
+-      animation: pulse 2s infinite;
+-    }
+-
+-    .chat-messages {
+-      flex: 1;
+-      overflow-y: auto;
+-      padding: 20px;
+-      display: flex;
+-      flex-direction: column;
+-      gap: 15px;
+-    }
+-
+-    .chat-message {
+-      display: flex;
+-      gap: 10px;
+-      animation: messageSlide 0.3s ease;
+-    }
+-
+-    @keyframes messageSlide {
+-      from {
+-        opacity: 0;
+-        transform: translateX(-20px);
+-      }
+-      to {
+-        opacity: 1;
+-        transform: translateX(0);
+-      }
+-    }
+-
+-    .chat-message.user {
+-      flex-direction: row-reverse;
+-    }
+-
+-    .message-avatar {
+-      width: 40px;
+-      height: 40px;
+-      border-radius: 50%;
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      display: flex;
+-      align-items: center;
+-      justify-content: center;
+-      font-size: 20px;
+-      flex-shrink: 0;
+-      border: 2px solid #00ffff;
+-    }
+-
+-    .chat-message.user .message-avatar {
+-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+-    }
+-
+-    .message-content {
+-      max-width: 75%;
+-      padding: 12px 16px;
+-      border-radius: 15px;
+-      background: rgba(17, 17, 34, 0.8);
+-      color: #00ffff;
+-      font-size: 14px;
+-      line-height: 1.5;
+-      border: 1px solid rgba(0, 255, 255, 0.3);
+-    }
+-
+-    .chat-message.user .message-content {
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      color: white;
+-      border: none;
+-    }
+-
+-    .chat-input-area {
+-      padding: 20px;
+-      border-top: 2px solid rgba(0, 255, 255, 0.3);
+-      display: flex;
+-      gap: 10px;
+-    }
+-
+-    .chat-input {
+-      flex: 1;
+-      padding: 12px 16px;
+-      border-radius: 25px;
+-      border: 2px solid rgba(0, 255, 255, 0.3);
+-      background: rgba(17, 17, 34, 0.8);
+-      color: #00ffff;
+-      font-family: 'Orbitron', sans-serif;
+-      font-size: 14px;
+-      outline: none;
+-      transition: all 0.3s ease;
+-    }
+-
+-    .chat-input:focus {
+-      border-color: #00ffff;
+-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+-    }
+-
+-    .chat-send-btn {
+-      width: 45px;
+-      height: 45px;
++    /* 回到顶部按钮 */
++    .back-to-top {
++      background: #FFD700;
++      color: #fff;
+       border-radius: 50%;
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      border: 2px solid #00ffff;
+-      color: white;
+-      font-size: 20px;
+-      cursor: pointer;
+-      transition: all 0.3s ease;
++      width: 42px;
++      height: 42px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
++      box-shadow: 0 2px 10px rgba(255,215,0,.5);
++      transition: transform .2s;
+     }
+-
+-    .chat-send-btn:hover {
+-      transform: scale(1.1);
+-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+-    }
+-
+-    .typing-indicator {
+-      display: flex;
+-      gap: 5px;
+-      padding: 12px 16px;
+-    }
+-
+-    .typing-indicator span {
+-      width: 8px;
+-      height: 8px;
+-      background: #00ffff;
+-      border-radius: 50%;
+-      animation: typing 1.4s infinite;
+-    }
+-
+-    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+-    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+-
+-    @keyframes typing {
+-      0%, 100% { transform: translateY(0); opacity: 0.5; }
+-      50% { transform: translateY(-10px); opacity: 1; }
+-    }
+-
+-    /* 快速回复按钮 */
+-    .quick-replies {
+-      display: flex;
+-      flex-wrap: wrap;
+-      gap: 8px;
+-      padding: 0 20px 15px;
+-    }
+-
+-    .quick-reply-btn {
+-      padding: 8px 16px;
+-      border-radius: 20px;
+-      background: rgba(17, 17, 34, 0.8);
+-      border: 1px solid rgba(0, 255, 255, 0.3);
+-      color: #00ffff;
+-      font-size: 12px;
+-      cursor: pointer;
+-      transition: all 0.3s ease;
+-      font-family: 'Orbitron', sans-serif;
+-    }
+-
+-    .quick-reply-btn:hover {
+-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-      border-color: #00ffff;
+-      transform: translateY(-2px);
+-    }
+-
+-    /* 移动端适配 */
+-    @media (max-width: 768px) {
+-      .chat-window {
+-        width: calc(100vw - 40px);
+-        right: 20px;
+-        bottom: 90px;
+-      }
+-
+-      .chat-toggle-btn {
+-        width: 60px;
+-        height: 60px;
+-        font-size: 28px;
+-      }
+-    }
+-
+-    /* Responsive Image Styles */
+-    .responsive-image-section {
+-      margin-top: 40px;
+-      text-align: center;
+-    }
+-
+-    .responsive-image-container {
+-      position: relative;
+-      width: 100%;
+-      max-width: 800px;
+-      margin: 0 auto;
+-      border-radius: 15px;
+-      overflow: hidden;
+-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+-      transition: all 0.3s ease;
+-    }
+-
+-    .responsive-image-container:hover {
+-      box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+-      transform: scale(1.02);
+-    }
+-
+-    .responsive-image {
+-      width: 100%;
+-      height: auto;
+-      display: block;
+-      transition: all 0.3s ease;
+-    }
+-
+-    .responsive-image:hover {
+-      filter: brightness(1.1) contrast(1.1);
+-    }
+-
+-    .image-caption {
+-      margin-top: 15px;
+-      color: #00ffff;
+-      font-size: 1.1rem;
+-      text-shadow: 0 0 10px #00ffff;
+-      font-weight: bold;
+-    }
+-
+-    /* Mobile responsiveness for image */
+-    @media (max-width: 768px) {
+-      .responsive-image-container {
+-        margin: 20px;
+-        max-width: calc(100% - 40px);
+-      }
+-
+-      .image-caption {
+-        font-size: 1rem;
+-        margin-top: 10px;
+-      }
+-    }
+-
+-    @media (max-width: 480px) {
+-      .responsive-image-section {
+-        margin-top: 30px;
+-      }
+-
+-      .responsive-image-container {
+-        margin: 10px;
+-        max-width: calc(100% - 20px);
+-      }
+-    }
+-  </style>
+-</head>
+-<body>
+-  <!-- 现代化导航栏 -->
+-  <nav class="modern-navbar">
+-    <div class="navbar-content">
+-      <div class="navbar-brand">🚀 财经期刊FM-Radio</div>
+-      <ul class="navbar-menu">
+-        <li><a href="/" target="_blank">🏠 首页</a></li>
+-        <li><a href="#app">📊 交易仪表板</a></li>
+-        <li><a href="#aiChatWidget">🤖 AI 助手</a></li>
+-        <li><a href="/archives/" target="_blank">📚 期刊归档</a></li>
+-      </ul>
+-    </div>
+-  </nav>
+-
+-  <!-- 主体内容容器 -->
+-  <div class="main-container">
+-    <!-- 德州扑克 AI 游戏区域 -->
+-    <div class="poker-ai-section">
+-      <div class="poker-ai-header">
+-        <h2>🤖 赛博朋克 AI 德州扑克</h2>
+-        <p class="poker-ai-description">
+-          体验基于蒙特卡洛算法和 AI 决策引擎的德州扑克游戏<br>
+-          感受人工智能的智慧与策略对决
+-        </p>
+-        <div class="feature-tags">
+-          <span class="feature-tag">🎯 蒙特卡洛模拟</span>
+-          <span class="feature-tag">🧠 AI 行为分析</span>
+-          <span class="feature-tag">⚡ 实时胜率计算</span>
+-          <span class="feature-tag">🎭 心理战系统</span>
+-          <span class="feature-tag">📊 期望值分析</span>
+-        </div>
+-      </div>
+-      
+-      <div id="poker-game-container" style="min-height: 600px;">
+-        <!-- 游戏头部 -->
+-        <div style="text-align: center; margin-bottom: 30px;">
+-          <h2 style="font-size: 2rem; margin-bottom: 10px;">🤖 赛博朋克 AI 德州扑克</h2>
+-          <p style="color: #00ffff; font-size: 0.9rem;">增强版 AI 算法 | 蒙特卡洛模拟 | 行为分析</p>
+-        </div>
+-
+-        <!-- 游戏信息面板 -->
+-        <div style="background: rgba(10, 10, 20, 0.8); border: 2px solid rgba(0, 255, 255, 0.3); border-radius: 15px; padding: 20px; margin-bottom: 30px; backdrop-filter: blur(10px);">
+-          <div id="game-message" style="text-align: center; color: #4ade80; font-size: 1.1rem; margin-bottom: 15px;">⚡ 点击开始游戏按钮启动 ⚡</div>
+-          <div id="ai-reason" style="text-align: center; color: #f472b6; font-size: 0.9rem; font-style: italic; min-height: 20px;"></div>
+-          <div id="win-rate-display" style="text-align: center; color: #fbbf24; font-size: 0.85rem; margin-top: 10px; display: none;">
+-            📊 胜率：<span id="win-rate-value">--</span> | 
+-            准确度：<span id="accuracy-value">--</span>
+-          </div>
+-        </div>
+-
+-        <!-- 牌桌区域 -->
+-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+-          <!-- 玩家手牌 -->
+-          <div style="background: rgba(17, 17, 34, 0.8); border-radius: 15px; padding: 20px; border: 2px solid rgba(0, 255, 255, 0.3);">
+-            <h3 style="text-align: center; color: #00ffff; margin-bottom: 15px;">👤 你的手牌</h3>
+-            <div id="player-hand" style="display: flex; justify-content: center; gap: 10px; min-height: 80px; align-items: center;">
+-              <span style="color: rgba(0, 255, 255, 0.3); font-size: 2rem;">等待发牌</span>
+-            </div>
+-          </div>
+-
+-          <!-- 公共牌 -->
+-          <div style="background: rgba(17, 17, 34, 0.8); border-radius: 15px; padding: 20px; border: 2px solid rgba(255, 0, 255, 0.3);">
+-            <h3 style="text-align: center; color: #ff00ff; margin-bottom: 15px;">🎯 公共牌</h3>
+-            <div id="community-cards" style="display: flex; justify-content: center; gap: 10px; min-height: 80px; align-items: center;">
+-              <span style="color: rgba(255, 255, 255, 0.3); font-size: 0.9rem;">等待翻牌</span>
+-            </div>
+-          </div>
+-
+-          <!-- AI 手牌 -->
+-          <div style="background: rgba(17, 17, 34, 0.8); border-radius: 15px; padding: 20px; border: 2px solid rgba(255, 0, 0, 0.3);">
+-            <h3 style="text-align: center; color: #ff4444; margin-bottom: 15px;">🤖 AI 手牌</h3>
+-            <div id="ai-hand" style="display: flex; justify-content: center; gap: 10px; min-height: 80px; align-items: center;">
+-              <span style="color: rgba(255, 255, 255, 0.1); font-size: 2rem;">❓ ❓</span>
+-            </div>
+-          </div>
+-        </div>
+-
+-        <!-- 筹码和底池信息 -->
+-        <div style="text-align: center; margin-bottom: 30px;">
+-          <div style="font-size: 1.5rem; color: #fbbf24; margin-bottom: 15px; text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);">
+-            💰 底池：<span id="pot-value">0</span> 筹码 | 当前注：<span id="current-bet-value">0</span>
+-          </div>
+-          <div style="display: flex; justify-content: center; gap: 40px; font-size: 1.1rem;">
+-            <div style="color: #4ade80;">👤 你的筹码：<span id="player-chips-value" style="font-size: 1.5rem; font-weight: bold;">1000</span></div>
+-            <div style="color: #f87171;">🤖 AI 筹码：<span id="ai-chips-value" style="font-size: 1.5rem; font-weight: bold;">1000</span></div>
+-          </div>
+-        </div>
+-
+-        <!-- 游戏控制按钮 -->
+-        <div style="text-align: center;">
+-          <button id="start-btn" onclick="startPokerGame()" 
+-            style="padding: 15px 40px; font-size: 1.2rem; background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); color: white; border: none; border-radius: 10px; cursor: pointer; box-shadow: 0 0 20px rgba(236, 72, 153, 0.5); transition: all 0.3s ease; font-weight: bold;">
+-            🎮 开始游戏
+-          </button>
+-          
+-          <div id="action-buttons" style="display: none; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px;">
+-            <button onclick="playerAction('fold')" 
+-              style="padding: 12px 30px; font-size: 1rem; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); font-weight: bold;">
+-              ❌ 弃牌
+-            </button>
+-            <button onclick="playerAction('check')" 
+-              style="padding: 12px 30px; font-size: 1rem; background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%); color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px rgba(8, 145, 178, 0.5); font-weight: bold;">
+-              ✋ 过牌
+-            </button>
+-            <button id="call-btn" onclick="playerAction('call')" 
+-              style="padding: 12px 30px; font-size: 1rem; background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px rgba(37, 99, 235, 0.5); font-weight: bold;">
+-              ✅ 跟注
+-            </button>
+-            <button id="raise-btn" onclick="playerAction('raise')" 
+-              style="padding: 12px 30px; font-size: 1rem; background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px rgba(124, 58, 237, 0.5); font-weight: bold;">
+-              🔥 加注
+-            </button>
+-          </div>
+-        </div>
+-      </div>
+-    </div>
+-
+-    <div id="app">
+-      <div class="dashboard">
+-      <div class="filter-panel">
+-        <label for="market-select">选择市场：</label>
+-        <select id="market-select" v-model="selectedMarket" @change="onMarketChange">
+-          <option v-for="market in markets" :key="market" :value="market">{{ market }}</option>
+-        </select>
+-
+-        <label for="time-range">时间范围：</label>
+-        <select id="time-range" v-model="selectedRange" @change="onRangeChange">
+-          <option v-for="range in timeRanges" :key="range.value" :value="range.value">{{ range.label }}</option>
+-        </select>
+-
+-        <label for="indicator-select">指标：</label>
+-        <select id="indicator-select" v-model="selectedIndicator" @change="onIndicatorChange">
+-          <option v-for="ind in indicators" :key="ind.value" :value="ind.value">{{ ind.label }}</option>
+-        </select>
+-      </div>
+-
+-      <div class="charts-container">
+-        <div class="chart-wrapper">
+-          <h3>K线图 (Candlestick)</h3>
+-          <div v-if="loading" class="loading">加载中...</div>
+-          <div v-else ref="klineChartRef" class="chart"></div>
+-        </div>
+-        <div class="chart-wrapper">
+-          <h3>深度图 (Depth Chart)</h3>
+-          <div v-if="loading" class="loading">加载中...</div>
+-          <div v-else ref="depthChartRef" class="chart"></div>
+-        </div>
+-        <div class="chart-wrapper">
+-          <h3>价格趋势</h3>
+-          <div v-if="loading" class="loading">加载中...</div>
+-          <div v-else ref="priceChartRef" class="chart"></div>
+-        </div>
+-        <div class="chart-wrapper">
+-          <h3>成交量趋势</h3>
+-          <div v-if="loading" class="loading">加载中...</div>
+-          <div v-else ref="volumeChartRef" class="chart"></div>
+-        </div>
+-      </div>
+-    </div>
+-  </div>
+-  </div> <!-- 结束 main-container -->
+-
+-  <script>
+-    const { createApp, ref, watch, onMounted, onBeforeUnmount } = Vue;
+-    const { createPinia, defineStore } = Pinia;
+-
+-    // Register ECharts components
+-    echarts.use([
+-      echarts.TitleComponent,
+-      echarts.TooltipComponent,
+-      echarts.GridComponent,
+-      echarts.LegendComponent,
+-      echarts.DataZoomComponent,
+-      echarts.VisualMapComponent,
+-      echarts.ToolboxComponent,
+-      echarts.LineChart,
+-      echarts.BarChart,
+-      echarts.CandlestickChart,
+-      echarts.CanvasRenderer,
+-    ]);
+-
+-    // Pinia store
+-    const useMarketStore = defineStore('market', () => {
+-      const selectedMarket = ref('BTCUSDT');
+-      const selectedRange = ref('1h');
+-      const selectedIndicator = ref('none');
+-      const loading = ref(true);
+-
+-      const klineData = ref([]);
+-      const depthData = ref({ bids: [], asks: [] });
+-      const priceData = ref([]);
+-      const volumeData = ref([]);
+-
+-      let ws = null;
+-
+-      function connectWebSocket() {
+-        if (ws) {
+-          ws.close();
+-          ws = null;
+-        }
+-        const streamName = `${selectedMarket.value.toLowerCase()}@kline_${selectedRange.value}`;
+-        const url = `wss://stream.binance.com:9443/ws/${streamName}`;
+-        ws = new WebSocket(url);
+-
+-        ws.onopen = () => {
+-          console.log('WebSocket connected:', url);
+-          loading.value = false;
+-        };
+-
+-        ws.onmessage = (event) => {
+-          const message = JSON.parse(event.data);
+-          if (message.e === 'kline') {
+-            const k = message.k;
+-            const newCandle = [
+-              k.t,
+-              parseFloat(k.o),
+-              parseFloat(k.c),
+-              parseFloat(k.l),
+-              parseFloat(k.h),
+-              parseFloat(k.v),
+-            ];
+-            updateKlineData(newCandle);
+-            updatePriceAndVolume(newCandle);
+-          }
+-        };
+-
+-        ws.onclose = () => {
+-          console.log('WebSocket closed');
+-        };
+-
+-        ws.onerror = (err) => {
+-          console.error('WebSocket error:', err);
+-          loading.value = false;
+-        };
+-      }
+-
+-      function updateKlineData(newCandle) {
+-        const idx = klineData.value.findIndex(c => c[0] === newCandle[0]);
+-        if (idx !== -1) {
+-          klineData.value[idx] = newCandle;
+-        } else {
+-          klineData.value.push(newCandle);
+-          if (klineData.value.length > 50) {
+-            klineData.value.shift();
+-          }
+-        }
+-      }
+-
+-      function updatePriceAndVolume(newCandle) {
+-        const timeStr = new Date(newCandle[0]).toLocaleTimeString();
+-        const pricePoint = [timeStr, newCandle[2]];
+-        const volumePoint = [timeStr, newCandle[5]];
+-
+-        if (priceData.value.length > 0 && priceData.value[priceData.value.length - 1][0] === timeStr) {
+-          priceData.value[priceData.value.length - 1] = pricePoint;
+-        } else {
+-          priceData.value.push(pricePoint);
+-          if (priceData.value.length > 50) priceData.value.shift();
+-        }
+-
+-        if (volumeData.value.length > 0 && volumeData.value[volumeData.value.length - 1][0] === timeStr) {
+-          volumeData.value[volumeData.value.length - 1] = volumePoint;
+-        } else {
+-          volumeData.value.push(volumePoint);
+-          if (volumeData.value.length > 50) volumeData.value.shift();
+-        }
+-      }
+-
+-      function generateDepthData() {
+-        const bids = [];
+-        const asks = [];
+-        const base = 50000;
+-        for (let i = 0; i < 20; i++) {
+-          bids.push([base - i * 50, Math.random() * 10 + 5]);
+-          asks.push([base + i * 50, Math.random() * 10 + 5]);
+-        }
+-        depthData.value = { bids, asks };
+-      }
+-
+-      function calculateMA(dayCount, data) {
+-        const result = [];
+-        for (let i = 0; i < data.length; i++) {
+-          if (i < dayCount - 1) {
+-            result.push(null);
+-            continue;
+-          }
+-          let sum = 0;
+-          for (let j = 0; j < dayCount; j++) {
+-            sum += data[i - j][2];
+-          }
+-          result.push(sum / dayCount);
+-        }
+-        return result;
+-      }
+-
+-      function calculateBOLL(data, period = 20) {
+-        const close = data.map(d => d[2]);
+-        const middle = calculateMA(period, data);
+-        const stddev = [];
+-        for (let i = 0; i < data.length; i++) {
+-          if (i < period - 1) {
+-            stddev.push(null);
+-            continue;
+-          }
+-          let sum = 0;
+-          for (let j = 0; j < period; j++) {
+-            sum += Math.pow(close[i - j] - middle[i], 2);
+-          }
+-          stddev.push(Math.sqrt(sum / period));
+-        }
+-        const upper = middle.map((m, i) => (m !== null && stddev[i] !== null ? m + 2 * stddev[i] : null));
+-        const lower = middle.map((m, i) => (m !== null && stddev[i] !== null ? m - 2 * stddev[i] : null));
+-        return { middle, upper, lower };
+-      }
+-
+-      function calculateMACD(data, shortPeriod = 12, longPeriod = 26, signalPeriod = 9) {
+-        const close = data.map(d => d[2]);
+-        const ema = (period, data) => {
+-          const k = 2 / (period + 1);
+-          const emaArr = [];
+-          emaArr[0] = data[0];
+-          for (let i = 1; i < data.length; i++) {
+-            emaArr[i] = data[i] * k + emaArr[i - 1] * (1 - k);
+-          }
+-          return emaArr;
+-        };
+-        const emaShort = ema(shortPeriod, close);
+-        const emaLong = ema(longPeriod, close);
+-        const dif = emaShort.map((v, i) => v - emaLong[i]);
+-        const dea = ema(signalPeriod, dif);
+-        const macd = dif.map((v, i) => 2 * (v - dea[i]));
+-        return { dif, dea, macd };
+-      }
+-
+-      return {
+-        selectedMarket,
+-        selectedRange,
+-        selectedIndicator,
+-        loading,
+-        klineData,
+-        depthData,
+-        priceData,
+-        volumeData,
+-        connectWebSocket,
+-        generateDepthData,
+-        calculateMA,
+-        calculateBOLL,
+-        calculateMACD,
+-        updateKlineData,
+-        updatePriceAndVolume,
+-      };
+-    });
+-
+-    const app = createApp({
+-      setup() {
+-        const pinia = createPinia();
+-        app.use(pinia);
+-
+-        const store = useMarketStore();
+-
+-        const selectedMarket = ref(store.selectedMarket.value);
+-        const selectedRange = ref(store.selectedRange.value);
+-        const selectedIndicator = ref(store.selectedIndicator.value);
+-        const loading = ref(store.loading.value);
+-
+-        const markets = ['BTCUSDT', 'ETHUSDT', 'LTCUSDT', 'ADAUSDT', 'DOTUSDT'];
+-        const timeRanges = [
+-          { label: '1分钟', value: '1m' },
+-          { label: '5分钟', value: '5m' },
+-          { label: '15分钟', value: '15m' },
+-          { label: '1小时', value: '1h' },
+-          { label: '1天', value: '1d' },
+-        ];
+-        const indicators = [
+-          { label: '无', value: 'none' },
+-          { label: 'MA (移动平均)', value: 'ma' },
+-          { label: 'BOLL (布林线)', value: 'boll' },
+-          { label: 'MACD', value: 'macd' },
+-        ];
+-
+-        const klineChartRef = ref(null);
+-        const depthChartRef = ref(null);
+-        const priceChartRef = ref(null);
+-        const volumeChartRef = ref(null);
+-
+-        let klineChart = null;
+-        let depthChart = null;
+-        let priceChart = null;
+-        let volumeChart = null;
+-
+-        function initCharts() {
+-          if (klineChartRef.value) klineChart = echarts.init(klineChartRef.value);
+-          if (depthChartRef.value) depthChart = echarts.init(depthChartRef.value);
+-          if (priceChartRef.value) priceChart = echarts.init(priceChartRef.value);
+-          if (volumeChartRef.value) volumeChart = echarts.init(volumeChartRef.value);
+-        }
+-
+-        function getKlineOption() {
+-          const data = store.klineData.value;
+-          const categoryData = data.map(item => new Date(item[0]).toLocaleString());
+-          const values = data.map(item => [item[1], item[2], item[3], item[4]]);
+-          const volumes = data.map(item => item[5]);
+-
+-          const series = [
+-            {
+-              name: 'K线',
+-              type: 'candlestick',
+-              data: values,
+-              itemStyle: {
+-                color: '#ff00ff',
+-                color0: '#00ffff',
+-                borderColor: '#ff00ff',
+-                borderColor0: '#00ffff',
+-              },
+-            },
+-            {
+-              name: '成交量',
+-              type: 'bar',
+-              xAxisIndex: 1,
+-              yAxisIndex: 1,
+-              data: volumes,
+-              itemStyle: { color: '#ff00ff' },
+-            },
+-          ];
+-
+-          if (store.selectedIndicator.value === 'ma') {
+-            const ma5 = store.calculateMA(5, data);
+-            series.push({
+-              name: 'MA5',
+-              type: 'line',
+-              data: ma5,
+-              smooth: true,
+-              lineStyle: { color: '#00ffff' },
+-            });
+-          } else if (store.selectedIndicator.value === 'boll') {
+-            const boll = store.calculateBOLL(data);
+-            series.push(
+-              {
+-                name: 'BOLL中轨',
+-                type: 'line',
+-                data: boll.middle,
+-                smooth: true,
+-                lineStyle: { color: '#ffff00' },
+-              },
+-              {
+-                name: 'BOLL上轨',
+-                type: 'line',
+-                data: boll.upper,
+-                smooth: true,
+-                lineStyle: { color: '#ffaa00' },
+-              },
+-              {
+-                name: 'BOLL下轨',
+-                type: 'line',
+-                data: boll.lower,
+-                smooth: true,
+-                lineStyle: { color: '#ffaa00' },
+-              }
+-            );
+-          } else if (store.selectedIndicator.value === 'macd') {
+-            const macd = store.calculateMACD(data);
+-            series.push(
+-              {
+-                name: 'DIF',
+-                type: 'line',
+-                data: macd.dif,
+-                smooth: true,
+-                lineStyle: { color: '#00ffff' },
+-              },
+-              {
+-                name: 'DEA',
+-                type: 'line',
+-                data: macd.dea,
+-                smooth: true,
+-                lineStyle: { color: '#ff00ff' },
+-              },
+-              {
+-                name: 'MACD',
+-                type: 'bar',
+-                data: macd.macd,
+-                itemStyle: { color: '#ffaa00' },
+-                xAxisIndex: 2,
+-                yAxisIndex: 2,
+-              }
+-            );
+-          }
+-
+-          return {
+-            backgroundColor: 'transparent',
+-            tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+-            legend: { data: series.map(s => s.name), textStyle: { color: '#fff' } },
+-            grid: [
+-              { left: '10%', right: '8%', height: '55%' },
+-              { left: '10%', right: '8%', top: '65%', height: '15%' },
+-              { left: '10%', right: '8%', top: '85%', height: '10%' },
+-            ],
+-            xAxis: [
+-              {
+-                type: 'category',
+-                data: categoryData,
+-                scale: true,
+-                boundaryGap: false,
+-                axisLine: { lineStyle: { color: '#00ffff' } },
+-                splitLine: { show: false },
+-                axisTick: { alignWithLabel: true },
+-                axisLabel: { color: '#00ffff' },
+-                min: 'dataMin',
+-                max: 'dataMax',
+-              },
+-              {
+-                type: 'category',
+-                gridIndex: 1,
+-                data: categoryData,
+-                axisLine: { lineStyle: { color: '#00ffff' } },
+-                axisTick: { alignWithLabel: true },
+-                axisLabel: { show: false },
+-              },
+-              {
+-                type: 'category',
+-                gridIndex: 2,
+-                data: categoryData,
+-                axisLine: { lineStyle: { color: '#00ffff' } },
+-                axisTick: { alignWithLabel: true },
+-                axisLabel: { show: false },
+-              },
+-            ],
+-            yAxis: [
+-              {
+-                scale: true,
+-                splitArea: { show: true, areaStyle: { color: ['#111122', '#222233'] } },
+-                axisLine: { lineStyle: { color: '#00ffff' } },
+-                splitLine: { lineStyle: { color: '#003333' } },
+-                axisLabel: { color: '#00ffff' },
+-              },
+-              {
+-                gridIndex: 1,
+-                splitNumber: 2,
+-                axisLine: { lineStyle: { color: '#00ffff' } },
+-                axisLabel: { color: '#00ffff' },
+-                axisTick: { show: false },
+-                splitLine: { show: false },
+-              },
+-              {
+-                gridIndex: 2,
+-                splitNumber: 2,
+-                axisLine: { lineStyle: { color: '#00ffff' } },
+-                axisLabel: { color: '#00ffff' },
+-                axisTick: { show: false },
+-                splitLine: { show: false },
+-              },
+-            ],
+-            dataZoom: [
+-              { type: 'inside', xAxisIndex: [0, 1, 2], start: 50, end: 100 },
+-              { show: true, xAxisIndex: [0, 1, 2], type: 'slider', top: '90%', start: 50, end: 100, textStyle: { color: '#00ffff' } },
+-            ],
+-            toolbox: {
+-              feature: {
+-                saveAsImage: { title: '保存为图片' },
+-                dataZoom: { title: { zoom: '区域缩放', back: '区域缩放还原' } },
+-                restore: { title: '还原' },
+-              },
+-              iconStyle: { borderColor: '#00ffff' },
+-            },
+-            series,
+-          };
+-        }
+-
+-        function getDepthOption() {
+-          const bids = store.depthData.value.bids || [];
+-          const asks = store.depthData.value.asks || [];
+-
+-          function accumulate(data) {
+-            let sum = 0;
+-            return data.map(([price, volume]) => {
+-              sum += volume;
+-              return [price, sum];
+-            });
+-          }
+-
+-          const bidData = accumulate(bids.slice().reverse());
+-          const askData = accumulate(asks);
+-
+-          return {
+-            backgroundColor: 'transparent',
+-            tooltip: { trigger: 'axis' },
+-            xAxis: {
+-              type: 'value',
+-              scale: true,
+-              axisLine: { lineStyle: { color: '#00ffff' } },
+-              splitLine: { lineStyle: { color: '#003333' } },
+-              axisLabel: { color: '#00ffff' },
+-            },
+-            yAxis: {
+-              type: 'value',
+-              scale: true,
+-              axisLine: { lineStyle: { color: '#00ffff' } },
+-              splitLine: { lineStyle: { color: '#003333' } },
+-              axisLabel: { color: '#00ffff' },
+-            },
+-            series: [
+-              {
+-                name: '买入',
+-                type: 'line',
+-                step: 'end',
+-                data: bidData,
+-                itemStyle: { color: '#00ff00' },
+-                areaStyle: { color: 'rgba(0,255,0,0.3)' },
+-                lineStyle: { width: 2 },
+-              },
+-              {
+-                name: '卖出',
+-                type: 'line',
+-                step: 'start',
+-                data: askData,
+-                itemStyle: { color: '#ff0000' },
+-                areaStyle: { color: 'rgba(255,0,0,0.3)' },
+-                lineStyle: { width: 2 },
+-              },
+-            ],
+-            legend: { data: ['买入', '卖出'], textStyle: { color: '#00ffff' } },
+-            toolbox: {
+-              feature: {
+-                saveAsImage: { title: '保存为图片' },
+-                restore: { title: '还原' },
+-              },
+-              iconStyle: { borderColor: '#00ffff' },
+-            },
+-          };
+-        }
+-
+-        function getPriceOption() {
+-          const data = store.priceData.value;
+-          const times = data.map(item => item[0]);
+-          const prices = data.map(item => item[1]);
+-          return {
+-            backgroundColor: 'transparent',
+-            tooltip: { trigger: 'axis' },
+-            xAxis: {
+-              type: 'category',
+-              data: times,
+-              axisLine: { lineStyle: { color: '#00ffff' } },
+-              axisLabel: { color: '#00ffff' },
+-            },
+-            yAxis: {
+-              type: 'value',
+-              axisLine: { lineStyle: { color: '#00ffff' } },
+-              splitLine: { lineStyle: { color: '#003333' } },
+-              axisLabel: { color: '#00ffff' },
+-            },
+-            series: [{
+-              data: prices,
+-              type: 'line',
+-              smooth: true,
+-              lineStyle: { color: '#ff00ff', width: 3 },
+-              areaStyle: { color: 'rgba(255,0,255,0.3)' },
+-            }],
+-            toolbox: {
+-              feature: {
+-                saveAsImage: { title: '保存为图片' },
+-                restore: { title: '还原' },
+-              },
+-              iconStyle: { borderColor: '#00ffff' },
+-            },
+-          };
+-        }
+-
+-        function getVolumeOption() {
+-          const data = store.volumeData.value;
+-          const times = data.map(item => item[0]);
+-          const volumes = data.map(item => item[1]);
+-          return {
+-            backgroundColor: 'transparent',
+-            tooltip: { trigger: 'axis' },
+-            xAxis: {
+-              type: 'category',
+-              data: times,
+-              axisLine: { lineStyle: { color: '#00ffff' } },
+-              axisLabel: { color: '#00ffff' },
+-            },
+-            yAxis: {
+-              type: 'value',
+-              axisLine: { lineStyle: { color: '#00ffff' } },
+-              splitLine: { lineStyle: { color: '#003333' } },
+-              axisLabel: { color: '#00ffff' },
+-            },
+-            series: [{
+-              data: volumes,
+-              type: 'bar',
+-              itemStyle: { color: '#ff00ff' },
+-              barMaxWidth: '20px',
+-            }],
+-            toolbox: {
+-              feature: {
+-                saveAsImage: { title: '保存为图片' },
+-                restore: { title: '还原' },
+-              },
+-              iconStyle: { borderColor: '#00ffff' },
+-            },
+-          };
+-        }
+-
+-        function updateAllCharts() {
+-          if (klineChart) klineChart.setOption(getKlineOption());
+-          if (depthChart) depthChart.setOption(getDepthOption());
+-          if (priceChart) priceChart.setOption(getPriceOption());
+-          if (volumeChart) volumeChart.setOption(getVolumeOption());
+-        }
+-
+-        function linkCharts() {
+-          if (klineChart && volumeChart) {
+-            echarts.connect([klineChart, volumeChart]);
+-          }
+-        }
+-
+-        function onMarketChange() {
+-          store.selectedMarket.value = selectedMarket.value;
+-          store.connectWebSocket();
+-          store.generateDepthData();
+-        }
+-
+-        function onRangeChange() {
+-          store.selectedRange.value = selectedRange.value;
+-          store.connectWebSocket();
+-        }
+-
+-        function onIndicatorChange() {
+-          store.selectedIndicator.value = selectedIndicator.value;
+-        }
+-
+-        function resizeCharts() {
+-          klineChart?.resize();
+-          depthChart?.resize();
+-          priceChart?.resize();
+-          volumeChart?.resize();
+-        }
+-
+-        onMounted(() => {
+-          initCharts();
+-          store.generateDepthData();
+-          store.connectWebSocket();
+-          updateAllCharts();
+-          linkCharts();
+-
+-          watch(
+-            () => [store.klineData.value, store.depthData.value, store.priceData.value, store.volumeData.value, store.selectedIndicator.value],
+-            () => updateAllCharts(),
+-            { deep: true }
+-          );
+-
+-          window.addEventListener('resize', resizeCharts);
+-        });
+-
+-        onBeforeUnmount(() => {
+-          window.removeEventListener('resize', resizeCharts);
+-          klineChart?.dispose();
+-          depthChart?.dispose();
+-          priceChart?.dispose();
+-          volumeChart?.dispose();
+-          if (store.ws) store.ws.close();
+-        });
+-
+-        watch(selectedMarket, (v) => (store.selectedMarket.value = v));
+-        watch(selectedRange, (v) => (store.selectedRange.value = v));
+-        watch(selectedIndicator, (v) => (store.selectedIndicator.value = v));
+-        watch(store.selectedMarket, (v) => (selectedMarket.value = v));
+-        watch(store.selectedRange, (v) => (selectedRange.value = v));
+-        watch(store.selectedIndicator, (v) => (selectedIndicator.value = v));
+-        watch(store.loading, (v) => (loading.value = v));
+-
+-        return {
+-          selectedMarket,
+-          selectedRange,
+-          selectedIndicator,
+-          loading,
+-          markets,
+-          timeRanges,
+-          indicators,
+-          klineChartRef,
+-          depthChartRef,
+-          priceChartRef,
+-          volumeChartRef,
+-          onMarketChange,
+-          onRangeChange,
+-          onIndicatorChange,
+-        };
+-      }
+-    });
+-
+-    app.mount('#app');
+-  </script>
+-
+-
+-
+-
+-<!-- App.vue -->
+-<template>
+-  <div class="app-container">
+-    <MarketSelector
+-      :markets="markets"
+-      :timeRanges="timeRanges"
+-      :indicators="indicators"
+-      v-model:market="selectedMarket"
+-      v-model:range="selectedRange"
+-      v-model:indicator="selectedIndicator"
+-    />
+-    <ChartsDashboard
+-      :market="selectedMarket"
+-      :range="selectedRange"
+-      :indicator="selectedIndicator"
+-    />
+-    <StrategyConfigurator @applyStrategy="applyStrategy" />
+-  </div>
+-</template>
+-
+-<script setup>
+-import { ref } from 'vue';
+-import MarketSelector from './components/MarketSelector.vue';
+-import ChartsDashboard from './components/ChartsDashboard.vue';
+-import StrategyConfigurator from './components/StrategyConfigurator.vue';
+-
+-const markets = ['BTC-USD', 'ETH-USD', 'LTC-USD', 'BNB-USD'];
+-const timeRanges = [
+-  { label: '1分钟', value: '1m' },
+-  { label: '5分钟', value: '5m' },
+-  { label: '15分钟', value: '15m' },
+-  { label: '1小时', value: '1h' },
+-  { label: '1天', value: '1d' },
+-];
+-const indicators = [
+-  { label: '无', value: 'none' },
+-  { label: 'MA (移动平均)', value: 'ma' },
+-  { label: 'BOLL (布林线)', value: 'boll' },
+-  { label: 'MACD', value: 'macd' },
+-];
+-
+-const selectedMarket = ref(markets[0]);
+-const selectedRange = ref(timeRanges[1].value);
+-const selectedIndicator = ref(indicators[0].value);
+-
+-function applyStrategy(strategyConfig) {
+-  // 这里可以处理用户自定义策略配置，传递给图表或交易逻辑
+-  console.log('应用策略配置:', strategyConfig);
+-}
+-</script>
+-
+-<style scoped>
+-.app-container {
+-  max-width: 1200px;
+-  margin: 20px auto;
+-  padding: 10px;
+-  background: #0a0a14;
+-  border-radius: 20px;
+-  box-shadow:
+-    0 0 30px #00ffff,
+-    inset 0 0 50px #00ffff;
+-  font-family: 'Orbitron', sans-serif;
+-  color: #00ffff;
+-}
+-</style>
+-
+-
+-<!-- components/MarketSelector.vue -->
+-<template>
+-  <div class="filter-panel">
+-    <label for="market-select">选择市场：</label>
+-    <select id="market-select" v-model="market" @change="$emit('update:market', market)">
+-      <option v-for="m in markets" :key="m" :value="m">{{ m }}</option>
+-    </select>
+-
+-    <label for="time-range">时间范围：</label>
+-    <select id="time-range" v-model="range" @change="$emit('update:range', range)">
+-      <option v-for="r in timeRanges" :key="r.value" :value="r.value">{{ r.label }}</option>
+-    </select>
+-
+-    <label for="indicator-select">指标：</label>
+-    <select id="indicator-select" v-model="indicator" @change="$emit('update:indicator', indicator)">
+-      <option v-for="ind in indicators" :key="ind.value" :value="ind.value">{{ ind.label }}</option>
+-    </select>
+-  </div>
+-</template>
+-
+-<script setup>
+-import { defineProps } from 'vue';
+-
+-const props = defineProps({
+-  markets: Array,
+-  timeRanges: Array,
+-  indicators: Array,
+-  market: String,
+-  range: String,
+-  indicator: String,
+-});
+-</script>
+-
+-<style scoped>
+-.filter-panel {
+-  margin-bottom: 20px;
+-  display: flex;
+-  align-items: center;
+-  gap: 20px;
+-  flex-wrap: wrap;
+-}
+-label {
+-  font-weight: bold;
+-}
+-select {
+-  background: #111122;
+-  border: 2px solid #ff00ff;
+-  border-radius: 8px;
+-  padding: 6px 12px;
+-  color: #ff00ff;
+-  font-weight: bold;
+-  font-size: 1rem;
+-  cursor: pointer;
+-  box-shadow:
+-    0 0 10px #ff00ff;
+-  transition: border-color 0.3s ease;
+-}
+-select:hover,
+-select:focus {
+-  border-color: #00ffff;
+-  outline: none;
+-  box-shadow:
+-    0 0 20px #00ffff;
+-}
+-</style>
+-
+-
+-<!-- components/ChartsDashboard.vue -->
+-<template>
+-  <div class="charts-container">
+-    <KlineChart
+-      :market="market"
+-      :range="range"
+-      :indicator="indicator"
+-      ref="klineChartRef"
+-    />
+-    <DepthChart :market="market" ref="depthChartRef" />
+-    <VolumeChart :market="market" ref="volumeChartRef" />
+-    <PriceChart :market="market" ref="priceChartRef" />
+-  </div>
+-</template>
+-
+-<script setup>
+-import { ref, watch, onMounted } from 'vue';
+-import KlineChart from './charts/KlineChart.vue';
+-import DepthChart from './charts/DepthChart.vue';
+-import VolumeChart from './charts/VolumeChart.vue';
+-import PriceChart from './charts/PriceChart.vue';
+-
+-const props = defineProps({
+-  market: String,
+-  range: String,
+-  indicator: String,
+-});
+-
+-const klineChartRef = ref(null);
+-const depthChartRef = ref(null);
+-const volumeChartRef = ref(null);
+-const priceChartRef = ref(null);
+-
+-// 这里可以实现更复杂的多图表联动逻辑，比如缩放同步、选区联动等
+-// 例如通过事件总线或 Pinia 共享状态实现联动
+-onMounted(() => {
+-  // 监听图表事件，做联动
+-});
+-
+-watch(() => [props.market, props.range, props.indicator], ([newMarket, newRange, newIndicator]) => {
+-  // 传递给子组件刷新数据
+-  klineChartRef.value?.refresh(newMarket, newRange, newIndicator);
+-  depthChartRef.value?.refresh(newMarket);
+-  volumeChartRef.value?.refresh(newMarket);
+-  priceChartRef.value?.refresh(newMarket);
+-}, { immediate: true });
+-</script>
+-
+-<style scoped>
+-.charts-container {
+-  display: grid;
+-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+-  gap: 20px;
+-}
+-</style>
++    .back-to-top:hover { transform: translateY(-3px); }
+ 
+-
+-<!-- components/StrategyConfigurator.vue -->
+-<template>
+-  <div class="strategy-configurator">
+-    <h3>策略配置</h3>
+-    <form @submit.prevent="apply">
+-      <label>
+-        策略名称：
+-        <input v-model="strategy.name" type="text" placeholder="输入策略名称" />
+-      </label>
+-      <label>
+-        参数1:
+-        <input v-model.number="strategy.param1" type="number" min="0" />
+-      </label>
+-      <label>
+-        参数2:
+-        <input v-model.number="strategy.param2" type="number" min="0" />
+-      </label>
+-      <button type="submit">应用策略</button>
+-    </form>
+-  </div>
+-</template>
+-
+-<script setup>
+-import { ref } from 'vue';
+-
+-const emit = defineEmits(['applyStrategy']);
+-
+-const strategy = ref({
+-  name: '',
+-  param1: 10,
+-  param2: 20,
+-});
+-
+-function apply() {
+-  emit('applyStrategy', { ...strategy.value });
+-}
+-</script>
+-
+-<style scoped>
+-.strategy-configurator {
+-  margin-top: 30px;
+-  padding: 15px;
+-  background: #111122;
+-  border-radius: 15px;
+-  box-shadow: 0 0 15px #ff00ff;
+-  color: #ff00ff;
+-  font-family: 'Orbitron', sans-serif;
+-}
+-h3 {
+-  text-align: center;
+-  margin-bottom: 15px;
+-}
+-form {
+-  display: flex;
+-  flex-direction: column;
+-  gap: 12px;
+-}
+-label {
+-  display: flex;
+-  justify-content: space-between;
+-  font-weight: bold;
+-}
+-input {
+-  background: #222233;
+-  border: 1px solid #ff00ff;
+-  border-radius: 8px;
+-  color: #ff00ff;
+-  padding: 6px 8px;
+-  width: 150px;
+-}
+-button {
+-  margin-top: 10px;
+-  padding: 10px;
+-  background: transparent;
+-  border: 2px solid #ff00ff;
+-  border-radius: 50px;
+-  color: #ff00ff;
+-  font-weight: bold;
+-  cursor: pointer;
+-  box-shadow: 0 0 15px #ff00ff;
+-  transition: background 0.3s ease;
+-}
+-button:hover {
+-  background: #ff00ff;
+-  color: #0a0a14;
+-}
+-</style>
+-
+-
+-<!-- components/charts/KlineChart.vue -->
+-<template>
+-  <div ref="chartRef" class="chart"></div>
+-</template>
+-
+-<script setup>
+-import { ref, onMounted, watch, onBeforeUnmount } from 'vue';
+-import * as echarts from 'echarts/core';
+-import {
+-  CandlestickChart,
+-  LineChart,
+-  BarChart,
+-} from 'echarts/charts';
+-import {
+-  TitleComponent,
+-  TooltipComponent,
+-  GridComponent,
+-  LegendComponent,
+-  DataZoomComponent,
+-  ToolboxComponent,
+-} from 'echarts/components';
+-import { CanvasRenderer } from 'echarts/renderers';
+-
+-echarts.use([
+-  TitleComponent,
+-  TooltipComponent,
+-  GridComponent,
+-  LegendComponent,
+-  DataZoomComponent,
+-  ToolboxComponent,
+-  CandlestickChart,
+-  LineChart,
+-  BarChart,
+-  CanvasRenderer,
+-]);
+-
+-const props = defineProps({
+-  market: String,
+-  range: String,
+-  indicator: String,
+-});
+-
+-const chartRef = ref(null);
+-let chartInstance = null;
+-let klineData = ref([]);
+-
+-// 这里应集成真实数据源或Pinia状态管理，实现数据订阅
+-// 为示范简单，使用定时器模拟数据更新
+-function generateFakeKlineData() {
+-  const now = +new Date();
+-  const data = [];
+-  for (let i = 30; i >= 0; i--) {
+-    const time = now - i * 60 * 60 * 1000;
+-    const open = 50000 + Math.sin(i / 5) * 1000 + Math.random() * 200;
+-    const close = open + (Math.random() - 0.5) * 400;
+-    const low = Math.min(open, close) - Math.random() * 200;
+-    const high = Math.max(open, close) + Math.random() * 200;
+-    const volume = Math.random() * 1000 + 500;
+-    data.push([time, open, close, low, high, volume]);
+-  }
+-  return data;
+-}
+-
+-function initChart() {
+-  if (chartRef.value) {
+-    chartInstance = echarts.init(chartRef.value);
+-  }
+-}
+-
+-function updateChart() {
+-  if (!chartInstance) return;
+-  klineData.value = generateFakeKlineData();
+-
+-  const categoryData = klineData.value.map(item => new Date(item[0]).toLocaleString());
+-  const values = klineData.value.map(item => [item[1], item[2], item[3], item[4]]);
+-  const volumes = klineData.value.map(item => item[5]);
+-
+-  const series = [
+-    {
+-      name: 'K线',
+-      type: 'candlestick',
+-      data: values,
+-      itemStyle: {
+-        color: '#ff00ff',
+-        color0: '#00ffff',
+-        borderColor: '#ff00ff',
+-        borderColor0: '#00ffff',
+-      },
+-    },
+-    {
+-      name: '成交量',
+-      type: 'bar',
+-      xAxisIndex: 1,
+-      yAxisIndex: 1,
+-      data: volumes,
+-      itemStyle: {
+-        color: '#ff00ff',
+-      },
+-    },
+-  ];
+-
+-  const option = {
+-    backgroundColor: 'transparent',
+-    tooltip: {
+-      trigger: 'axis',
+-      axisPointer: { type: 'cross' },
+-    },
+-    legend: {
+-      data: ['K线', '成交量'],
+-      textStyle: { color: '#fff' },
+-    },
+-    grid: [
+-      { left: '10%', right: '8%', height: '60%' },
+-      { left: '10%', right: '8%', top: '75%', height: '15%' },
+-    ],
+-    xAxis: [
+-      {
+-        type: 'category',
+-        data: categoryData,
+-        scale: true,
+-        boundaryGap: false,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        splitLine: { show: false },
+-        axisTick: { alignWithLabel: true },
+-        axisLabel: { color: '#00ffff' },
+-        min: 'dataMin',
+-        max: 'dataMax',
+-      },
+-      {
+-        type: 'category',
+-        gridIndex: 1,
+-        data: categoryData,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        axisTick: { alignWithLabel: true },
+-        axisLabel: { show: false },
+-      },
+-    ],
+-    yAxis: [
+-      {
+-        scale: true,
+-        splitArea: { show: true, areaStyle: { color: ['#111122', '#222233'] } },
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        splitLine: { lineStyle: { color: '#003333' } },
+-        axisLabel: { color: '#00ffff' },
+-      },
+-      {
+-        gridIndex: 1,
+-        splitNumber: 2,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        axisLabel: { color: '#00ffff' },
+-        axisTick: { show: false },
+-        splitLine: { show: false },
+-      },
+-    ],
+-    dataZoom: [
+-      {
+-        type: 'inside',
+-        xAxisIndex: [0, 1],
+-        start: 50,
+-        end: 100,
+-      },
+-      {
+-        show: true,
+-        xAxisIndex: [0, 1],
+-        type: 'slider',
+-        top: '85%',
+-        start: 50,
+-        end: 100,
+-        textStyle: { color: '#00ffff' },
+-      },
+-    ],
+-    toolbox: {
+-      feature: {
+-        saveAsImage: { title: '保存为图片' },
+-        dataZoom: { title: { zoom: '区域缩放', back: '区域缩放还原' } },
+-        restore: { title: '还原' },
+-      },
+-      iconStyle: {
+-        borderColor: '#00ffff',
+-      },
+-    },
+-    series,
+-  };
+-
+-  chartInstance.setOption(option);
+-}
+-
+-function refresh(market, range, indicator) {
+-  // 这里可根据参数请求真实数据或更新指标
+-  updateChart();
+-}
+-
+-onMounted(() => {
+-  initChart();
+-  updateChart();
+-  window.addEventListener('resize', () => chartInstance?.resize());
+-});
+-
+-onBeforeUnmount(() => {
+-  window.removeEventListener('resize', () => chartInstance?.resize());
+-  chartInstance?.dispose();
+-});
+-
+-defineExpose({ refresh });
+-</script>
+-
+-<style scoped>
+-.chart {
+-  width: 100%;
+-  height: 400px;
+-}
+-</style>
+-
+-<!-- 其他图表组件(DepthChart.vue, VolumeChart.vue, PriceChart.vue)结构相似，分别实现对应图表和刷新方法 -->
+-<!-- App.vue -->
+-<template>
+-  <div class="app-container">
+-    <MarketSelector
+-      :markets="markets"
+-      :timeRanges="timeRanges"
+-      :indicators="indicators"
+-      v-model:market="selectedMarket"
+-      v-model:range="selectedRange"
+-      v-model:indicator="selectedIndicator"
+-    />
+-    <ChartsDashboard
+-      :market="selectedMarket"
+-      :range="selectedRange"
+-      :indicator="selectedIndicator"
+-    />
+-    <StrategyConfigurator @applyStrategy="applyStrategy" />
+-  </div>
+-</template>
+-
+-<script setup>
+-import { ref } from 'vue';
+-import MarketSelector from './components/MarketSelector.vue';
+-import ChartsDashboard from './components/ChartsDashboard.vue';
+-import StrategyConfigurator from './components/StrategyConfigurator.vue';
+-
+-const markets = ['BTC-USD', 'ETH-USD', 'LTC-USD', 'BNB-USD'];
+-const timeRanges = [
+-  { label: '1分钟', value: '1m' },
+-  { label: '5分钟', value: '5m' },
+-  { label: '15分钟', value: '15m' },
+-  { label: '1小时', value: '1h' },
+-  { label: '1天', value: '1d' },
+-];
+-const indicators = [
+-  { label: '无', value: 'none' },
+-  { label: 'MA (移动平均)', value: 'ma' },
+-  { label: 'BOLL (布林线)', value: 'boll' },
+-  { label: 'MACD', value: 'macd' },
+-];
+-
+-const selectedMarket = ref(markets[0]);
+-const selectedRange = ref(timeRanges[1].value);
+-const selectedIndicator = ref(indicators[0].value);
+-
+-function applyStrategy(strategyConfig) {
+-  // 这里可以处理用户自定义策略配置，传递给图表或交易逻辑
+-  console.log('应用策略配置:', strategyConfig);
+-}
+-</script>
+-
+-<style scoped>
+-.app-container {
+-  max-width: 1200px;
+-  margin: 20px auto;
+-  padding: 10px;
+-  background: #0a0a14;
+-  border-radius: 20px;
+-  box-shadow:
+-    0 0 30px #00ffff,
+-    inset 0 0 50px #00ffff;
+-  font-family: 'Orbitron', sans-serif;
+-  color: #00ffff;
+-}
+-</style>
+-
+-
+-<!-- components/MarketSelector.vue -->
+-<template>
+-  <div class="filter-panel">
+-    <label for="market-select">选择市场：</label>
+-    <select id="market-select" v-model="market" @change="$emit('update:market', market)">
+-      <option v-for="m in markets" :key="m" :value="m">{{ m }}</option>
+-    </select>
+-
+-    <label for="time-range">时间范围：</label>
+-    <select id="time-range" v-model="range" @change="$emit('update:range', range)">
+-      <option v-for="r in timeRanges" :key="r.value" :value="r.value">{{ r.label }}</option>
+-    </select>
+-
+-    <label for="indicator-select">指标：</label>
+-    <select id="indicator-select" v-model="indicator" @change="$emit('update:indicator', indicator)">
+-      <option v-for="ind in indicators" :key="ind.value" :value="ind.value">{{ ind.label }}</option>
+-    </select>
+-  </div>
+-</template>
+-
+-<script setup>
+-import { defineProps } from 'vue';
+-
+-const props = defineProps({
+-  markets: Array,
+-  timeRanges: Array,
+-  indicators: Array,
+-  market: String,
+-  range: String,
+-  indicator: String,
+-});
+-</script>
+-
+-<style scoped>
+-.filter-panel {
+-  margin-bottom: 20px;
+-  display: flex;
+-  align-items: center;
+-  gap: 20px;
+-  flex-wrap: wrap;
+-}
+-label {
+-  font-weight: bold;
+-}
+-select {
+-  background: #111122;
+-  border: 2px solid #ff00ff;
+-  border-radius: 8px;
+-  padding: 6px 12px;
+-  color: #ff00ff;
+-  font-weight: bold;
+-  font-size: 1rem;
+-  cursor: pointer;
+-  box-shadow:
+-    0 0 10px #ff00ff;
+-  transition: border-color 0.3s ease;
+-}
+-select:hover,
+-select:focus {
+-  border-color: #00ffff;
+-  outline: none;
+-  box-shadow:
+-    0 0 20px #00ffff;
+-}
+-</style>
+-
+-
+-<!-- components/ChartsDashboard.vue -->
+-<template>
+-  <div class="charts-container">
+-    <KlineChart
+-      :market="market"
+-      :range="range"
+-      :indicator="indicator"
+-      ref="klineChartRef"
+-    />
+-    <DepthChart :market="market" ref="depthChartRef" />
+-    <VolumeChart :market="market" ref="volumeChartRef" />
+-    <PriceChart :market="market" ref="priceChartRef" />
+-  </div>
+-</template>
+-
+-<script setup>
+-import { ref, watch, onMounted } from 'vue';
+-import KlineChart from './charts/KlineChart.vue';
+-import DepthChart from './charts/DepthChart.vue';
+-import VolumeChart from './charts/VolumeChart.vue';
+-import PriceChart from './charts/PriceChart.vue';
+-
+-const props = defineProps({
+-  market: String,
+-  range: String,
+-  indicator: String,
+-});
+-
+-const klineChartRef = ref(null);
+-const depthChartRef = ref(null);
+-const volumeChartRef = ref(null);
+-const priceChartRef = ref(null);
+-
+-// 这里可以实现更复杂的多图表联动逻辑，比如缩放同步、选区联动等
+-// 例如通过事件总线或 Pinia 共享状态实现联动
+-onMounted(() => {
+-  // 监听图表事件，做联动
+-});
+-
+-watch(() => [props.market, props.range, props.indicator], ([newMarket, newRange, newIndicator]) => {
+-  // 传递给子组件刷新数据
+-  klineChartRef.value?.refresh(newMarket, newRange, newIndicator);
+-  depthChartRef.value?.refresh(newMarket);
+-  volumeChartRef.value?.refresh(newMarket);
+-  priceChartRef.value?.refresh(newMarket);
+-}, { immediate: true });
+-</script>
+-
+-<style scoped>
+-.charts-container {
+-  display: grid;
+-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+-  gap: 20px;
+-}
+-</style>
+-
+-
+-<!-- components/StrategyConfigurator.vue -->
+-<template>
+-  <div class="strategy-configurator">
+-    <h3>策略配置</h3>
+-    <form @submit.prevent="apply">
+-      <label>
+-        策略名称：
+-        <input v-model="strategy.name" type="text" placeholder="输入策略名称" />
+-      </label>
+-      <label>
+-        参数1:
+-        <input v-model.number="strategy.param1" type="number" min="0" />
+-      </label>
+-      <label>
+-        参数2:
+-        <input v-model.number="strategy.param2" type="number" min="0" />
+-      </label>
+-      <button type="submit">应用策略</button>
+-    </form>
+-  </div>
+-</template>
+-
+-<script setup>
+-import { ref } from 'vue';
+-
+-const emit = defineEmits(['applyStrategy']);
+-
+-const strategy = ref({
+-  name: '',
+-  param1: 10,
+-  param2: 20,
+-});
+-
+-function apply() {
+-  emit('applyStrategy', { ...strategy.value });
+-}
+-</script>
+-
+-<style scoped>
+-.strategy-configurator {
+-  margin-top: 30px;
+-  padding: 15px;
+-  background: #111122;
+-  border-radius: 15px;
+-  box-shadow: 0 0 15px #ff00ff;
+-  color: #ff00ff;
+-  font-family: 'Orbitron', sans-serif;
+-}
+-h3 {
+-  text-align: center;
+-  margin-bottom: 15px;
+-}
+-form {
+-  display: flex;
+-  flex-direction: column;
+-  gap: 12px;
+-}
+-label {
+-  display: flex;
+-  justify-content: space-between;
+-  font-weight: bold;
+-}
+-input {
+-  background: #222233;
+-  border: 1px solid #ff00ff;
+-  border-radius: 8px;
+-  color: #ff00ff;
+-  padding: 6px 8px;
+-  width: 150px;
+-}
+-button {
+-  margin-top: 10px;
+-  padding: 10px;
+-  background: transparent;
+-  border: 2px solid #ff00ff;
+-  border-radius: 50px;
+-  color: #ff00ff;
+-  font-weight: bold;
+-  cursor: pointer;
+-  box-shadow: 0 0 15px #ff00ff;
+-  transition: background 0.3s ease;
+-}
+-button:hover {
+-  background: #ff00ff;
+-  color: #0a0a14;
+-}
+-</style>
+-
+-
+-<!-- components/charts/KlineChart.vue -->
+-<template>
+-  <div ref="chartRef" class="chart"></div>
+-</template>
+-
+-<script setup>
+-import { ref, onMounted, watch, onBeforeUnmount } from 'vue';
+-import * as echarts from 'echarts/core';
+-import {
+-  CandlestickChart,
+-  LineChart,
+-  BarChart,
+-} from 'echarts/charts';
+-import {
+-  TitleComponent,
+-  TooltipComponent,
+-  GridComponent,
+-  LegendComponent,
+-  DataZoomComponent,
+-  ToolboxComponent,
+-} from 'echarts/components';
+-import { CanvasRenderer } from 'echarts/renderers';
+-
+-echarts.use([
+-  TitleComponent,
+-  TooltipComponent,
+-  GridComponent,
+-  LegendComponent,
+-  DataZoomComponent,
+-  ToolboxComponent,
+-  CandlestickChart,
+-  LineChart,
+-  BarChart,
+-  CanvasRenderer,
+-]);
+-
+-const props = defineProps({
+-  market: String,
+-  range: String,
+-  indicator: String,
+-});
+-
+-const chartRef = ref(null);
+-let chartInstance = null;
+-let klineData = ref([]);
+-
+-// 这里应集成真实数据源或Pinia状态管理，实现数据订阅
+-// 为示范简单，使用定时器模拟数据更新
+-function generateFakeKlineData() {
+-  const now = +new Date();
+-  const data = [];
+-  for (let i = 30; i >= 0; i--) {
+-    const time = now - i * 60 * 60 * 1000;
+-    const open = 50000 + Math.sin(i / 5) * 1000 + Math.random() * 200;
+-    const close = open + (Math.random() - 0.5) * 400;
+-    const low = Math.min(open, close) - Math.random() * 200;
+-    const high = Math.max(open, close) + Math.random() * 200;
+-    const volume = Math.random() * 1000 + 500;
+-    data.push([time, open, close, low, high, volume]);
+-  }
+-  return data;
+-}
+-
+-function initChart() {
+-  if (chartRef.value) {
+-    chartInstance = echarts.init(chartRef.value);
+-  }
+-}
+-
+-function updateChart() {
+-  if (!chartInstance) return;
+-  klineData.value = generateFakeKlineData();
+-
+-  const categoryData = klineData.value.map(item => new Date(item[0]).toLocaleString());
+-  const values = klineData.value.map(item => [item[1], item[2], item[3], item[4]]);
+-  const volumes = klineData.value.map(item => item[5]);
+-
+-  const series = [
+-    {
+-      name: 'K线',
+-      type: 'candlestick',
+-      data: values,
+-      itemStyle: {
+-        color: '#ff00ff',
+-        color0: '#00ffff',
+-        borderColor: '#ff00ff',
+-        borderColor0: '#00ffff',
+-      },
+-    },
+-    {
+-      name: '成交量',
+-      type: 'bar',
+-      xAxisIndex: 1,
+-      yAxisIndex: 1,
+-      data: volumes,
+-      itemStyle: {
+-        color: '#ff00ff',
+-      },
+-    },
+-  ];
+-
+-  const option = {
+-    backgroundColor: 'transparent',
+-    tooltip: {
+-      trigger: 'axis',
+-      axisPointer: { type: 'cross' },
+-    },
+-    legend: {
+-      data: ['K线', '成交量'],
+-      textStyle: { color: '#fff' },
+-    },
+-    grid: [
+-      { left: '10%', right: '8%', height: '60%' },
+-      { left: '10%', right: '8%', top: '75%', height: '15%' },
+-    ],
+-    xAxis: [
+-      {
+-        type: 'category',
+-        data: categoryData,
+-        scale: true,
+-        boundaryGap: false,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        splitLine: { show: false },
+-        axisTick: { alignWithLabel: true },
+-        axisLabel: { color: '#00ffff' },
+-        min: 'dataMin',
+-        max: 'dataMax',
+-      },
+-      {
+-        type: 'category',
+-        gridIndex: 1,
+-        data: categoryData,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        axisTick: { alignWithLabel: true },
+-        axisLabel: { show: false },
+-      },
+-    ],
+-    yAxis: [
+-      {
+-        scale: true,
+-        splitArea: { show: true, areaStyle: { color: ['#111122', '#222233'] } },
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        splitLine: { lineStyle: { color: '#003333' } },
+-        axisLabel: { color: '#00ffff' },
+-      },
+-      {
+-        gridIndex: 1,
+-        splitNumber: 2,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        axisLabel: { color: '#00ffff' },
+-        axisTick: { show: false },
+-        splitLine: { show: false },
+-      },
+-    ],
+-    dataZoom: [
+-      {
+-        type: 'inside',
+-        xAxisIndex: [0, 1],
+-        start: 50,
+-        end: 100,
+-      },
+-      {
+-        show: true,
+-        xAxisIndex: [0, 1],
+-        type: 'slider',
+-        top: '85%',
+-        start: 50,
+-        end: 100,
+-        textStyle: { color: '#00ffff' },
+-      },
+-    ],
+-    toolbox: {
+-      feature: {
+-        saveAsImage: { title: '保存为图片' },
+-        dataZoom: { title: { zoom: '区域缩放', back: '区域缩放还原' } },
+-        restore: { title: '还原' },
+-      },
+-      iconStyle: {
+-        borderColor: '#00ffff',
+-      },
+-    },
+-    series,
+-  };
+-
+-  chartInstance.setOption(option);
+-}
+-
+-function refresh(market, range, indicator) {
+-  // 这里可根据参数请求真实数据或更新指标
+-  updateChart();
+-}
+-
+-onMounted(() => {
+-  initChart();
+-  updateChart();
+-  window.addEventListener('resize', () => chartInstance?.resize());
+-});
+-
+-onBeforeUnmount(() => {
+-  window.removeEventListener('resize', () => chartInstance?.resize());
+-  chartInstance?.dispose();
+-});
+-
+-defineExpose({ refresh });
+-</script>
+-
+-<style scoped>
+-.chart {
+-  width: 100%;
+-  height: 400px;
+-}
+-</style>
+-
+-<!-- 其他图表组件(DepthChart.vue, VolumeChart.vue, PriceChart.vue)结构相似，分别实现对应图表和刷新方法 -->
+-<head>
+-    <meta charset="UTF-8" />
+-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+-    <title>zzw868</title>
+-    <style>
+-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+-
+-        body {
+-            margin: 0;
+-            background: #0f0f1a;
+-            color: #00fff7;
+-            font-family: 'Orbitron', sans-serif;
+-            min-height: 100vh;
+-
+-            display: flex;ssh -T git@github.com;
+-
+-            flex-direction: column;
+-            align-items: center;
+-            padding: 20px;
+-        }
+-
+-        h1 {
+-            font-size: 3rem;
+-            color: #ff00ff;
+-            text-shadow:
+-                0 0 5px #ff00ff,
+-                0 0 10px #ff00ff,
+-                0 0 20px #ff00ff,
+-                0 0 40px #ff00ff;
+-            margin-bottom: 30px;
+-            animation: neon-flicker 2s infinite alternate;
+-            cursor: default;
+-        }
+-
+-        /* 霓虹灯闪烁动画 */
+-        @keyframes neon-flicker {
+-            0%, 100% {
+-                text-shadow:
+-                    0 0 5px #ff00ff,
+-                    0 0 10px #ff00ff,
+-                    0 0 20px #ff00ff,
+-                    0 0 40px #ff00ff;
+-            }
+-            50% {
+-                text-shadow:
+-                    0 0 2px #ff00ff,
+-                    0 0 5px #ff00ff,
+-                    0 0 10px #ff00ff,
+-                    0 0 20px #ff00ff;
+-            }
+-        }
+-
+-        #search {
+-            width: 90%;
+-            max-width: 600px;
+-            padding: 10px 15px;
+-            font-size: 1.1rem;
+-            border: 2px solid #ff00ff;
+-            border-radius: 8px;
+-            margin-bottom: 30px;
+-            background: transparent;
+-            color: #00fff7;
+-            outline: none;
+-            box-shadow:
+-                0 0 10px #ff00ff,
+-                inset 0 0 5px #ff00ff;
+-            transition: box-shadow 0.3s ease;
+-        }
+-
+-        #search:focus {
+-            box-shadow:
+-                0 0 20px #00fff7,
+-                inset 0 0 10px #00fff7;
+-        }
+-
+-        .post {
+-            background: rgba(255, 0, 255, 0.1);
+-            border: 1px solid #ff00ff;
+-            border-radius: 10px;
+-            padding: 20px;
+-            margin-bottom: 20px;
+-            width: 90%;
+-            max-width: 600px;
+-            box-shadow:
+-                0 0 10px #ff00ff,
+-                0 0 20px #ff00ff;
+-            cursor: pointer;
+-            user-select: none;
+-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+-        }
+-
+-        .post:hover {
+-            transform: scale(1.05);
+-            box-shadow:
+-                0 0 20px #00fff7,
+-                0 0 40px #00fff7;
+-        }
+-
+-        .post h2 {
+-            margin-top: 0;
+-            color: #ff00ff;
+-            text-shadow: 0 0 10px #ff00ff;
+-        }
+-
+-        .post p {
+-            font-size: 1.1rem;
+-            line-height: 1.5;
+-            color: #00fff7;
+-            text-shadow: 0 0 5px #00fff7;
+-            margin-top: 10px;
+-            display: none; /* 默认隐藏内容 */
+-        }
+-
+-        .post.expanded p {
+-            display: block; /* 展开显示内容 */
+-        }
+-
+-        footer {
+-            margin-top: auto;
+-            padding: 15px;
+-            font-size: 0.9rem;
+-            color: #5555ff;
+-            text-shadow: 0 0 5px #5555ff;
+-        }
+-    </style>
+-</head>
+-
+-<body>
+-    <h1>赛博朋克个人博客</h1>
+-
+-    <input type="text" id="search" placeholder="搜索文章标题..." aria-label="搜索文章标题" />
+-
+-    <div id="posts-container">
+-        {% for post in posts %}
+-        <div class="post">
+-            <h2>{{ post.title }}</h2>
+-            <p>{{ post.content }}</p>
+-        </div>
+-        {% endfor %}
+-    </div>
+-
+-    <footer>© 2026 赛博朋克博客 by PyCharm & Flask</footer>
+-
+-    <script>
+-        // 折叠面板功能：点击标题展开/收起内容
+-        document.querySelectorAll('.post').forEach(post => {
+-            post.addEventListener('click', () => {
+-                post.classList.toggle('expanded');
+-            });
+-        });
+-
+-        // 搜索功能：根据输入过滤文章
+-        const searchInput = document.getElementById('search');
+-        const postsContainer = document.getElementById('posts-container');
+-        const posts = postsContainer.querySelectorAll('.post');
+-
+-        searchInput.addEventListener('input', () => {
+-            const query = searchInput.value.toLowerCase();
+-
+-            posts.forEach(post => {
+-                const title = post.querySelector('h2').textContent.toLowerCase();
+-                if (title.includes(query)) {
+-                    post.style.display = '';
+-                } else {
+-                    post.style.display = 'none';
+-                }
+-            });
+-        });
+-    </script>
+-</body>
+-
+-  <meta name="description" content="微信公众号： 张良信息咨询服务工作室   【今日热点新闻一览↓↓】欧股大跌，芯片股力撑美股收窄跌幅，有色及黑色系暴跌，黄金上涨；数字货币崩盘，比特币一度跌超30%、逼近3万美元，以太币盘中破2000美元、跌超40%；马斯克暗示持仓不动，木头姐仍看涨至50万美元，比特币一度重返4万美元。 国务院召开常务会议，部署做好大宗商品保供稳价工作。 央行周诚君：人民币中长期将升值；人民币国际化条件下，中国央">
+-<meta property="og:type" content="article">
+-<meta property="og:title" content="【财经期刊FM-Radio｜2021年05月20日】">
+-<meta property="og:url" content="https://www.zzw868.com/2021/05/20/%E3%80%90%E8%B4%A2%E7%BB%8F%E6%9C%9F%E5%88%8AFM-Radio%EF%BD%9C2021%E5%B9%B405%E6%9C%8820%E6%97%A5%E3%80%91/index.html">
+-<meta property="og:site_name" content="张良信息咨询服务工作室">
+-<meta property="og:description" content="微信公众号： 张良信息咨询服务工作室   【今日热点新闻一览↓↓】欧股大跌，芯片股力撑美股收窄跌幅，有色及黑色系暴跌，黄金上涨；数字货币崩盘，比特币一度跌超30%、逼近3万美元，以太币盘中破2000美元、跌超40%；马斯克暗示持仓不动，木头姐仍看涨至50万美元，比特币一度重返4万美元。 国务院召开常务会议，部署做好大宗商品保供稳价工作。 央行周诚君：人民币中长期将升值；人民币国际化条件下，中国央">
+-<meta property="og:locale" content="zh_CN">
+-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020120817230943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70#pic_center">
+-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210129111339434.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70#pic_center">
+-<meta property="og:image" content="https://img-blog.csdnimg.cn/20210129112500415.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70#pic_center">
+-<meta property="article:published_time" content="2021-05-20T00:19:12.120Z">
+-<meta property="article:modified_time" content="2021-05-20T00:19:19.876Z">
+-<meta property="article:author" content="张良">
+-<meta name="twitter:card" content="summary">
+-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2020120817230943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70#pic_center">
+-
+-
+-<link rel="canonical" href="https://www.zzw868.com/2021/05/20/%E3%80%90%E8%B4%A2%E7%BB%8F%E6%9C%9F%E5%88%8AFM-Radio%EF%BD%9C2021%E5%B9%B405%E6%9C%8820%E6%97%A5%E3%80%91/">
+-
+-
+-<script class="page-configurations">
+-  // https://hexo.io/docs/variables.html
+-  CONFIG.page = {
+-    sidebar: "",
+-    isHome : false,
+-    isPost : true,
+-    lang   : 'zh-CN'
+-  };
+-</script>
+-
+-  <title>【财经期刊FM-Radio｜2021年05月20日】 | 张良信息咨询服务工作室</title>
+-
++    /* 响应式：小屏优化 */
++    @media (max-width: 767px) {
++      .post-body { font-size: 15px; }
++      .post-title { font-size: 1.4rem; }
++      .post-nav { flex-direction: column; }
++    }
++  </style>
+ 
+-
+-  <script>
+-    var _hmt = _hmt || [];
+-    (function() {
+-      var hm = document.createElement("script");
+-      hm.src = "https://hm.baidu.com/hm.js?852ba4b5b1c8d565711fe68c88cea266";
+-      var s = document.getElementsByTagName("script")[0];
+-      s.parentNode.insertBefore(hm, s);
+-    })();
++  <script class="hexo-configurations">
++    var NexT = window.NexT || {};
++    var CONFIG = {"hostname":"www.zzw868.com","root":"/","scheme":"Muse","version":"8.0.0-rc.5","exturl":true,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+   </script>
+ 
+ 
+ 
+-
+-  <noscript>
+-  <style>
+-  body { margin-top: 2rem; }
+-
+-  .use-motion .menu-item,
+-  .use-motion .sidebar,
+-  .use-motion .post-block,
+-  .use-motion .pagination,
+-  .use-motion .comments,
+-  .use-motion .post-header,
+-  .use-motion .post-body,
+-  .use-motion .collection-header {
+-    visibility: visible;
+-  }
+-
+-  .use-motion .header,
+-  .use-motion .site-brand-container .toggle,
+-  .use-motion .footer { opacity: initial; }
+-
+-  .use-motion .site-title,
+-  .use-motion .site-subtitle,
+-  .use-motion .custom-logo-image {
+-    opacity: initial;
+-    top: initial;
+-  }
+-
+-  .use-motion .logo-line {
+-    transform: scaleX(1);
+-  }
+-
+-  .search-pop-overlay, .sidebar-nav { display: none; }
+-  .sidebar-panel { display: block; }
+-  </style>
+-</noscript>
+-
+-</head>
+-
+ <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+   <div class="headband"></div>
+ 
+@@ -4586,1279 +1075,14 @@
+     </footer>
+   </article>
+ 
+-
+-
+-
+-
+-
+-
+-<template>
+-  <div class="dashboard">
+-    <div class="filter-panel">
+-      <label for="market-select">选择市场：</label>
+-      <select id="market-select" v-model="selectedMarket" @change="onMarketChange">
+-        <option v-for="market in markets" :key="market" :value="market">{{ market }}</option>
+-      </select>
+-
+-      <label for="time-range">时间范围：</label>
+-      <select id="time-range" v-model="selectedRange" @change="onRangeChange">
+-        <option v-for="range in timeRanges" :key="range.value" :value="range.value">{{ range.label }}</option>
+-      </select>
+-
+-      <label for="indicator-select">指标：</label>
+-      <select id="indicator-select" v-model="selectedIndicator" @change="onIndicatorChange">
+-        <option v-for="ind in indicators" :key="ind.value" :value="ind.value">{{ ind.label }}</option>
+-      </select>
+-    </div>
+-
+-    <div class="charts-container">
+-      <div class="chart-wrapper">
+-        <h3>K线图 (Candlestick)</h3>
+-        <div ref="klineChartRef" class="chart"></div>
+-      </div>
+-      <div class="chart-wrapper">
+-        <h3>深度图 (Depth Chart)</h3>
+-        <div ref="depthChartRef" class="chart"></div>
+-      </div>
+-      <div class="chart-wrapper">
+-        <h3>成交量趋势</h3>
+-        <div ref="volumeChartRef" class="chart"></div>
+-      </div>
+-      <div class="chart-wrapper">
+-        <h3>价格趋势</h3>
+-        <div ref="priceChartRef" class="chart"></div>
+-      </div>
+-
+-      <!-- Responsive Image Section -->
+-      <div class="responsive-image-section">
+-        <div class="responsive-image-container">
+-          <img src="https://img-blog.csdnimg.cn/2020120817230943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70#pic_center" alt="Crypto Trading Dashboard" class="responsive-image">
+-        </div>
+-        <p class="image-caption">加密货币交易仪表板 - 实时数据可视化</p>
+-      </div>
+-
+-    </div>
+-  </div>
+-</template>
+-
+-<script setup>
+-import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
+-import { defineStore, createPinia } from 'pinia';
+-import * as echarts from 'echarts/core';
+-import {
+-  LineChart,
+-  BarChart,
+-  CandlestickChart,
+-} from 'echarts/charts';
+-import {
+-  TitleComponent,
+-  TooltipComponent,
+-  GridComponent,
+-  LegendComponent,
+-  DataZoomComponent,
+-  VisualMapComponent,
+-} from 'echarts/components';
+-import { CanvasRenderer } from 'echarts/renderers';
+-
+-// 注册必须的组件
+-echarts.use([
+-  TitleComponent,
+-  TooltipComponent,
+-  GridComponent,
+-  LegendComponent,
+-  DataZoomComponent,
+-  VisualMapComponent,
+-  LineChart,
+-  BarChart,
+-  CandlestickChart,
+-  CanvasRenderer,
+-]);
+-
+-// Pinia 状态管理
+-const useMarketStore = defineStore('market', () => {
+-  const selectedMarket = ref('BTC-USD');
+-  const selectedRange = ref('1d');
+-  const selectedIndicator = ref('none');
+-
+-  const klineData = ref([]);
+-  const depthData = ref({ bids: [], asks: [] });
+-  const priceData = ref([]);
+-  const volumeData = ref([]);
+-
+-  // WebSocket 连接
+-  let ws = null;
+-
+-  // 模拟初始数据生成（真实项目应调用API）
+-  function generateInitialData() {
+-    const now = +new Date();
+-    const kline = [];
+-    for (let i = 30; i >= 0; i--) {
+-      const time = now - i * 60 * 60 * 1000;
+-      const open = 50000 + Math.sin(i / 5) * 1000 + Math.random() * 200;
+-      const close = open + (Math.random() - 0.5) * 400;
+-      const low = Math.min(open, close) - Math.random() * 200;
+-      const high = Math.max(open, close) + Math.random() * 200;
+-      const volume = Math.random() * 1000 + 500;
+-      kline.push([time, open, close, low, high, volume]);
+-    }
+-    klineData.value = kline;
+-
+-    // 深度数据模拟
+-    const bids = [];
+-    const asks = [];
+-    for (let i = 0; i < 20; i++) {
+-      bids.push([50000 - i * 50, Math.random() * 10 + 5]);
+-      asks.push([50000 + i * 50, Math.random() * 10 + 5]);
+-    }
+-    depthData.value = { bids, asks };
+-
+-    // 价格和成交量趋势
+-    const price = [];
+-    const volume = [];
+-    for (let i = 30; i >= 0; i--) {
+-      const time = new Date(now - i * 60 * 60 * 1000).toLocaleTimeString();
+-      price.push([time, 50000 + Math.sin(i / 3) * 1000 + Math.random() * 200]);
+-      volume.push([time, Math.random() * 1000 + 500]);
+-    }
+-    priceData.value = price;
+-    volumeData.value = volume;
+-  }
+-
+-  function connectWebSocket() {
+-    if (ws) {
+-      ws.close();
+-      ws = null;
+-    }
+-    ws = new WebSocket('wss://fake-crypto-feed.example/ws'); // 这里替换为真实WebSocket地址
+-    ws.onopen = () => {
+-      console.log('WebSocket已连接');
+-      ws.send(JSON.stringify({ type: 'subscribe', market: selectedMarket.value }));
+-    };
+-    ws.onmessage = (event) => {
+-      const data = JSON.parse(event.data);
+-      // 处理接收到的实时数据，更新状态
+-      // 示例：假设data包含kline、depth、price、volume字段
+-      if (data.kline) {
+-        klineData.value = data.kline;
+-      }
+-      if (data.depth) {
+-        depthData.value = data.depth;
+-      }
+-      if (data.price) {
+-        priceData.value = data.price;
+-      }
+-      if (data.volume) {
+-        volumeData.value = data.volume;
+-      }
+-    };
+-    ws.onclose = () => {
+-      console.log('WebSocket连接关闭');
+-    };
+-    ws.onerror = (err) => {
+-      console.error('WebSocket错误:', err);
+-    };
+-  }
+-
+-  // 监听市场变化，重新连接WebSocket并刷新数据
+-  watch(selectedMarket, (newMarket) => {
+-    connectWebSocket();
+-    generateInitialData();
+-  }, { immediate: true });
+-
+-  return {
+-    selectedMarket,
+-    selectedRange,
+-    selectedIndicator,
+-    klineData,
+-    depthData,
+-    priceData,
+-    volumeData,
+-    connectWebSocket,
+-    generateInitialData,
+-  };
+-});
+-
+-// 创建Pinia实例
+-const pinia = createPinia();
+-// 这里假设你的应用主入口已经使用了pinia
+-const store = useMarketStore(pinia);
+-
+-// 组件内部引用
+-const selectedMarket = store.selectedMarket;
+-const selectedRange = store.selectedRange;
+-const selectedIndicator = store.selectedIndicator;
+-
+-const markets = ['BTC-USD', 'ETH-USD', 'LTC-USD'];
+-const timeRanges = [
+-  { label: '1小时', value: '1h' },
+-  { label: '1天', value: '1d' },
+-  { label: '1周', value: '1w' },
+-];
+-const indicators = [
+-  { label: '无', value: 'none' },
+-  { label: 'MA (移动平均)', value: 'ma' },
+-  { label: 'BOLL (布林线)', value: 'boll' },
+-];
+-
+-// 图表引用
+-const klineChartRef = ref(null);
+-const depthChartRef = ref(null);
+-const priceChartRef = ref(null);
+-const volumeChartRef = ref(null);
+-
+-let klineChart = null;
+-let depthChart = null;
+-let priceChart = null;
+-let volumeChart = null;
+-
+-// 初始化图表函数
+-function initCharts() {
+-  if (klineChartRef.value) klineChart = echarts.init(klineChartRef.value);
+-  if (depthChartRef.value) depthChart = echarts.init(depthChartRef.value);
+-  if (priceChartRef.value) priceChart = echarts.init(priceChartRef.value);
+-  if (volumeChartRef.value) volumeChart = echarts.init(volumeChartRef.value);
+-}
+-
+-// K线图配置（支持指标）
+-function getKlineOption() {
+-  const data = store.klineData.value;
+-  const categoryData = data.map(item => new Date(item[0]).toLocaleString());
+-  const values = data.map(item => [item[1], item[2], item[3], item[4]]); // open, close, low, high
+-  const volumes = data.map(item => item[5]);
+-
+-  const series = [
+-    {
+-      name: 'K线',
+-      type: 'candlestick',
+-      data: values,
+-      itemStyle: {
+-        color: '#ff00ff',
+-        color0: '#00ffff',
+-        borderColor: '#ff00ff',
+-        borderColor0: '#00ffff',
+-      },
+-    },
+-    {
+-      name: '成交量',
+-      type: 'bar',
+-      xAxisIndex: 1,
+-      yAxisIndex: 1,
+-      data: volumes,
+-      itemStyle: {
+-        color: '#ff00ff',
+-      },
+-    },
+-  ];
+-
+-  // 简单实现MA指标示例
+-  if (store.selectedIndicator.value === 'ma') {
+-    const ma5 = calculateMA(5, values);
+-    series.push({
+-      name: 'MA5',
+-      type: 'line',
+-      data: ma5,
+-      smooth: true,
+-      lineStyle: { color: '#00ffff' },
+-    });
+-  }
+-
+-  return {
+-    backgroundColor: 'transparent',
+-    tooltip: {
+-      trigger: 'axis',
+-      axisPointer: { type: 'cross' },
+-    },
+-    legend: { data: ['K线', '成交量', 'MA5'], textStyle: { color: '#fff' } },
+-    grid: [
+-      { left: '10%', right: '8%', height: '60%' },
+-      { left: '10%', right: '8%', top: '75%', height: '15%' },
+-    ],
+-    xAxis: [
+-      {
+-        type: 'category',
+-        data: categoryData,
+-        scale: true,
+-        boundaryGap: false,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        splitLine: { show: false },
+-        axisTick: { alignWithLabel: true },
+-        axisLabel: { color: '#00ffff' },
+-        min: 'dataMin',
+-        max: 'dataMax',
+-      },
+-      {
+-        type: 'category',
+-        gridIndex: 1,
+-        data: categoryData,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        axisTick: { alignWithLabel: true },
+-        axisLabel: { show: false },
+-      },
+-    ],
+-    yAxis: [
+-      {
+-        scale: true,
+-        splitArea: { show: true, areaStyle: { color: ['#111122', '#222233'] } },
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        splitLine: { lineStyle: { color: '#003333' } },
+-        axisLabel: { color: '#00ffff' },
+-      },
+-      {
+-        gridIndex: 1,
+-        splitNumber: 2,
+-        axisLine: { lineStyle: { color: '#00ffff' } },
+-        axisLabel: { color: '#00ffff' },
+-        axisTick: { show: false },
+-        splitLine: { show: false },
+-      },
+-    ],
+-    dataZoom: [
+-      {
+-        type: 'inside',
+-        xAxisIndex: [0, 1],
+-        start: 50,
+-        end: 100,
+-      },
+-      {
+-        show: true,
+-        xAxisIndex: [0, 1],
+-        type: 'slider',
+-        top: '85%',
+-        start: 50,
+-        end: 100,
+-        textStyle: { color: '#00ffff' },
+-      },
+-    ],
+-    series,
+-  };
+-}
+-
+-// 计算简单移动平均线
+-function calculateMA(dayCount, data) {
+-  const result = [];
+-  for (let i = 0; i < data.length; i++) {
+-    if (i < dayCount - 1) {
+-      result.push('-');
+-      continue;
+-    }
+-    let sum = 0;
+-    for (let j = 0; j < dayCount; j++) {
+-      sum += data[i - j][1]; // close price
+-    }
+-    result.push((sum / dayCount).toFixed(2));
+-  }
+-  return result;
+-}
+-
+-// 深度图配置
+-function getDepthOption() {
+-  const bids = store.depthData.value.bids || [];
+-  const asks = store.depthData.value.asks || [];
+-
+-  // 计算累积量
+-  function accumulate(data) {
+-    let sum = 0;
+-    return data.map(([price, volume]) => {
+-      sum += volume;
+-      return [price, sum];
+-    });
+-  }
+-
+-  const bidData = accumulate(bids.slice().reverse());
+-  const askData = accumulate(asks);
+-
+-  return {
+-    backgroundColor: 'transparent',
+-    tooltip: { trigger: 'axis' },
+-    xAxis: {
+-      type: 'value',
+-      scale: true,
+-      axisLine: { lineStyle: { color: '#00ffff' } },
+-      splitLine: { lineStyle: { color: '#003333' } },
+-      axisLabel: { color: '#00ffff' },
+-    },
+-    yAxis: {
+-      type: 'value',
+-      scale: true,
+-      axisLine: { lineStyle: { color: '#00ffff' } },
+-      splitLine: { lineStyle: { color: '#003333' } },
+-      axisLabel: { color: '#00ffff' },
+-    },
+-    series: [
+-      {
+-        name: '买入',
+-        type: 'line',
+-        step: 'end',
+-        data: bidData,
+-        itemStyle: { color: '#00ff00' },
+-        areaStyle: { color: 'rgba(0,255,0,0.3)' },
+-        lineStyle: { width: 2 },
+-      },
+-      {
+-        name: '卖出',
+-        type: 'line',
+-        step: 'start',
+-        data: askData,
+-        itemStyle: { color: '#ff0000' },
+-        areaStyle: { color: 'rgba(255,0,0,0.3)' },
+-        lineStyle: { width: 2 },
+-      },
+-    ],
+-    legend: {
+-      data: ['买入', '卖出'],
+-      textStyle: { color: '#00ffff' },
+-    },
+-  };
+-}
+-
+-// 价格趋势图配置
+-function getPriceOption() {
+-  const data = store.priceData.value;
+-  const times = data.map(item => item[0]);
+-  const prices = data.map(item => item[1]);
+-  return {
+-    backgroundColor: 'transparent',
+-    tooltip: { trigger: 'axis' },
+-    xAxis: {
+-      type: 'category',
+-      data: times,
+-      axisLine: { lineStyle: { color: '#00ffff' } },
+-      axisLabel: { color: '#00ffff' },
+-    },
+-    yAxis: {
+-      type: 'value',
+-      axisLine: { lineStyle: { color: '#00ffff' } },
+-      splitLine: { lineStyle: { color: '#003333' } },
+-      axisLabel: { color: '#00ffff' },
+-    },
+-    series: [{
+-      data: prices,
+-      type: 'line',
+-      smooth: true,
+-      lineStyle: { color: '#ff00ff', width: 3 },
+-      areaStyle: { color: 'rgba(255,0,255,0.3)' },
+-    }],
+-  };
+-}
+-
+-// 成交量趋势图配置
+-function getVolumeOption() {
+-  const data = store.volumeData.value;
+-  const times = data.map(item => item[0]);
+-  const volumes = data.map(item => item[1]);
+-  return {
+-    backgroundColor: 'transparent',
+-    tooltip: { trigger: 'axis' },
+-    xAxis: {
+-      type: 'category',
+-      data: times,
+-      axisLine: { lineStyle: { color: '#00ffff' } },
+-      axisLabel: { color: '#00ffff' },
+-    },
+-    yAxis: {
+-      type: 'value',
+-      axisLine: { lineStyle: { color: '#00ffff' } },
+-      splitLine: { lineStyle: { color: '#003333' } },
+-      axisLabel: { color: '#00ffff' },
+-    },
+-    series: [{
+-      data: volumes,
+-      type: 'bar',
+-      itemStyle: { color: '#ff00ff' },
+-      barMaxWidth: '20px',
+-    }],
+-  };
+-}
+-
+-// 更新所有图表
+-function updateAllCharts() {
+-  if (klineChart) klineChart.setOption(getKlineOption());
+-  if (depthChart) depthChart.setOption(getDepthOption());
+-  if (priceChart) priceChart.setOption(getPriceOption());
+-  if (volumeChart) volumeChart.setOption(getVolumeOption());
+-}
+-
+-// 联动图表缩放和高亮
+-function linkCharts() {
+-  if (klineChart && volumeChart) {
+-    echarts.connect([klineChart, volumeChart]);
+-  }
+-}
+-
+-// 监听选项变化
+-function onMarketChange() {
+-  store.selectedMarket.value = selectedMarket.value;
+-}
+-function onRangeChange() {
+-  store.selectedRange.value = selectedRange.value;
+-}
+-function onIndicatorChange() {
+-  store.selectedIndicator.value = selectedIndicator.value;
+-}
+-
+-// 窗口尺寸变化时自适应
+-function resizeCharts() {
+-  klineChart?.resize();
+-  depthChart?.resize();
+-  priceChart?.resize();
+-  volumeChart?.resize();
+-}
+-window.addEventListener('resize', resizeCharts);
+-
+-onMounted(() => {
+-  initCharts();
+-  updateAllCharts();
+-  linkCharts();
+-
+-  // 模拟WebSocket推送更新
+-  const timer = setInterval(() => {
+-    store.generateInitialData();
+-    updateAllCharts();
+-  }, 5000);
+-
+-  // 真实项目应调用 store.connectWebSocket()
+-
+-  // 清理
+-  onBeforeUnmount(() => {
+-    clearInterval(timer);
+-    window.removeEventListener('resize', resizeCharts);
+-    klineChart?.dispose();
+-    depthChart?.dispose();
+-    priceChart?.dispose();
+-    volumeChart?.dispose();
+-  });
+-});
+-
+-// 绑定响应式变量
+-const selectedMarket = ref(store.selectedMarket.value);
+-const selectedRange = ref(store.selectedRange.value);
+-const selectedIndicator = ref(store.selectedIndicator.value);
+-
+-// 监听 Pinia 状态变化同步本地变量
+-watch(store.selectedMarket, (v) => (selectedMarket.value = v));
+-watch(store.selectedRange, (v) => (selectedRange.value = v));
+-watch(store.selectedIndicator, (v) => (selectedIndicator.value = v));
+-
+-// 监听本地变量变化同步 Pinia
+-watch(selectedMarket, (v) => (store.selectedMarket.value = v));
+-watch(selectedRange, (v) => (store.selectedRange.value = v));
+-watch(selectedIndicator, (v) => (store.selectedIndicator.value = v));
+-</script>
+-
+-<style scoped>
+-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+-
+-.dashboard {
+-  max-width: 1100px;
+-  margin: 20px auto;
+-  font-family: 'Orbitron', sans-serif;
+-  color: #00ffff;
+-  background: #0a0a14;
+-  padding: 20px;
+-  border-radius: 20px;
+-  box-shadow:
+-    0 0 20px #00ffff,
+-    inset 0 0 40px #00ffff;
+-}
+-
+-.filter-panel {
+-  margin-bottom: 20px;
+-  display: flex;
+-  align-items: center;
+-  gap: 20px;
+-  flex-wrap: wrap;
+-}
+-label {
+-  font-weight: bold;
+-}
+-select {
+-  background: #111122;
+-  border: 2px solid #ff00ff;
+-  border-radius: 8px;
+-  padding: 6px 12px;
+-  color: #ff00ff;
+-  font-weight: bold;
+-  font-size: 1rem;
+-  cursor: pointer;
+-  box-shadow:
+-    0 0 10px #ff00ff;
+-  transition: border-color 0.3s ease;
+-}
+-select:hover,
+-select:focus {
+-  border-color: #00ffff;
+-  outline: none;
+-  box-shadow:
+-    0 0 20px #00ffff;
+-}
+-
+-.charts-container {
+-  display: grid;
+-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+-  gap: 20px;
+-}
+-
+-.chart-wrapper {
+-  background: #111122;
+-  border-radius: 15px;
+-  padding: 15px;
+-  box-shadow:
+-    0 0 15px #ff00ff;
+-}
+-.chart-wrapper h3 {
+-  text-align: center;
+-  margin-bottom: 10px;
+-  color: #ff00ff;
+-  text-shadow:
+-    0 0 10px #ff00ff;
+-}
+-.chart {
+-  width: 100%;
+-  height: 320px;
+-}
+-</style>
+-
+-  <!-- AI 智能聊天机器人 -->
+-  <div class="ai-chat-widget" id="aiChatWidget">
+-    <button class="chat-toggle-btn" @click="toggleChat" title="AI 智能助手">
+-      🤖
+-    </button>
+-    
+-    <div class="chat-window" :class="{ active: isChatOpen }">
+-      <div class="chat-header">
+-        <h3>
+-          <span class="status-dot"></span>
+-          AI 金融助手
+-        </h3>
+-        <button @click="toggleChat" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">&times;</button>
+-      </div>
+-      
+-      <div class="chat-messages" ref="messagesContainer">
+-        <div v-for="(msg, index) in messages" :key="index" 
+-             class="chat-message" :class="msg.type">
+-          <div class="message-avatar">{{ msg.type === 'bot' ? '🤖' : '👤' }}</div>
+-          <div class="message-content" v-html="msg.content"></div>
+-        </div>
+-        
+-        <!-- 输入提示动画 -->
+-        <div v-if="isTyping" class="chat-message bot">
+-          <div class="message-avatar">🤖</div>
+-          <div class="message-content">
+-            <div class="typing-indicator">
+-              <span></span><span></span><span></span>
+-            </div>
+-          </div>
+-        </div>
+-      </div>
+-      
+-      <!-- 快速回复按钮 -->
+-      <div class="quick-replies" v-if="showQuickReplies">
+-        <button v-for="(reply, idx) in quickReplies" :key="idx"
+-                class="quick-reply-btn"
+-                @click="sendQuickReply(reply.text)">
+-          {{ reply.label }}
+-        </button>
+-      </div>
+-      
+-      <div class="chat-input-area">
+-        <input 
+-          type="text" 
+-          class="chat-input" 
+-          v-model="userInput"
+-          @keyup.enter="sendMessage"
+-          placeholder="输入问题..."
+-        >
+-        <button class="chat-send-btn" @click="sendMessage">
+-          ➤
+-        </button>
+-      </div>
+     </div>
+-  </div>
+-
+-  <script src="https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@2.0.2/js/instantclick-1.2.2.js" type="module"></script>
+-
+-  <!-- AI 聊天机器人逻辑 -->
+-  <script>
+-    const { createApp, ref, reactive, nextTick, watch } = Vue;
+-
+-    // AI 知识库 - 增强版
+-    const aiKnowledgeBase = {
+-      greetings: ['你好', '您好', 'hello', 'hi', '早上好', '下午好', '晚上好', '嗨'],
+-      market: ['市场', '行情', '价格', '走势', '趋势', '大盘', '指数', '币圈', '股市'],
+-      trading: ['交易', '买卖', '下单', '开仓', '平仓', '做多', '做空', '杠杆'],
+-      strategy: ['策略', '建议', '怎么操作', '如何', '方法', '技巧', '心得'],
+-      risk: ['风险', '安全', '靠谱吗', '亏损', '爆仓', '止损'],
+-      fees: ['手续费', '费率', '成本', '佣金', '服务费'],
+-      btc: ['比特币', 'BTC', '大饼'],
+-      eth: ['以太坊', 'ETH', '以太'],
+-      analysis: ['分析', '预测', '目标位', '支撑位', '阻力位']
+-    };
+-
+-    // 上下文记忆
+-    let conversationContext = {
+-      lastTopic: null,
+-      lastMarket: null,
+-      conversationCount: 0,
+-      userSentiment: 'neutral' // positive, neutral, negative
+-    };
+-
+-    // AI 回复模板 - 增强版
+-    const aiResponses = {
+-      greeting: [
+-        '您好！我是您的 AI 金融助手，很高兴为您服务！😊',
+-        '欢迎！有什么可以帮您的吗？💡',
+-        '您好！随时准备为您解答金融相关问题！🚀',
+-        '嗨！今天想了解什么行情呢？📊'
+-      ],
+-      market_analysis: [
+-        '根据最新数据分析，当前市场呈现<strong>{{trend}}</strong>趋势。建议您关注关键支撑位和阻力位。📊',
+-        '从技术指标来看，市场正在<strong>{{trend}}</strong>。成交量有所变化，请密切关注。📈',
+-        '综合分析显示，短期内市场可能<strong>{{trend}}</strong>。建议做好风险管理。💹',
+-        '结合{{market}}的情况来看，目前走势偏强，可以多关注一下。👀'
+-      ],
+-      trading_advice: [
+-        '根据当前行情，建议您<strong>谨慎操作</strong>，设置好止损止盈。⚠️',
+-        '从技术面看，现在可以考虑<strong>逢低布局</strong>，但要注意仓位控制。💡',
+-        '市场波动较大，建议<strong>观望为主</strong>，等待更明确的信号。👀',
+-        '如果您想交易，建议轻仓试水，不要急于重仓。🎯'
+-      ],
+-      strategy_suggestion: [
+-        '推荐您使用<strong>趋势跟踪策略</strong>，结合均线系统和 MACD 指标。📊',
+-        '可以考虑<strong>网格交易策略</strong>，在震荡市中获取稳定收益。💰',
+-        '建议使用<strong>定投策略</strong>，分散风险，长期持有。🎯',
+-        '对于新手，建议从<strong>小额定投</strong>开始，逐步积累经验。📚'
+-      ],
+-      risk_warning: [
+-        '投资有风险，入市需谨慎。建议您只用闲钱投资，做好风险控制。⚠️',
+-        '任何投资都存在风险，建议您分散投资，不要 all in 单一品种。🛡️',
+-        '请注意风险管理，设置止损位，保护本金安全。💪',
+-        '记住：活下来最重要，不要冒不必要的风险。🔒'
+-      ],
+-      btc_analysis: [
+-        '比特币作为风向标，对整体市场影响很大。目前走势值得关注。₿',
+-        'BTC 是市场龙头，它的走势往往决定其他币种的方向。📊',
+-        '从历史数据看，比特币的牛熊周期很明显，现在是关键时期。🔍'
+-      ],
+-      eth_analysis: [
+-        '以太坊生态发展强劲，长期价值被看好。💎',
+-        'ETH2.0 升级后，性能和费用都有改善，值得关注。🚀',
+-        '以太坊的智能合约优势明显，DeFi 和 NFT 都离不开它。💡'
+-      ],
+-      technical_analysis: [
+-        '从技术面看，目前处于震荡整理阶段，等待方向选择。📈',
+-        'MACD 金叉形成，短期可能有一波上涨行情。📊',
+-        'KDJ 指标超买，注意短期回调风险。⚠️',
+-        '布林带收口，即将选择方向，重点关注。👀'
+-      ],
+-      default: [
+-        '这个问题很有意思，让我想想... 🤔 从专业角度来看，需要综合考虑多方面因素。',
+-        '感谢您的提问！💡 这个问题需要从多个维度分析...',
+-        '好问题！🎯 让我为您详细分析一下...',
+-        '我理解您的疑问，从金融市场角度来看... 💭'
+-      ]
+-    };
+-
+-    createApp({
+-      setup() {
+-        const isChatOpen = ref(false);
+-        const userInput = ref('');
+-        const messages = reactive([]);
+-        const isTyping = ref(false);
+-        const showQuickReplies = ref(true);
+-        
+-        const quickReplies = [
+-          { label: '📊 今日行情', text: '今天市场行情如何？' },
+-          { label: '💡 交易建议', text: '有什么交易建议吗？' },
+-          { label: '🎯 投资策略', text: '推荐什么投资策略？' },
+-          { label: '⚠️ 风险提示', text: '需要注意哪些风险？' }
+-        ];
+-
+-        // 初始化欢迎消息
+-        const initMessage = () => {
+-          messages.push({
+-            type: 'bot',
+-            content: '您好！我是您的 AI 金融助手🤖<br>专注加密货币、股票等金融市场分析<br>有什么问题尽管问我吧！💡'
+-          });
+-        };
+-
+-        // 切换聊天窗口
+-        const toggleChat = () => {
+-          isChatOpen.value = !isChatOpen.value;
+-          if (isChatOpen.value && messages.length === 0) {
+-            initMessage();
+-          }
+-        };
+-
+-        // 发送消息
+-        const sendMessage = () => {
+-          const text = userInput.value.trim();
+-          if (!text) return;
+-
+-          // 添加用户消息
+-          messages.push({
+-            type: 'user',
+-            content: text
+-          });
+-
+-          userInput.value = '';
+-          showQuickReplies.value = false;
+-
+-          // 模拟 AI 思考
+-          generateResponse(text);
+-        };
+-
+-        // 快捷回复
+-        const sendQuickReply = (text) => {
+-          userInput.value = text;
+-          sendMessage();
+-        };
+-
+-        // 生成 AI 回复
+-        const generateResponse = async (userText) => {
+-          isTyping.value = true;
+-          scrollToBottom();
+-
+-          // 模拟思考延迟
+-          await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+-
+-          // 智能匹配回复
+-          const response = getAIResponse(userText);
+-          
+-          messages.push({
+-            type: 'bot',
+-            content: response
+-          });
+-
+-          isTyping.value = false;
+-          nextTick(() => scrollToBottom());
+-        };
+-
+-        // AI 核心算法 - 增强版 (支持上下文和情感分析)
+-        const getAIResponse = (text) => {
+-          const lowerText = text.toLowerCase();
+-          
+-          // 更新上下文
+-          conversationContext.conversationCount++;
+-          
+-          // 1. 情感分析
+-          analyzeSentiment(text);
+-          
+-          // 2. 识别具体币种
+-          let specificMarket = null;
+-          if (aiKnowledgeBase.btc.some(k => lowerText.includes(k))) {
+-            specificMarket = 'BTC';
+-          } else if (aiKnowledgeBase.eth.some(k => lowerText.includes(k))) {
+-            specificMarket = 'ETH';
+-          }
+-          
+-          // 3. 问候语识别
+-          if (aiKnowledgeBase.greetings.some(g => lowerText.includes(g))) {
+-            updateContext('greeting', specificMarket);
+-            return randomSelect(aiResponses.greeting);
+-          }
+-
+-          // 4. 比特币专项分析
+-          if (specificMarket === 'BTC' || aiKnowledgeBase.btc.some(k => lowerText.includes(k))) {
+-            updateContext('btc', 'BTC');
+-            return randomSelect(aiResponses.btc_analysis);
+-          }
+-          
+-          // 5. 以太坊专项分析
+-          if (specificMarket === 'ETH' || aiKnowledgeBase.eth.some(k => lowerText.includes(k))) {
+-            updateContext('eth', 'ETH');
+-            return randomSelect(aiResponses.eth_analysis);
+-          }
+-
+-          // 6. 市场行情相关
+-          if (aiKnowledgeBase.market.some(k => lowerText.includes(k)) || 
+-              aiKnowledgeBase.analysis.some(k => lowerText.includes(k))) {
+-            const trends = ['震荡上行', '高位整理', '小幅回调', '强势上涨', '盘整蓄势'];
+-            const trend = randomSelect(trends);
+-            const market = specificMarket || '当前市场';
+-            updateContext('market', market);
+-            return randomSelect(aiResponses.market_analysis)
+-              .replace('{{trend}}', trend)
+-              .replace('{{market}}', market);
+-          }
+-
+-          // 7. 技术分析
+-          if (aiKnowledgeBase.analysis.some(k => lowerText.includes(k)) && 
+-              (lowerText.includes('技术') || lowerText.includes('指标'))) {
+-            updateContext('technical', null);
+-            return randomSelect(aiResponses.technical_analysis);
+-          }
+-
+-          // 8. 交易建议
+-          if (aiKnowledgeBase.trading.some(k => lowerText.includes(k)) || 
+-              lowerText.includes('建议') || lowerText.includes('怎么')) {
+-            updateContext('trading', specificMarket);
+-            return randomSelect(aiResponses.trading_advice);
+-          }
+-
+-          // 9. 策略咨询
+-          if (aiKnowledgeBase.strategy.some(k => lowerText.includes(k))) {
+-            updateContext('strategy', null);
+-            return randomSelect(aiResponses.strategy_suggestion);
+-          }
+-
+-          // 10. 风险询问
+-          if (aiKnowledgeBase.risk.some(k => lowerText.includes(k))) {
+-            updateContext('risk', null);
+-            return randomSelect(aiResponses.risk_warning);
+-          }
+-
+-          // 11. 上下文关联回复
+-          if (conversationContext.lastTopic) {
+-            return generateContextualResponse(conversationContext.lastTopic);
+-          }
+-
+-          // 12. 默认回复
+-          updateContext('unknown', null);
+-          return randomSelect(aiResponses.default);
+-        };
+-        
+-        // 情感分析
+-        const analyzeSentiment = (text) => {
+-          const positiveWords = ['涨', '涨', '赚钱', '利好', '机会', '看好', '买入'];
+-          const negativeWords = ['跌', '跌', '亏损', '利空', '风险', '看空', '卖出'];
+-          
+-          let score = 0;
+-          positiveWords.forEach(word => {
+-            if (text.includes(word)) score++;
+-          });
+-          negativeWords.forEach(word => {
+-            if (text.includes(word)) score--;
+-          });
+-          
+-          if (score > 0) {
+-            conversationContext.userSentiment = 'positive';
+-          } else if (score < 0) {
+-            conversationContext.userSentiment = 'negative';
+-          } else {
+-            conversationContext.userSentiment = 'neutral';
+-          }
+-        };
+-        
+-        // 更新上下文
+-        const updateContext = (topic, market) => {
+-          conversationContext.lastTopic = topic;
+-          if (market) {
+-            conversationContext.lastMarket = market;
+-          }
+-        };
+-        
+-        // 生成上下文关联回复
+-        const generateContextualResponse = (lastTopic) => {
+-          const contextualResponses = {
+-            market: [
+-              '继续刚才的话题，从更长期来看，市场趋势仍然向好。📈',
+-              '补充一下，除了技术面，基本面也很重要。💡'
+-            ],
+-            trading: [
+-              '关于交易，我再多说一句：仓位管理比选股更重要。🎯',
+-              '记住：不要追涨杀跌，耐心等待机会。⏰'
+-            ],
+-            strategy: [
+-              '策略方面，最重要的是坚持执行，不要频繁更换。💪',
+-              '好的策略需要时间验证，不要急于求成。📚'
+-            ],
+-            risk: [
+-              '风险控制是第一位的，宁可错过，不要做错。🛡️',
+-              '留得青山在，不怕没柴烧。保护本金最重要。💰'
+-            ]
+-          };
+-          
+-          if (contextualResponses[lastTopic]) {
+-            return randomSelect(contextualResponses[lastTopic]);
+-          }
+-          return randomSelect(aiResponses.default);
+-        };
+-
+-        // 随机选择
+-        const randomSelect = (arr) => {
+-          return arr[Math.floor(Math.random() * arr.length)];
+-        };
+-
+-        // 滚动到底部
+-        const scrollToBottom = () => {
+-          const container = document.querySelector('.chat-messages');
+-          if (container) {
+-            container.scrollTop = container.scrollHeight;
+-          }
+-        };
+-
+-        // 监听消息变化自动滚动
+-        watch(messages, () => {
+-          nextTick(() => scrollToBottom());
+-        });
+-
+-        return {
+-          isChatOpen,
+-          userInput,
+-          messages,
+-          isTyping,
+-          showQuickReplies,
+-          quickReplies,
+-          toggleChat,
+-          sendMessage,
+-          sendQuickReply
+-        };
+-      }
+-    }).mount('#aiChatWidget');
+-  </script>
+-
+-  <!-- 德州扑克 AI 游戏逻辑 -->
+-  <script>
+-    // 游戏状态
+-    const pokerGame = {
+-      deck: [],
+-      playerHand: [],
+-      aiHand: [],
+-      communityCards: [],
+-      pot: 0,
+-      playerChips: 1000,
+-      aiChips: 1000,
+-      currentBet: 0,
+-      phase: 'start',
+-      waitingForPlayer: false
+-    };
+-
+-    const SUITS = ['♠', '♥', '♦', '♣'];
+-    const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'];
+-
+-    // 创建牌组
+-    function createDeck() {
+-      const deck = [];
+-      for (const suit of SUITS) {
+-        for (const rank of RANKS) {
+-          deck.push({ suit, rank, id: rank + suit });
+-        }
+-      }
+-      return deck;
+-    }
+-
+-    // 洗牌算法
+-    function shuffle(deck) {
+-      const shuffled = [...deck];
+-      for (let i = shuffled.length - 1; i > 0; i--) {
+-        const j = Math.floor(Math.random() * (i + 1));
+-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+-      }
+-      return shuffled;
+-    }
+-
+-    // 牌面颜色
+-    function cardColor(suit) {
+-      return suit === '♥' || suit === '♦' ? '#ef4444' : '#06b6d4';
+-    }
+-
+-    // 渲染卡牌
+-    function renderCard(card, containerId) {
+-      const container = document.getElementById(containerId);
+-      if (!card) return;
+-      
+-      const cardDiv = document.createElement('div');
+-      cardDiv.style.cssText = `
+-        padding: 10px 15px;
+-        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+-        border: 2px solid ${cardColor(card.suit)};
+-        border-radius: 8px;
+-        font-size: 1.5rem;
+-        color: ${cardColor(card.suit)};
+-        font-weight: bold;
+-        box-shadow: 0 0 10px ${cardColor(card.suit)};
+-      `;
+-      cardDiv.textContent = `${card.rank}${card.suit}`;
+-      container.appendChild(cardDiv);
+-    }
+-
+-    // 更新 UI
+-    function updateUI() {
+-      // 更新手牌
+-      const playerContainer = document.getElementById('player-hand');
+-      playerContainer.innerHTML = '';
+-      pokerGame.playerHand.forEach(card => renderCard(card, 'player-hand'));
+-
+-      // 更新公共牌
+-      const commContainer = document.getElementById('community-cards');
+-      commContainer.innerHTML = '';
+-      if (pokerGame.communityCards.length === 0) {
+-        commContainer.innerHTML = '<span style="color: rgba(255,255,255,0.3); font-size: 0.9rem;">等待翻牌</span>';
+-      } else {
+-        pokerGame.communityCards.forEach(card => renderCard(card, 'community-cards'));
+-      }
+-
+-      // 更新 AI 手牌 (摊牌时才显示)
+-      const aiContainer = document.getElementById('ai-hand');
+-      aiContainer.innerHTML = '';
+-      if (pokerGame.phase === 'showdown') {
+-        pokerGame.aiHand.forEach(card => renderCard(card, 'ai-hand'));
+-      } else {
+-        aiContainer.innerHTML = '<span style="color: rgba(255,255,255,0.1); font-size: 2rem;">❓ ❓</span>';
+-      }
+-
+-      // 更新筹码信息
+-      document.getElementById('pot-value').textContent = pokerGame.pot;
+-      document.getElementById('current-bet-value').textContent = pokerGame.currentBet;
+-      document.getElementById('player-chips-value').textContent = pokerGame.playerChips;
+-      document.getElementById('ai-chips-value').textContent = pokerGame.aiChips;
+-    }
+-
+-    // 开始游戏
+-    function startPokerGame() {
+-      const newDeck = shuffle(createDeck());
+-      pokerGame.deck = newDeck;
+-      pokerGame.playerHand = [newDeck.pop(), newDeck.pop()];
+-      pokerGame.aiHand = [newDeck.pop(), newDeck.pop()];
+-      pokerGame.communityCards = [];
+-      pokerGame.pot = 20;
+-      pokerGame.currentBet = 10;
+-      pokerGame.playerChips -= 10;
+-      pokerGame.aiChips -= 10;
+-      pokerGame.phase = 'preflop';
+-      pokerGame.waitingForPlayer = true;
+-
+-      // 更新 UI
+-      updateUI();
+-      document.getElementById('game-message').textContent = '📤 发牌完成，翻牌前阶段。请行动！';
+-      document.getElementById('ai-reason').textContent = '';
+-      document.getElementById('win-rate-display').style.display = 'none';
+-      
+-      // 显示操作按钮
+-      document.getElementById('start-btn').style.display = 'none';
+-      document.getElementById('action-buttons').style.display = 'flex';
+-
+-      // 模拟 AI 计算胜率
+-      setTimeout(() => {
+-        const winRate = (Math.random() * 0.4 + 0.3).toFixed(3);
+-        const accuracy = (Math.random() * 0.2 + 0.8).toFixed(3);
+-        document.getElementById('win-rate-value').textContent = (winRate * 100).toFixed(1) + '%';
+-        document.getElementById('accuracy-value').textContent = (accuracy * 100).toFixed(1) + '%';
+-        document.getElementById('win-rate-display').style.display = 'block';
+-      }, 1000);
+-    }
+-
+-    // 玩家行动
+-    function playerAction(action) {
+-      if (!pokerGame.waitingForPlayer) return;
+-
+-      switch(action) {
+-        case 'fold':
+-          document.getElementById('game-message').textContent = '👤 你弃牌，AI 获胜';
+-          pokerGame.aiChips += pokerGame.pot;
+-          endRound();
+-          break;
+-        case 'check':
+-          document.getElementById('game-message').textContent = '✋ 你过牌，AI 决策中...';
+-          pokerGame.waitingForPlayer = false;
+-          setTimeout(aiTurn, 1500);
+-          break;
+-        case 'call':
+-          if (pokerGame.playerChips >= pokerGame.currentBet) {
+-            pokerGame.playerChips -= pokerGame.currentBet;
+-            pokerGame.pot += pokerGame.currentBet;
+-            document.getElementById('game-message').textContent = `✅ 你跟注 ${pokerGame.currentBet} 筹码，AI 思考中...`;
+-            pokerGame.waitingForPlayer = false;
+-            updateUI();
+-            setTimeout(aiTurn, 1500);
+-          }
+-          break;
+-        case 'raise':
+-          const raiseAmount = pokerGame.currentBet * 2;
+-          if (pokerGame.playerChips >= raiseAmount) {
+-            pokerGame.playerChips -= raiseAmount;
+-            pokerGame.pot += raiseAmount;
+-            pokerGame.currentBet = raiseAmount;
+-            document.getElementById('game-message').textContent = `🔥 你加注到 ${raiseAmount} 筹码，AI 应对中...`;
+-            pokerGame.waitingForPlayer = false;
+-            updateUI();
+-            setTimeout(aiTurn, 1500);
+-          }
+-          break;
+-      }
+-      updateUI();
+-    }
+-
+-    // AI 回合
+-    function aiTurn() {
+-      const winRateDisplay = document.getElementById('win-rate-value').textContent;
+-      const winRate = parseFloat(winRateDisplay) / 100 || 0.5;
+-      
+-      let aiAction = 'check';
+-      let reason = '';
+-
+-      // AI 决策逻辑
+-      if (winRate > 0.7) {
+-        aiAction = 'raise';
+-        reason = `超强牌力！胜率${(winRate*100).toFixed(1)}%，激进加注`;
+-      } else if (winRate > 0.5) {
+-        aiAction = 'call';
+-        reason = `中等牌力，胜率${(winRate*100).toFixed(1)}%，跟注观察`;
+-      } else if (winRate > 0.3) {
+-        aiAction = 'check';
+-        reason = `牌力较弱，胜率${(winRate*100).toFixed(1)}%，控制损失`;
+-      } else {
+-        aiAction = 'fold';
+-        reason = `胜率低${(winRate*100).toFixed(1)}%，及时止损`;
+-      }
+-
+-      // 10% 概率诈唬
+-      if (Math.random() < 0.1 && aiAction !== 'fold') {
+-        reason += ' 🎭 诈唬模式';
+-      }
+-
+-      document.getElementById('ai-reason').textContent = `🧠 AI 思考：${reason}`;
+-
+-      // 执行 AI 行动
+-      setTimeout(() => {
+-        if (aiAction === 'fold') {
+-          document.getElementById('game-message').textContent = `🤖 AI 弃牌，你获胜！(${reason})`;
+-          pokerGame.playerChips += pokerGame.pot;
+-          endRound();
+-        } else if (aiAction === 'check') {
+-          document.getElementById('game-message').textContent = `🤖 AI 过牌，轮到你行动 (${reason})`;
+-          pokerGame.waitingForPlayer = true;
+-        } else if (aiAction === 'call') {
+-          if (pokerGame.aiChips >= pokerGame.currentBet) {
+-            pokerGame.aiChips -= pokerGame.currentBet;
+-            pokerGame.pot += pokerGame.currentBet;
+-            document.getElementById('game-message').textContent = `🤖 AI 跟注 ${pokerGame.currentBet} 筹码 (${reason})`;
+-            pokerGame.waitingForPlayer = true;
+-            updateUI();
+-          }
+-        } else if (aiAction === 'raise') {
+-          const raiseAmount = pokerGame.currentBet * 2;
+-          if (pokerGame.aiChips >= raiseAmount) {
+-            pokerGame.aiChips -= raiseAmount;
+-            pokerGame.pot += raiseAmount;
+-            pokerGame.currentBet = raiseAmount;
+-            document.getElementById('game-message').textContent = `🤖 AI 加注到 ${raiseAmount} 筹码！(${reason})`;
+-            pokerGame.waitingForPlayer = true;
+-            updateUI();
+-          }
+-        }
+-      }, 1000);
+-    }
+-
+-    // 结束回合
+-    function endRound() {
+-      pokerGame.phase = 'showdown';
+-      updateUI();
+-      document.getElementById('action-buttons').style.display = 'none';
+-      document.getElementById('start-btn').style.display = 'inline-block';
+-      document.getElementById('start-btn').textContent = '🔄 新一局';
+-    }
+-
+-    // 按钮悬停效果
+-    document.querySelectorAll('button').forEach(btn => {
+-      btn.addEventListener('mouseenter', function() {
+-        this.style.transform = 'translateY(-2px)';
+-      });
+-      btn.addEventListener('mouseleave', function() {
+-        this.style.transform = 'translateY(0)';
+-      });
+-    });
+-  </script>
++  </main>
++
++  <footer class="footer">
++    <div class="footer-inner">
++      <div class="copyright">&copy; 2021 张良信息咨询服务工作室</div>
++    </div>
++  </footer>
+ 
+ </body>
+ </html>

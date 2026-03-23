@@ -1,0 +1,2 @@
+# This file disables Jekyll auto-build in GitHub Pages
+# Hexo + GitHub Actions will handle the deployment

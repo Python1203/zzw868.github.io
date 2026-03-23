@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融AI实时行情 - iTick</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        /* ── 头部 ── */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 24px 30px;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 8px 32px rgba(15,52,96,0.4);
+        }
+
+        .header-left h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+        .header-left p  { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+        .header-right { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        .badge.green  { background: rgba(72,187,120,0.2); border-color: #48bb78; color: #9ae6b4; }
+        .badge.yellow { background: rgba(236,201,75,0.2); border-color: #ecc94b; color: #faf089; }
+        .badge.red    { background: rgba(245,101,101,0.2); border-color: #f56565; color: #feb2b2; }
+
+        /* ── Tab 导航 ── */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            background: white;
+            color: #718096;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .tab-btn.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; box-shadow: 0 4px 15px rgba(102,126,234,0.4); }
+
+        /* ── 标的卡片网格 ── */
+        .symbols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .symbol-card {
+            background: white;
+            border-radius: 14px;
+            padding: 18px 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .symbol-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .symbol-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .symbol-card:hover::before, .symbol-card.selected::before { opacity: 1; }
+        .symbol-card.selected { border-color: #667eea; }
+
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .card-symbol { font-size: 18px; font-weight: 700; color: #2d3748; }
+        .card-name   { font-size: 11px; color: #a0aec0; margin-top: 2px; }
+        .card-region {
+            font-size: 10px; font-weight: 600; padding: 3px 8px;
+            border-radius: 6px; background: #edf2f7; color: #718096;
+        }
+
+        .card-price { font-size: 28px; font-weight: 700; color: #2d3748; margin-bottom: 6px; }
+        .card-change { font-size: 14px; font-weight: 600; }
+        .card-change.up   { color: #48bb78; }
+        .card-change.down { color: #f56565; }
+
+        .card-meta { display: flex; gap: 15px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f0f0f0; }
+        .card-meta-item { font-size: 11px; color: #a0aec0; }
+        .card-meta-item span { display: block; font-weight: 600; color: #4a5568; font-size: 12px; }
+
+        .card-loading { color: #cbd5e0; font-size: 13px; text-align: center; padding: 20px 0; }
+
+        /* ── 详情图表区 ── */
+        .detail-section {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            margin-bottom: 20px;
+        }
+        .detail-section.visible { display: block; }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .detail-title { font-size: 20px; font-weight: 700; color: #2d3748; }
+        .detail-subtitle { font-size: 13px; color: #a0aec0; margin-top: 3px; }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 900px) { .charts-row { grid-template-columns: 1fr; } }
+
+        .chart-wrap { position: relative; height: 300px; }
+
+        .live-dot {
+            width: 8px; height: 8px;
+            background: #48bb78;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+            margin-right: 6px;
+        }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        /* ── 底部说明 ── */
+        .footer-note {
+            padding: 16px 20px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.6;
+        }
+        .footer-note strong { color: #4a5568; }
+
+        /* ── AI 信号面板 ── */
+        .ai-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            margin-bottom: 20px;
+        }
+        .ai-panel-title {
+            font-size: 15px; font-weight: 700; color: #2d3748;
+            margin-bottom: 14px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .ai-signals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+        }
+        .ai-signal-card {
+            border-radius: 10px;
+            padding: 12px 14px;
+            background: #f7fafc;
+            border-left: 4px solid #cbd5e0;
+            transition: border-color 0.3s;
+        }
+        .ai-signal-card.bull  { border-color: #48bb78; background: #f0fff4; }
+        .ai-signal-card.bear  { border-color: #f56565; background: #fff5f5; }
+        .ai-signal-card.neut  { border-color: #ecc94b; background: #fffff0; }
+        .ai-sig-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .ai-sig-code { font-size: 13px; font-weight: 700; color: #2d3748; }
+        .ai-sig-label { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 8px; }
+        .ai-sig-label.bull { background: #c6f6d5; color: #276749; }
+        .ai-sig-label.bear { background: #fed7d7; color: #9b2c2c; }
+        .ai-sig-label.neut { background: #fefcbf; color: #744210; }
+        .ai-sig-bar { height: 5px; border-radius: 3px; background: #e2e8f0; margin-bottom: 6px; overflow: hidden; }
+        .ai-sig-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+        .ai-sig-reasons { font-size: 10px; color: #718096; }
+        .ai-sig-meta { display: flex; gap: 10px; margin-top: 5px; }
+        .ai-sig-meta span { font-size: 10px; color: #a0aec0; }
+        .ai-sig-meta b { color: #4a5568; }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; }
+            .symbols-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 头部 -->
+    <div class="header">
+        <div class="header-left">
+            <h1>📡 金融AI实时行情系统</h1>
+            <p>iTick WebSocket · 全球股市 · 加密货币 · ETF</p>
+        </div>
+        <div class="header-right">
+            <div class="badge yellow" id="badge-conn">🟡 连接中...</div>
+            <div class="badge" id="badge-update">📥 等待数据</div>
+            <div class="badge" id="badge-time">🕐 --:--:--</div>
+        </div>
+    </div>
+
+    <!-- Tab 导航 -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('us')">🇺🇸 美股</button>
+        <button class="tab-btn" onclick="switchTab('hk')">🇭🇰 港股</button>
+        <button class="tab-btn" onclick="switchTab('cn')">🇨🇳 A股</button>
+        <button class="tab-btn" onclick="switchTab('jp')">🇯🇵 日股</button>
+        <button class="tab-btn" onclick="switchTab('de')">🇩🇪 欧股</button>
+        <button class="tab-btn" onclick="switchTab('crypto')">₿ 加密货币</button>
+        <button class="tab-btn" onclick="switchTab('etf')">📦 ETF</button>
+    </div>
+
+    <!-- 标的卡片 -->
+    <div class="symbols-grid" id="symbols-grid"></div>
+
+    <!-- 详情图表 -->
+    <div class="detail-section" id="detail-section">
+        <div class="detail-header">
+            <div>
+                <div class="detail-title" id="detail-title">--</div>
+                <div class="detail-subtitle"><span class="live-dot"></span>实时价格走势 · 最近 30 条</div>
+            </div>
+            <div id="detail-stats" style="display:flex;gap:20px;flex-wrap:wrap;"></div>
+        </div>
+        <div class="charts-row">
+            <div class="chart-wrap"><canvas id="priceChart"></canvas></div>
+            <div class="chart-wrap"><canvas id="probChart"></canvas></div>
+        </div>
+    </div>
+
+    <!-- AI 信号面板 -->
+    <div class="ai-panel">
+        <div class="ai-panel-title">🤖 AI算法信号 <span style="font-size:11px;font-weight:400;color:#a0aec0">RSI · MACD · Bollinger · 动量 — 每10条数据自动迭代</span></div>
+        <div class="ai-signals-grid" id="ai-signals-grid"><div style="color:#cbd5e0;font-size:13px">等待AI信号...</div></div>
+    </div>
+
+    <!-- 说明 -->
+    <div class="footer-note">
+        数据来源：<strong>iTick WebSocket API</strong>，实时推送全球行情（美股 · 港股 · A股 · 日股 · 欧股 · 加密 · ETF）。
+        AI信号由后端 RSI + MACD + Bollinger Bands 算法每10条数据自动迭代，仅供参考，不构成投资建议。
+    </div>
+
+</div>
+
+<script>
+// ── 标的配置 ──
+const TABS = {
+    us:     { label: '美股',   region: 'US',     symbols: [
+        { code: 'AAPL',  name: 'Apple' },
+        { code: 'TSLA',  name: 'Tesla' },
+        { code: 'MSFT',  name: 'Microsoft' },
+        { code: 'NVDA',  name: 'NVIDIA' },
+        { code: 'GOOGL', name: 'Alphabet' },
+        { code: 'AMZN',  name: 'Amazon' },
+    ]},
+    hk:     { label: '港股',   region: 'HK',     symbols: [
+        { code: '700',   name: '腾讯控股' },
+        { code: '9988',  name: '阿里巴巴' },
+        { code: '3690',  name: '美团' },
+        { code: '1810',  name: '小米集团' },
+        { code: '2318',  name: '中国平安' },
+        { code: '941',   name: '中国移动' },
+    ]},
+    cn:     { label: 'A股',    region: 'CN',     symbols: [
+        { code: '600519', name: '贵州茅台' },
+        { code: '000858', name: '五粮液' },
+        { code: '300750', name: '宁德时代' },
+        { code: '601318', name: '中国平安' },
+        { code: '000333', name: '美的集团' },
+        { code: '600036', name: '招商银行' },
+    ]},
+    jp:     { label: '日股',   region: 'JP',     symbols: [
+        { code: '7203',  name: 'Toyota' },
+        { code: '6758',  name: 'Sony' },
+        { code: '9984',  name: 'SoftBank' },
+        { code: '6861',  name: 'Keyence' },
+        { code: '7974',  name: 'Nintendo' },
+        { code: '8306',  name: 'MUFG' },
+    ]},
+    de:     { label: '欧股',   region: 'DE',     symbols: [
+        { code: 'SAP',   name: 'SAP SE' },
+        { code: 'BMW',   name: 'BMW AG' },
+        { code: 'SIE',   name: 'Siemens' },
+        { code: 'ALV',   name: 'Allianz' },
+        { code: 'BAS',   name: 'BASF' },
+        { code: 'DTE',   name: 'Deutsche Telekom' },
+    ]},
+    crypto: { label: '加密',   region: 'crypto', symbols: [
+        { code: 'BTCUSDT',  name: 'Bitcoin' },
+        { code: 'ETHUSDT',  name: 'Ethereum' },
+        { code: 'SOLUSDT',  name: 'Solana' },
+        { code: 'BNBUSDT',  name: 'BNB' },
+        { code: 'XRPUSDT',  name: 'XRP' },
+        { code: 'DOGEUSDT', name: 'Dogecoin' },
+    ]},
+    etf:    { label: 'ETF',    region: 'US',     symbols: [
+        { code: 'SPY',   name: 'S&P 500 ETF' },
+        { code: 'QQQ',   name: 'Nasdaq 100 ETF' },
+        { code: 'IWM',   name: 'Russell 2000 ETF' },
+        { code: 'GLD',   name: 'Gold ETF' },
+        { code: 'TLT',   name: '20Y Treasury ETF' },
+        { code: 'VIX',   name: 'Volatility Index' },
+    ]},
+};
+
+const TOKEN        = '6edc25c2ef354f8f9c22fb9496b1b11755b8888269154fb3bc095b644c55cfe6';
+const WS_URL       = 'wss://api.itick.org/ws';
+const BACKEND_URL  = 'ws://localhost:8080';   // AI信号后端
+const MAX_POINTS   = 30;
+const RECONNECT_MS = 4000;
+
+// ── 状态 ──
+let currentTab      = 'us';
+let selectedSymbol  = null;
+let ws, reconnectTimer;
+let wsBackend, backendReconnectTimer;
+let updateCount     = 0;
+
+// 每个标的的数据缓存: { price, ld, ch, chp, h, l, v, t, history:[] }
+const cache = {};
+// AI信号缓存: key -> signal
+const aiSignals = {};
+
+// ── 图表 ──
+let priceChart, probChart;
+
+function initCharts() {
+    priceChart = new Chart(document.getElementById('priceChart'), {
+        type: 'line',
+        data: { labels: [], datasets: [{ label: '价格', data: [],
+            borderColor: '#667eea', backgroundColor: 'rgba(102,126,234,0.08)',
+            fill: true, tension: 0.4, pointRadius: 2, borderWidth: 2
+        }]},
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { ticks: { maxTicksLimit: 6, font: { size: 11 } } },
+                y: { ticks: { font: { size: 11 }, callback: v => formatPrice(v, currentTab) } }
+            },
+            animation: { duration: 250 }
+        }
+    });
+
+    probChart = new Chart(document.getElementById('probChart'), {
+        type: 'doughnut',
+        data: { labels: ['看涨', '看跌'], datasets: [{ data: [50, 50],
+            backgroundColor: ['#48bb78', '#f56565'],
+            borderWidth: 0, hoverOffset: 6
+        }]},
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 15 } },
+                tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '%' } }
+            },
+            animation: { duration: 250 }
+        }
+    });
+}
+
+// ── 工具函数 ──
+function formatPrice(v, tab) {
+    if (tab === 'crypto') {
+        return v >= 1000 ? '$' + v.toLocaleString('en', { maximumFractionDigits: 0 })
+                         : '$' + v.toFixed(4);
+    }
+    if (tab === 'hk') return 'HK$' + v.toFixed(2);
+    return '$' + v.toFixed(2);
+}
+
+function calcMomentum(history) {
+    if (history.length < 2) return 50;
+    const ups = history.slice(1).filter((p, i) => p > history[i]).length;
+    return Math.round(ups / (history.length - 1) * 100);
+}
+
+function getKey(code, region) { return region + ':' + code; }
+
+// ── Tab 切换 ──
+function switchTab(tab) {
+    if (tab === currentTab) return;
+    unsubscribeTab(currentTab);
+    currentTab = tab;
+    selectedSymbol = null;
+    document.getElementById('detail-section').classList.remove('visible');
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', Object.keys(TABS)[i] === tab);
+    });
+    renderGrid();
+    subscribeTab();
+}
+
+// ── 渲染卡片网格 ──
+function renderGrid() {
+    const { symbols, region } = TABS[currentTab];
+    const grid = document.getElementById('symbols-grid');
+    grid.innerHTML = symbols.map(({ code, name }) => {
+        const key  = getKey(code, region);
+        const d    = cache[key];
+        const body = d ? renderCardBody(d, code, region) : `<div class="card-loading">加载中...</div>`;
+        return `<div class="symbol-card ${selectedSymbol === key ? 'selected' : ''}"
+                     id="card-${key.replace(':','_')}"
+                     onclick="selectSymbol('${code}','${region}','${name}')">
+            <div class="card-top">
+                <div>
+                    <div class="card-symbol">${code}</div>
+                    <div class="card-name">${name}</div>
+                </div>
+                <div class="card-region">${region}</div>
+            </div>
+            ${body}
+        </div>`;
+    }).join('');
+}
+
+function renderCardBody(d, code, region) {
+    const price   = formatPrice(d.price, currentTab);
+    const upClass = d.ch >= 0 ? 'up' : 'down';
+    const arrow   = d.ch >= 0 ? '▲' : '▼';
+    const chp     = Math.abs(d.chp).toFixed(2);
+    const ch      = Math.abs(d.ch).toFixed(d.ch > 100 ? 0 : 2);
+    return `
+        <div class="card-price">${price}</div>
+        <div class="card-change ${upClass}">${arrow} ${ch} (${chp}%)</div>
+        <div class="card-meta">
+            <div class="card-meta-item">最高<span>${formatPrice(d.h, currentTab)}</span></div>
+            <div class="card-meta-item">最低<span>${formatPrice(d.l, currentTab)}</span></div>
+            <div class="card-meta-item">成交量<span>${(d.v/1e6).toFixed(1)}M</span></div>
+        </div>`;
+}
+
+// ── 选中标的，展示详情图表 ──
+function selectSymbol(code, region, name) {
+    const key = getKey(code, region);
+    selectedSymbol = key;
+    document.querySelectorAll('.symbol-card').forEach(c => c.classList.remove('selected'));
+    const el = document.getElementById('card-' + key.replace(':', '_'));
+    if (el) el.classList.add('selected');
+
+    document.getElementById('detail-title').textContent = code + '  ' + name;
+    document.getElementById('detail-section').classList.add('visible');
+
+    const d = cache[key];
+    if (d) refreshDetailChart(d);
+}
+
+function refreshDetailChart(d) {
+    const hist = d.history || [];
+    const rise = calcMomentum(hist);
+    const fall = 100 - rise;
+
+    // 价格折线
+    priceChart.data.labels   = hist.map(h => h.t);
+    priceChart.data.datasets[0].data = hist.map(h => h.p);
+    priceChart.update();
+
+    // 概率环形
+    probChart.data.datasets[0].data = [rise, fall];
+    probChart.update();
+
+    // 统计栏
+    document.getElementById('detail-stats').innerHTML = [
+        ['开盘', formatPrice(d.o, currentTab)],
+        ['最高', formatPrice(d.h, currentTab)],
+        ['最低', formatPrice(d.l, currentTab)],
+        ['昨收', formatPrice(d.ld, currentTab)],
+        ['看涨', rise + '%'],
+        ['看跌', fall + '%'],
+    ].map(([l, v]) => `<div style="text-align:center">
+        <div style="font-size:11px;color:#a0aec0">${l}</div>
+        <div style="font-size:15px;font-weight:700;color:#2d3748">${v}</div>
+    </div>`).join('');
+}
+
+// ── 更新单张卡片 DOM（不重绘整个 grid）──
+function updateCard(key, d) {
+    const el = document.getElementById('card-' + key.replace(':', '_'));
+    if (!el) return;
+    const [region, code] = key.split(':');
+    const top = el.querySelector('.card-top').outerHTML;
+    el.innerHTML = top + renderCardBody(d, code, currentTab);
+    el.onclick = () => {
+        const sym = TABS[currentTab].symbols.find(s => s.code === code);
+        selectSymbol(code, region, sym ? sym.name : code);
+    };
+}
+
+// ── WebSocket ──
+function connect() {
+    clearTimeout(reconnectTimer);
+    setBadge('conn', 'yellow', '🟡 连接中...');
+    ws = new WebSocket(WS_URL);
+
+    ws.onopen = () => {
+        setBadge('conn', 'green', '🟢 已连接 iTick');
+        // 认证
+        ws.send(JSON.stringify({ cmd: 'auth', args: [TOKEN] }));
+    };
+
+    ws.onmessage = ({ data }) => {
+        try {
+            const msg = JSON.parse(data);
+            handleMessage(msg);
+        } catch (e) {}
+    };
+
+    ws.onerror = () => setBadge('conn', 'red', '🔴 连接异常');
+
+    ws.onclose = () => {
+        setBadge('conn', 'red', '🔴 已断开');
+        reconnectTimer = setTimeout(connect, RECONNECT_MS);
+    };
+}
+
+function handleMessage(msg) {
+    // 认证成功后订阅当前 tab
+    if (msg.cmd === 'auth' || msg.type === 'auth') {
+        subscribeTab();
+        return;
+    }
+
+    // 行情推送：iTick 推送格式 {cmd:"quote", data:{s,p,ld,o,h,l,v,t,ch,chp,r}}
+    const d = msg.data || msg;
+    if (!d || !d.s || d.p == null) return;
+
+    const region = d.r || guessRegion(d.s);
+    const key    = getKey(d.s, region);
+
+    // 只处理当前 tab 的标的
+    const tabSymbols = TABS[currentTab].symbols.map(s => s.code);
+    if (!tabSymbols.includes(d.s)) return;
+
+    // 更新缓存
+    if (!cache[key]) cache[key] = { history: [] };
+    Object.assign(cache[key], {
+        price: d.p, ld: d.ld, o: d.o, h: d.h, l: d.l,
+        v: d.v, ch: d.ch, chp: d.chp
+    });
+
+    // 追加历史
+    const hist = cache[key].history;
+    hist.push({ p: d.p, t: new Date(d.t).toLocaleTimeString() });
+    if (hist.length > MAX_POINTS) hist.shift();
+
+    // 更新卡片
+    updateCard(key, cache[key]);
+
+    // 如果是当前选中标的，刷新图表
+    if (selectedSymbol === key) refreshDetailChart(cache[key]);
+
+    // 更新状态栏
+    updateCount++;
+    setBadge('update', '', '📥 ' + updateCount + ' 条更新');
+    document.getElementById('badge-time').textContent = '🕐 ' + new Date().toLocaleTimeString();
+}
+
+function guessRegion(code) {
+    if (/USDT$/i.test(code)) return 'crypto';
+    if (/^\d{1,5}$/.test(code)) return 'HK';
+    return 'US';
+}
+
+// ── 取消订阅指定 tab 所有标的 ──
+function unsubscribeTab(tab) {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    const { symbols, region } = TABS[tab];
+    symbols.forEach(({ code }) => {
+        ws.send(JSON.stringify({ cmd: 'unsubscribe', args: [region + '.' + code + '.quote'] }));
+    });
+}
+
+// ── 订阅当前 tab 所有标的 ──
+function subscribeTab() {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    const { symbols, region } = TABS[currentTab];
+    symbols.forEach(({ code }) => {
+        ws.send(JSON.stringify({ cmd: 'subscribe', args: [region + '.' + code + '.quote'] }));
+    });
+}
+
+function setBadge(id, cls, text) {
+    const el = document.getElementById('badge-' + id);
+    el.textContent = text;
+    el.className = 'badge' + (cls ? ' ' + cls : '');
+}
+
+// ── AI 信号面板渲染 ──
+function signalClass(score) {
+    if (score >= 1) return 'bull';
+    if (score <= -1) return 'bear';
+    return 'neut';
+}
+
+function renderAiSignals() {
+    const grid = document.getElementById('ai-signals-grid');
+    const entries = Object.values(aiSignals);
+    if (!entries.length) {
+        grid.innerHTML = '<div style="color:#cbd5e0;font-size:13px">等待AI信号...</div>';
+        return;
+    }
+    // 按 |score| 降序排列，最强信号在前
+    entries.sort((a, b) => Math.abs(b.score) - Math.abs(a.score));
+    grid.innerHTML = entries.map(sig => {
+        const cls      = signalClass(sig.score);
+        const fillPct  = Math.round(sig.rise_prob * 100);
+        const fillColor = cls === 'bull' ? '#48bb78' : cls === 'bear' ? '#f56565' : '#ecc94b';
+        const [, code] = sig.key.split(':');
+        return `<div class="ai-signal-card ${cls}">
+            <div class="ai-sig-top">
+                <span class="ai-sig-code">${code}</span>
+                <span class="ai-sig-label ${cls}">${sig.label}</span>
+            </div>
+            <div class="ai-sig-bar"><div class="ai-sig-bar-fill" style="width:${fillPct}%;background:${fillColor}"></div></div>
+            <div class="ai-sig-reasons">${(sig.reasons || []).join(' · ') || '信号中性'}</div>
+            <div class="ai-sig-meta">
+                <span>RSI <b>${sig.rsi}</b></span>
+                <span>MACD <b>${sig.macd?.hist > 0 ? '↑' : '↓'}</b></span>
+                <span>看涨 <b>${fillPct}%</b></span>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+// ── 后端 AI 信号 WebSocket ──
+function connectBackend() {
+    clearTimeout(backendReconnectTimer);
+    wsBackend = new WebSocket(BACKEND_URL);
+
+    wsBackend.onopen = () => log('后端AI已连接');
+
+    wsBackend.onmessage = ({ data }) => {
+        try {
+            const msg = JSON.parse(data);
+            if (msg.type === 'ai_signal') {
+                aiSignals[msg.data.key] = msg.data;
+                renderAiSignals();
+            } else if (msg.type === 'ai_snapshot') {
+                Object.assign(aiSignals, msg.data);
+                renderAiSignals();
+            } else if (msg.type === 'quote') {
+                // 后端也转发行情，可作为 iTick 直连的备用
+                handleMessage(msg.data);
+            }
+        } catch (e) {}
+    };
+
+    wsBackend.onclose = () => {
+        backendReconnectTimer = setTimeout(connectBackend, RECONNECT_MS);
+    };
+}
+
+function log(msg) {
+    console.info('[金融AI]', msg);
+}
+
+// ── 初始化 ──
+initCharts();
+renderGrid();
+connect();          // iTick 直连（行情）
+connectBackend();   // 后端 AI 信号
+</script>
+</body>
+</html>

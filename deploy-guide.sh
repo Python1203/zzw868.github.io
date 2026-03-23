@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# =====================================================
+# 快速部署指南
+# =====================================================
+
+echo "=========================================="
+echo "   📖 博客自动部署指南"
+echo "=========================================="
+echo ""
+
+echo "🎯 部署方式："
+echo ""
+echo "1. 一键自动部署（推荐）"
+echo "   ./auto-deploy.sh"
+echo ""
+echo "2. 手动部署"
+echo "   git add ."
+echo "   git commit -m '更新内容'"
+echo "   git push origin main"
+echo ""
+echo "3. GitHub Actions 自动部署"
+echo "   推送到 main 分支后自动触发"
+echo ""
+
+echo "📁 文件结构："
+echo ""
+echo "├── .github/workflows/deploy.yml  # GitHub Actions 配置"
+echo "├── auto-deploy.sh                # 本地自动部署脚本"
+echo "├── test-stock-chart.html         # React 股票图表组件"
+echo "├── crypto-dashboard.html         # 加密货币仪表板"
+echo "└── mock-ws-server.js             # WebSocket 模拟服务器"
+echo ""
+
+echo "🚀 部署流程："
+echo ""
+echo "1. 本地修改完成后，运行："
+echo "   chmod +x auto-deploy.sh"
+echo "   ./auto-deploy.sh"
+echo ""
+echo "2. 或者使用 Git 命令手动提交："
+echo "   git add ."
+echo "   git commit -m '更新博客内容'"
+echo "   git push origin main"
+echo ""
+echo "3. GitHub Actions 会自动构建并部署到 GitHub Pages"
+echo ""
+
+echo "🌐 访问地址："
+echo ""
+echo "• 主页：https://zzw868.github.io"
+echo "• React 组件：https://zzw868.github.io/test-stock-chart.html"
+echo "• 加密看板：https://zzw868.github.io/crypto-dashboard.html"
+echo ""
+
+echo "📊 GitHub Actions 状态："
+echo "   https://github.com/zzw868/zzw868.github.io/actions"
+echo ""
+
+echo "💡 注意事项："
+echo ""
+echo "• 确保已安装 Git 和 Node.js"
+echo "• Hexo 会自动安装（如果未全局安装）"
+echo "• 推送后约 1-2 分钟完成部署"
+echo "• 如有缓存问题，请清除浏览器缓存"
+echo ""
+
+echo "=========================================="
+echo "   ✅ 准备就绪！"
+echo "=========================================="
+echo ""

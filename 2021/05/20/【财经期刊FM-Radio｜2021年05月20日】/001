@@ -1,0 +1,92 @@
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from 'recharts';
+
+type Prediction = {
+  predictedPrice: number;
+  predictedTrendProbability: number;
+  timestamp: string;
+};
+
+const RealTimeStockChart = () => {
+  const [data, setData] = useState<
+    { time: string; price: number }[]
+  >([]);
+  const [latestPrediction, setLatestPrediction] = useState<Prediction | null>(null);
+  const ws = useRef<WebSocket | null>(null);
+
+  useEffect(() => {
+    ws.current = new WebSocket('ws://localhost:8080');
+
+    ws.current.onopen = () => {
+      console.log('WebSocket connected');
+    };
+
+    ws.current.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === 'prediction') {
+        const pred: Prediction = message.data;
+        setLatestPrediction(pred);
+
+        setData((prevData) => {
+          const newEntry = {
+            time: new Date(pred.timestamp).toLocaleTimeString(),
+            price: Number(pred.predictedPrice),
+          };
+          // 保留最近30条数据
+          const updatedData = [...prevData, newEntry].slice(-30);
+          return updatedData;
+        });
+      }
+    };
+
+    ws.current.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    return () => {
+      ws.current?.close();
+    };
+  }, []);
+
+  return (
+    <div className="p-4 max-w-3xl mx-auto border rounded shadow">
+      <h2 className="text-xl font-bold mb-4">实时股票价格预测趋势</h2>
+
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="time" minTickGap={20} />
+          <YAxis domain={['auto', 'auto']} />
+          <Tooltip />
+          <Line type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={2} dot={false} />
+        </LineChart>
+      </ResponsiveContainer>
+
+      {latestPrediction ? (
+        <div className="mt-4 text-center">
+          <p className="text-lg">
+            最新预测价格：<strong>{latestPrediction.predictedPrice.toFixed(2)}</strong> 元
+          </p>
+          <p className="text-lg">
+            涨价概率：<strong>{(latestPrediction.predictedTrendProbability * 100).toFixed(1)}%</strong>
+          </p>
+          <p className="text-sm text-gray-500 mt-1">
+            更新时间：{new Date(latestPrediction.timestamp).toLocaleTimeString()}
+          </p>
+        </div>
+      ) : (
+        <p className="text-center">等待实时数据...</p>
+      )}
+    </div>
+  );
+};
+
+export default RealTimeStockChart;

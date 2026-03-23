@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张良工作室全组件演示：React UI 组件完整展示页 2025</title>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+        
+        .iframe-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .component-frame {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 40px 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="张良信息咨询服务工作室所有前端 UI 组件的完整演示页，包含按钮、卡片、导航栏、弹窗、表单等常用组件的交互效果与代码示例。" />
+  <meta name="keywords" content="React组件演示,UI组件,前端开发,张良工作室,组件展示,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="张良工作室全组件演示：React UI 组件完整展示页 2025" />
+  <meta property="og:description" content="张良信息咨询服务工作室所有前端 UI 组件的完整演示页，包含按钮、卡片、导航栏、弹窗、表单等常用组件的交互效果与代码示例。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/all-components-demo/" />
+  <link rel="canonical" href="https://zzw868.github.io/all-components-demo/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "张良工作室全组件演示：React UI 组件完整展示页 2025",
+    "description": "张良信息咨询服务工作室所有前端 UI 组件的完整演示页，包含按钮、卡片、导航栏、弹窗、表单等常用组件的交互效果与代码示例。",
+    "url": "https://zzw868.github.io/all-components-demo/",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "datePublished": "2026-03-16"
+  }
+  </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 全组件演示中心</h1>
+            <p>一站式查看所有 HTML 组件效果</p>
+        </div>
+        
+        <div class="iframe-container">
+            <h2 class="section-title">📊 实时股票价格预测</h2>
+            <iframe src="test-stock-chart.html" class="component-frame" title="实时股票价格预测"></iframe>
+
+            <h2 class="section-title">₿ 加密货币仪表板</h2>
+            <iframe src="crypto-dashboard.html" class="component-frame" title="加密货币仪表板"></iframe>
+
+            <h2 class="section-title">✉️ 联系表单</h2>
+            <iframe src="contact-form.html" class="component-frame" title="联系表单"></iframe>
+
+            <h2 class="section-title">🧭 响应式导航栏</h2>
+            <iframe src="../navbar.html" class="component-frame" title="响应式导航栏"></iframe>
+
+            <h2 class="section-title">⊞ CSS Grid 布局</h2>
+            <iframe src="grid-layout.html" class="component-frame" title="CSS Grid 布局"></iframe>
+
+            <h2 class="section-title">📑 三栏布局</h2>
+            <iframe src="3-column-layout.html" class="component-frame" title="三栏布局"></iframe>
+
+            <h2 class="section-title">🔲 模态弹窗</h2>
+            <iframe src="../modal-popup.html" class="component-frame" title="模态弹窗"></iframe>
+
+            <h2 class="section-title">✨ 淡入动画</h2>
+            <iframe src="fade-in-animation.html" class="component-frame" title="淡入动画"></iframe>
+
+            <h2 class="section-title">🔘 现代按钮</h2>
+            <iframe src="../modern-button.html" class="component-frame" title="现代按钮"></iframe>
+
+            <h2 class="section-title">🎴 Tailwind 卡片</h2>
+            <iframe src="tailwind-card-component.html" class="component-frame" title="Tailwind 卡片"></iframe>
+
+            <h2 class="section-title">🔢 React 计数器</h2>
+            <iframe src="react-counter-demo.html" class="component-frame" title="React 计数器"></iframe>
+
+            <div style="text-align: center;">
+                <a href="/index.html" class="back-link">← 返回主页</a>
+                <a href="/pages/components-hub.html" class="back-link" style="margin-left: 20px;">浏览组件导航 →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

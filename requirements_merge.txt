@@ -1,0 +1,2 @@
+# HTML 合并工具依赖
+beautifulsoup4>=4.9.3

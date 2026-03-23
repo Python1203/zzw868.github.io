@@ -1,0 +1,166 @@
+name: SEO Auto Submit
+
+on:
+  # 部署成功后触发
+  workflow_run:
+    workflows: ["Build & Deploy"]
+    types:
+      - completed
+  
+  # 新文章发布（source/_posts 目录变化）
+  push:
+    branches: [master]
+    paths:
+      - 'source/_posts/**'
+  
+  # 手动触发
+  workflow_dispatch:
+
+# 防止重复执行
+concurrency:
+  group: seo-submit
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    
+    # 只在部署成功或手动触发时运行
+    if: github.event_name == 'workflow_dispatch' || 
+        (github.event.workflow_run.conclusion == 'success') ||
+        startsWith(github.ref, 'refs/heads/master')
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      
+      - name: Install Dependencies
+        run: |
+          npm install -g hexo-cli
+          npm install
+          mkdir -p themes
+          [ -L themes/next ] || ln -sf ../node_modules/hexo-theme-next themes/next
+      
+      - name: Generate Static Files
+        env:
+          NODE_ENV: production
+        run: |
+          hexo clean
+          hexo generate
+      
+      - name: Extract New URLs
+        id: extract_urls
+        run: |
+          echo "📊 提取新增 URL..."
+          
+          # 获取上次提交的 commit hash
+          LAST_COMMIT=$(git rev-parse HEAD~1 2>/dev/null || echo "")
+          
+          if [ -n "$LAST_COMMIT" ]; then
+            # 找出新增或修改的 markdown 文件
+            NEW_FILES=$(git diff --name-only $LAST_COMMIT HEAD -- source/_posts/ 2>/dev/null || echo "")
+            
+            if [ -n "$NEW_FILES" ]; then
+              echo "新增文件:"
+              echo "$NEW_FILES"
+              
+              # 转换为 URL
+              echo "$NEW_FILES" | while read -r file; do
+                if [ -f "$file" ]; then
+                  # 从文件名生成 URL（根据 permalink 规则）
+                  filename=$(basename "$file" .md)
+                  # 简单转换：2024-01-15-article-title -> 2024/01/15/article-title/
+                  date_part=$(echo "$filename" | grep -oE '^[0-9]{4}-[0-9]{2}-[0-9]{2}' || echo "")
+                  if [ -n "$date_part" ]; then
+                    year=$(echo "$date_part" | cut -d'-' -f1)
+                    month=$(echo "$date_part" | cut -d'-' -f2)
+                    day=$(echo "$date_part" | cut -d'-' -f3)
+                    title=$(echo "$filename" | sed "s/^$date_part-//")
+                    url="https://zzw868.github.io/$year/$month/$day/$title/"
+                    echo "$url" >> new_urls.txt
+                  fi
+                fi
+              done
+            fi
+          fi
+          
+          # 如果没有新增文件，使用 sitemap
+          if [ ! -f new_urls.txt ] || [ ! -s new_urls.txt ]; then
+            echo "使用 sitemap.xml 中的 URL"
+            if [ -f public/sitemap.xml ]; then
+              grep -oP '(?<=<loc>)[^<]+' public/sitemap.xml > urls.txt
+            else
+              find public -name "*.html" -type f | \
+                sed 's|public||' | \
+                sed 's|index\.html||' | \
+                sed 's|^|https://zzw868.github.io|' > urls.txt
+            fi
+          fi
+          
+          # 去重
+          if [ -f new_urls.txt ]; then
+            sort -u new_urls.txt > final_urls.txt
+            mv final_urls.txt urls.txt
+          fi
+          
+          # 输出统计
+          if [ -f urls.txt ]; then
+            COUNT=$(wc -l < urls.txt)
+            echo "找到 $COUNT 个 URL"
+            echo "url_count=$COUNT" >> $GITHUB_OUTPUT
+          else
+            echo "url_count=0" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Submit to Search Engines
+        env:
+          BDU_API_TOKEN: ${{ secrets.BDU_API_TOKEN }}
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: |
+          echo "🚀 开始提交到搜索引擎..."
+          
+          if [ -f urls.txt ] && [ -s urls.txt ]; then
+            # 限制每次最多提交 2000 条
+            head -n 2000 urls.txt > batch_urls.txt
+            
+            # 运行提交脚本（注意目录改为 custom_scripts）
+            node custom_scripts/seo-submit.js $(cat batch_urls.txt) || echo "提交过程中出现错误"
+          else
+            echo "⚠️ 没有找到可提交的 URL"
+          fi
+      
+      - name: Upload Submission Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-submission-log
+          path: |
+            urls.txt
+            batch_urls.txt
+          retention-days: 7
+      
+      - name: Summary
+        run: |
+          echo "## 🎯 SEO 自动提交完成" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 提交统计" >> $GITHUB_STEP_SUMMARY
+          echo "- 总 URL 数：${{ steps.extract_urls.outputs.url_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 批次处理：最多 2000 条/次" >> $GITHUB_STEP_SUMMARY
+          echo "- 提交引擎：百度、Bing" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ⏰ 时间信息" >> $GITHUB_STEP_SUMMARY
+          echo "- 触发方式：${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 执行时间：$(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M:%S') BJT" >> $GITHUB_STEP_SUMMARY
+          echo "- Commit: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 注意事项" >> $GITHUB_STEP_SUMMARY
+          echo "> ⚠️ 提交不等于收录，通常需要 1-7 天时间" >> $GITHUB_STEP_SUMMARY
+          echo "> 💡 建议保持内容质量，避免频繁重复提交" >> $GITHUB_STEP_SUMMARY

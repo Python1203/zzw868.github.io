@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS 卡片组件实战：响应式 Card UI 设计完整示例 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS equivalent of Tailwind classes for comparison */
+        .custom-card {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            max-width: 24rem; /* max-w-md */
+            margin: 1rem auto; /* mx-auto my-4 */
+        }
+
+        .custom-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* hover:shadow-xl */
+            transform: translateY(-2px); /* hover:-translate-y-1 */
+            transition: all 0.3s ease;
+        }
+
+        /* Cyberpunk theme overrides for Tailwind */
+        body {
+            background: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 100%);
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cyber-card {
+            background: rgba(10, 10, 20, 0.9);
+            border: 1px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .cyber-card:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            border-color: #ff00ff;
+        }
+
+        .cyber-text {
+            color: #00ffff;
+        }
+
+        .cyber-accent {
+            color: #ff00ff;
+        }
+    </style>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="使用 Tailwind CSS 构建的响应式卡片组件，包含悬停动效、暗色模式与多种布局变体，可直接复用于个人博客或产品展示页。" />
+  <meta name="keywords" content="Tailwind CSS,卡片组件,响应式设计,UI组件,暗色模式,前端开发,2025" />
+  <meta name="date" content="2026-03-16" />
+  <meta property="og:title" content="Tailwind CSS 卡片组件实战：响应式 Card UI 设计完整示例 2025" />
+  <meta property="og:description" content="使用 Tailwind CSS 构建的响应式卡片组件，包含悬停动效、暗色模式与多种布局变体，可直接复用于个人博客或产品展示页。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zzw868.github.io/tailwind-card-component/" />
+  <link rel="canonical" href="https://zzw868.github.io/tailwind-card-component/" />
+  <link rel="alternate" type="text/html" href="https://zzw868.github.io/ai-friendly/" title="AI-Friendly Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Tailwind CSS 卡片组件实战：响应式 Card UI 设计完整示例 2025",
+    "description": "使用 Tailwind CSS 构建的响应式卡片组件，包含悬停动效、暗色模式与多种布局变体，可直接复用于个人博客或产品展示页。",
+    "keywords": "Tailwind CSS,卡片组件,响应式设计,UI组件,暗色模式,前端开发,2025",
+    "datePublished": "2026-03-16",
+    "dateModified": "2026-03-16",
+    "author": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "publisher": {"@type": "Person", "name": "zzw868", "url": "https://zzw868.github.io"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://zzw868.github.io/tailwind-card-component/"}
+  }
+  </script>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-8 text-cyan-400" style="text-shadow: 0 0 20px #00ffff;">
+            Tailwind CSS Card Components
+        </h1>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Basic Tailwind Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto my-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div class="w-12 h-12 bg-blue-500 rounded-full mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Basic Card</h3>
+                <p class="text-gray-600 mb-4">A simple card component using Tailwind CSS utilities for shadow, padding, and rounded corners.</p>
+                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    Learn More
+                </button>
+            </div>
+
+            <!-- Cyberpunk Themed Card -->
+            <div class="cyber-card rounded-lg p-6 max-w-md mx-auto my-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div class="w-12 h-12 bg-cyan-500 rounded-full mb-4 flex items-center justify-center" style="box-shadow: 0 0 10px #00ffff;">
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold cyber-text mb-2">Cyberpunk Card</h3>
+                <p class="cyber-text opacity-80 mb-4">Enhanced card with cyberpunk styling, neon glows, and futuristic design elements.</p>
+                <button class="bg-gradient-to-r from-cyan-500 to-magenta-500 hover:from-cyan-600 hover:to-magenta-600 text-black px-4 py-2 rounded-md transition-all duration-200 font-semibold" style="box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);">
+                    Explore
+                </button>
+            </div>
+
+            <!-- Advanced Card with Image -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-md mx-auto my-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img src="https://img-blog.csdnimg.cn/2020120817230943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dzEyMDg=,size_16,color_FFFFFF,t_70#pic_center" alt="Card Image" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Image Card</h3>
+                    <p class="text-gray-600 mb-4">Card component featuring an image header with proper aspect ratio and responsive design.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">March 15, 2026</span>
+                        <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm transition-colors duration-200">
+                            Read
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom CSS Card (Equivalent) -->
+            <div class="custom-card">
+                <div class="w-12 h-12 bg-purple-500 rounded-full mb-4 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Custom CSS Card</h3>
+                <p class="text-gray-600 mb-4">This card uses custom CSS classes that replicate Tailwind's utility classes for comparison.</p>
+                <button class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition-colors duration-200">
+                    View Code
+                </button>
+            </div>
+
+            <!-- Interactive Card -->
+            <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 max-w-md mx-auto my-4 hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300 cursor-pointer">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full mb-4 flex items-center justify-center mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Interactive Card</h3>
+                    <p class="text-white text-opacity-90 mb-4">Hover effects with scale transformation and enhanced shadows for better interactivity.</p>
+                    <button class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-md transition-all duration-200 backdrop-blur-sm">
+                        Interact
+                    </button>
+                </div>
+            </div>
+
+            <!-- Minimal Card -->
+            <div class="bg-gray-50 rounded-lg shadow-md p-4 max-w-md mx-auto my-4 hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-lg font-medium text-gray-800 mb-2">Minimal Card</h3>
+                <p class="text-gray-600 text-sm">A clean, minimal card design with subtle shadows and padding.</p>
+            </div>
+        </div>
+
+        <!-- Code Examples Section -->
+        <div class="mt-16 bg-gray-900 rounded-lg p-8 text-white">
+            <h2 class="text-2xl font-bold mb-6 text-cyan-400">Tailwind CSS Code Examples</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-magenta-400">Basic Card</h3>
+                    <pre class="bg-gray-800 p-4 rounded text-sm overflow-x-auto"><code>&lt;div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto"&gt;
+  &lt;!-- Card content --&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-magenta-400">Hover Effects</h3>
+                    <pre class="bg-gray-800 p-4 rounded text-sm overflow-x-auto"><code>&lt;div class="hover:shadow-xl hover:-translate-y-1 transition-all duration-300"&gt;
+  &lt;!-- Card content --&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-magenta-400">Responsive Grid</h3>
+                    <pre class="bg-gray-800 p-4 rounded text-sm overflow-x-auto"><code>&lt;div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"&gt;
+  &lt;!-- Cards --&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-magenta-400">Gradient Background</h3>
+                    <pre class="bg-gray-800 p-4 rounded text-sm overflow-x-auto"><code>&lt;div class="bg-gradient-to-br from-indigo-500 to-purple-600"&gt;
+  &lt;!-- Card content --&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utility Classes Reference -->
+        <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Key Tailwind Classes Used</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mb-2">Layout & Spacing</h4>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><code class="bg-gray-100 px-1 rounded">p-6</code> - Padding all sides</li>
+                        <li><code class="bg-gray-100 px-1 rounded">mx-auto</code> - Center horizontally</li>
+                        <li><code class="bg-gray-100 px-1 rounded">max-w-md</code> - Max width medium</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mb-2">Appearance</h4>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><code class="bg-gray-100 px-1 rounded">bg-white</code> - White background</li>
+                        <li><code class="bg-gray-100 px-1 rounded">rounded-lg</code> - Large border radius</li>
+                        <li><code class="bg-gray-100 px-1 rounded">shadow-lg</code> - Large shadow</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mb-2">Interactions</h4>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><code class="bg-gray-100 px-1 rounded">hover:shadow-xl</code> - Larger shadow on hover</li>
+                        <li><code class="bg-gray-100 px-1 rounded">transition-all</code> - Smooth transitions</li>
+                        <li><code class="bg-gray-100 px-1 rounded">duration-300</code> - 300ms duration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# CDN 配置 - 使用 jsDelivr 加速全球访问
+# 将此文件合并到 _config.yml 或在主题配置中引用
+
+# 外部资源 CDN 配置（适用于 Next 主题）
+# 使用 jsDelivr - 免费、快速、全球覆盖的 CDN 服务
+
+# 如果需要通过 CDN 加载以下资源，取消对应注释并设置版本
+
+# jQuery (如需)
+# jquery: //cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
+
+# Bootstrap (如需)
+# bootstrap: //cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css
+
+# Font Awesome (图标库，Next 主题已内置)
+# fontawesome: //cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css
+
+# Vue.js (如果页面需要)
+# vue: //cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js
+
+# React (如果页面需要)
+# react: //cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js
+# react_dom: //cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js
+
+# ECharts (图表库)
+# echarts: //cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js
+
+# Tailwind CSS (样式框架)
+# tailwindcss: //cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.js

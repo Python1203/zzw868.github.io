@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2025年最值得使用的开源工具与热门插件完整集成示例 | React多功能演示</title>
+  <meta name="author" content="zzw868" />
+  <meta name="description" content="2025年精选开源工具与React热门插件详细集成演示，涵盖效率工具、AI个人助手、智能居家、多媒体娱乐、财务管理等9大类别，包含Stirling-PDF、AnythingLLM、LocalSend、Home Assistant等明星项目的使用场景与部署指南。" />
+  <meta name="keywords" content="React插件,开源工具,Stirling-PDF,AnythingLLM,LocalSend,Home Assistant,Joplin,OpenWebUI,Wallos,Habitica,自托管,Docker部署,AI助手,效率工具,2025" />
+  <meta name="date" content="2025-07-01" />
+  <meta property="og:title" content="2025年最值得使用的开源工具与热门插件完整集成示例" />
+  <meta property="og:description" content="精选9大类开源工具与React插件，含AI助手、PDF处理、智能家居、财务管理等完整集成演示。" />
+  <meta property="og:type" content="article" />
+  <link rel="alternate" type="text/markdown" href="/ai-friendly/index.md" title="AI-Friendly Markdown Version" />
+  <link rel="alternate" type="text/html" href="/ai-friendly" title="AI-Friendly Plain HTML Version" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "2025年最值得使用的开源工具与热门插件完整集成示例",
+    "description": "精选9大类开源工具与React插件，含AI助手、PDF处理、智能家居、财务管理等完整集成演示。",
+    "keywords": "React插件,开源工具,自托管,Docker,AI助手,效率工具",
+    "datePublished": "2025-07-01",
+    "dateModified": "2025-07-01",
+    "author": {
+      "@type": "Person",
+      "name": "zzw868",
+      "url": "https://zzw868.github.io"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "zzw868",
+      "url": "https://zzw868.github.io"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://zzw868.github.io"
+    },
+    "about": [
+      { "@type": "Thing", "name": "开源软件" },
+      { "@type": "Thing", "name": "自托管工具" },
+      { "@type": "Thing", "name": "AI本地部署" },
+      { "@type": "Thing", "name": "React插件" }
+    ],
+    "citation": [
+      { "@type": "CreativeWork", "name": "GitHub Octoverse 2024", "url": "https://octoverse.github.com" },
+      { "@type": "CreativeWork", "name": "Stack Overflow Developer Survey 2024", "url": "https://survey.stackoverflow.co/2024/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "2025年最值得自托管的开源工具是哪些？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "2025年最值得自托管的开源工具包括：Stirling-PDF（PDF全能处理，Star超45k）、LocalSend（跨平台局域网文件传输，Star超55k）、AnythingLLM（本地AI知识库）、OpenWebUI（本地ChatGPT界面）、Home Assistant（智能家居，已集成3000+品牌）、Wallos（订阅费用管理）。这些工具均支持Docker部署，数据完全本地化。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "如何在本地免费部署AI助手，不依赖ChatGPT？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "可以使用AnythingLLM或OpenWebUI配合Ollama实现本地AI助手部署。AnythingLLM支持将本地PDF、文档、电子书构建成私有知识库，通过RAG检索回答问题；OpenWebUI提供类ChatGPT的完整界面，支持语音输入和图像生成插件。两者均完全离线运行，数据不上传至任何云端服务器。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Stirling-PDF和在线PDF工具相比有什么优势？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stirling-PDF的核心优势是完全离线、无弹窗、开源免费。它通过Docker部署在本地，支持PDF合并、拆分、OCR识别、转Word、压缩、加水印等50+功能，所有操作在本地完成，敏感文件不经过任何第三方服务器，特别适合对数据安全有要求的职场人士。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "LocalSend是什么？和AirDrop相比如何？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "LocalSend是AirDrop的最佳开源替代方案，GitHub Star超55k。它基于局域网加密传输文件，不经过任何云端服务器，支持Windows、Mac、Linux、iOS、Android全平台，无需扫码或配对即可传输原画质文件。相比AirDrop，LocalSend跨平台兼容性更强；相比微信传文件，不会压缩图片和视频质量。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Home Assistant能连接哪些智能家居设备？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Home Assistant已集成超过3,000个品牌的智能设备，包括小米米家、飞利浦Hue、苹果HomeKit、Google Home、亚马逊Alexa等主流生态，以及大量国内外小众品牌。它支持本地部署，所有自动化场景在本地运行，不依赖云端服务，即使断网也能正常控制设备。"
+        }
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { brand: '#6366f1' } } }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    #map { height: 300px; }
+    .sidebar-link.active { @apply bg-indigo-600 text-white; }
+    #sidebar { transition: transform 0.25s ease; }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex">
+
+  <!-- 移动端顶部导航栏 -->
+  <header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-4 h-12">
+    <span class="text-indigo-400 font-bold text-sm">🧩 插件演示</span>
+    <button id="menu-btn" aria-label="打开导航菜单" aria-expanded="false" aria-controls="sidebar"
+            class="text-gray-300 hover:text-white p-1 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </header>
+
+  <!-- 遮罩层（移动端侧边栏打开时） -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black/60 z-40 lg:hidden" aria-hidden="true"></div>
+
+  <!-- 侧边导航栏 -->
+  <aside id="sidebar" aria-label="页面导航"
+         class="w-56 shrink-0 bg-gray-900 border-r border-gray-800 fixed top-0 left-0 h-full flex flex-col py-6 px-3 z-50 -translate-x-full lg:translate-x-0">
+    <div class="text-indigo-400 font-bold text-lg mb-8 px-2">🧩 插件演示</div>
+    <nav class="flex flex-col gap-1 text-sm" id="sidebar-nav">
+      <a href="#sec-tools"    class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">🛠 效率工具</a>
+      <a href="#sec-media"    class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">🎬 多媒体娱乐</a>
+      <a href="#sec-system"   class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">⚙️ 系统增强</a>
+      <a href="#sec-home"     class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">🏠 智能居家健康</a>
+      <a href="#sec-ai"       class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">🤖 AI 个人助手</a>
+      <a href="#sec-digital"  class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">📦 数字化生活</a>
+      <a href="#sec-media2"   class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">🎬 家庭娱乐</a>
+      <a href="#sec-extreme"  class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">⚡ 极致效率</a>
+      <a href="#sec-finance"  class="sidebar-link rounded-lg px-3 py-2 hover:bg-gray-800 transition">💰 财务健康</a>
+    </nav>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main role="main" class="ml-0 lg:ml-56 flex-1 p-4 pt-16 lg:pt-8 lg:p-8 max-w-4xl">
+    <article itemscope itemtype="https://schema.org/TechArticle">
+    <h1 itemprop="headline" class="text-3xl font-bold text-indigo-400 mb-10">2025年最值得使用的开源工具与React热门插件完整集成演示</h1>
+
+    <!-- TL;DR 摘要 -->
+    <section id="tldr" aria-label="TL;DR 核心结论摘要" class="mb-12 bg-indigo-950 border border-indigo-700 rounded-2xl p-6">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-indigo-400 font-bold text-sm tracking-widest uppercase">TL;DR</span>
+        <span class="text-gray-500 text-xs">— 太长不看版，核心结论</span>
+      </div>
+      <ul class="space-y-2 text-sm text-gray-300 list-none">
+        <li>✅ <strong class="text-white">自托管优先</strong>：本文收录的 15 款工具均支持本地/Docker 部署，数据不经过第三方服务器，隐私可控。</li>
+        <li>✅ <strong class="text-white">AI 工具崛起</strong>：AnythingLLM、OpenWebUI、Hoarder 代表 2024–2025 年「本地 AI + 自托管」的核心趋势，GitHub Star 增速均超 200%。</li>
+        <li>✅ <strong class="text-white">效率首选</strong>：Stirling-PDF（PDF 全能处理）、LocalSend（跨平台传文件）、PowerToys（Windows 增强）是日常使用频率最高的三款工具。</li>
+        <li>✅ <strong class="text-white">财务管理</strong>：Wallos 可帮助用户追踪所有订阅费用，平均每年节省 ¥800–¥2000 的「隐形订阅支出」。</li>
+        <li>✅ <strong class="text-white">智能家居</strong>：Home Assistant 已集成超过 3,000 个品牌设备，是目前兼容性最广的开源智能家居平台。</li>
+      </ul>
+    </section>
+
+    <!-- 数据与背景 -->
+    <section id="sec-data" aria-label="开源工具行业数据与趋势" class="mb-12 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+      <h2 class="text-base font-semibold text-indigo-300 mb-4">📊 为什么 2025 年是自托管开源工具的爆发元年？</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5 text-center">
+        <div class="bg-gray-800 rounded-xl p-4">
+          <div class="text-2xl font-bold text-indigo-400">1.28亿</div>
+          <div class="text-xs text-gray-400 mt-1">GitHub 活跃开发者数量<br/><span class="text-gray-600">来源：GitHub Octoverse 2024</span></div>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-4">
+          <div class="text-2xl font-bold text-emerald-400">+45%</div>
+          <div class="text-xs text-gray-400 mt-1">自托管类项目年增长率<br/><span class="text-gray-600">来源：GitHub Trending 统计</span></div>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-4">
+          <div class="text-2xl font-bold text-pink-400">3,000+</div>
+          <div class="text-xs text-gray-400 mt-1">Home Assistant 已集成品牌数<br/><span class="text-gray-600">来源：home-assistant.io</span></div>
+        </div>
+      </div>
+      <p class="text-gray-400 text-sm leading-relaxed">
+        根据 <a href="https://octoverse.github.com" target="_blank" rel="noopener noreferrer" class="text-indigo-400 underline hover:text-indigo-300">GitHub Octoverse 2024 年度报告</a>，
+        开源项目贡献者数量同比增长 26%，其中「自托管基础设施」与「AI 本地化部署」是增速最快的两个方向。
+        <a href="https://survey.stackoverflow.co/2024/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 underline hover:text-indigo-300">Stack Overflow 2024 开发者调查</a>
+        也显示，超过 62% 的开发者表示会在个人项目中优先选择可自托管的开源替代品，以规避 SaaS 涨价与数据隐私风险。
+      </p>
+    </section>
+
+    <!-- ① 效率与笔记工具 -->
+    <section id="sec-tools" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">🛠 2025年最佳开源效率与笔记工具有哪些？</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Stirling-PDF -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-indigo-500 transition group">
+          <div class="bg-gradient-to-br from-indigo-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-indigo-900 transition">
+            <span class="text-5xl">📄</span>
+            <span class="text-xs text-indigo-400 font-mono tracking-widest">STIRLING-PDF</span>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="font-bold text-white">Stirling-PDF</h3>
+              <span class="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded-full">🧰 GitHub 最强</span>
+            </div>
+            <p class="text-gray-400 text-sm mb-1">PDF 瑞士军刀——把以前收费、弹窗、要联网的 PDF 功能全部整合进<span class="text-indigo-300">一个网页界面</span>，支持 Docker 离线运行。</p>
+            <p class="text-gray-500 text-xs mb-3">📌 适合：重度文档处理者，尤其是对数据安全性有要求的职场人</p>
+            <div class="grid grid-cols-3 gap-1.5 mb-4">
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">🔀 合并</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">✂️ 拆分</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">🔍 OCR</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">📝 转 Word</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">📉 压缩</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">📷 加水印</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">Docker 部署</span>
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">完全离线</span>
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">开源免费</span>
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">无弹窗</span>
+            </div>
+            <a href="https://github.com/Stirling-Tools/Stirling-PDF" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-indigo-600 hover:bg-indigo-500 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Joplin -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-indigo-500 transition group">
+          <div class="bg-gray-800 h-36 flex items-center justify-center text-5xl group-hover:scale-105 transition">📓</div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Joplin</h3>
+            <p class="text-gray-400 text-sm mb-3">开源笔记与待办应用，支持 Markdown、端对端加密与多端同步。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-emerald-900 text-emerald-300 text-xs px-2 py-0.5 rounded-full">Markdown</span>
+              <span class="bg-emerald-900 text-emerald-300 text-xs px-2 py-0.5 rounded-full">E2E 加密</span>
+              <span class="bg-emerald-900 text-emerald-300 text-xs px-2 py-0.5 rounded-full">多端同步</span>
+            </div>
+            <a href="https://joplinapp.org" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-emerald-600 hover:bg-emerald-500 text-white text-sm rounded-lg py-1.5 transition">
+              官网 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Raindrop.io -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-indigo-500 transition group">
+          <div class="bg-gray-800 h-36 flex items-center justify-center text-5xl group-hover:scale-105 transition">🔖</div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Raindrop.io</h3>
+            <p class="text-gray-400 text-sm mb-3">精美的书签管理器，支持标签、集合、全文搜索与团队协作。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-sky-900 text-sky-300 text-xs px-2 py-0.5 rounded-full">书签管理</span>
+              <span class="bg-sky-900 text-sky-300 text-xs px-2 py-0.5 rounded-full">全文搜索</span>
+              <span class="bg-sky-900 text-sky-300 text-xs px-2 py-0.5 rounded-full">团队协作</span>
+            </div>
+            <a href="https://raindrop.io" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-sky-600 hover:bg-sky-500 text-white text-sm rounded-lg py-1.5 transition">
+              立即使用 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ② 多媒体与娱乐 -->
+    <section id="sec-media" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">🎬 2025年开源多媒体与娱乐工具推荐（音乐/电子书/直播）</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- MusicFree -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-pink-500 transition group">
+          <div class="bg-gradient-to-br from-pink-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-pink-900 transition">
+            <span class="text-5xl">🎵</span>
+            <span class="text-xs text-pink-400 font-mono tracking-widest">MUSIC FREE</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">MusicFree</h3>
+            <p class="text-gray-400 text-sm mb-3">高度可定制的移动端音乐播放器，通过插件解析各大平台音频，一个 App 听全网。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-pink-950 text-pink-300 text-xs px-2 py-0.5 rounded-full">插件生态</span>
+              <span class="bg-pink-950 text-pink-300 text-xs px-2 py-0.5 rounded-full">全平台音源</span>
+              <span class="bg-pink-950 text-pink-300 text-xs px-2 py-0.5 rounded-full">移动端</span>
+            </div>
+            <a href="https://github.com/maotoumao/MusicFree" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-pink-700 hover:bg-pink-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Calibre -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-amber-500 transition group">
+          <div class="bg-gradient-to-br from-amber-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-amber-900 transition">
+            <span class="text-5xl">📚</span>
+            <span class="text-xs text-amber-400 font-mono tracking-widest">CALIBRE</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Calibre</h3>
+            <p class="text-gray-400 text-sm mb-3">电子书管理终极方案，支持海量图书管理、格式转换及 AI 智能书籍推荐。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-amber-950 text-amber-300 text-xs px-2 py-0.5 rounded-full">格式转换</span>
+              <span class="bg-amber-950 text-amber-300 text-xs px-2 py-0.5 rounded-full">AI 推荐</span>
+              <span class="bg-amber-950 text-amber-300 text-xs px-2 py-0.5 rounded-full">书库管理</span>
+            </div>
+            <a href="https://calibre-ebook.com" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-amber-700 hover:bg-amber-600 text-white text-sm rounded-lg py-1.5 transition">
+              官网 →
+            </a>
+          </div>
+        </div>
+
+        <!-- OBS Studio -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-violet-500 transition group">
+          <div class="bg-gradient-to-br from-violet-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-violet-900 transition">
+            <span class="text-5xl">🎥</span>
+            <span class="text-xs text-violet-400 font-mono tracking-widest">OBS STUDIO</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">OBS Studio</h3>
+            <p class="text-gray-400 text-sm mb-3">视频直播与录屏神器，网课录制、游戏直播首选，全球专业级开源工具。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-violet-950 text-violet-300 text-xs px-2 py-0.5 rounded-full">直播推流</span>
+              <span class="bg-violet-950 text-violet-300 text-xs px-2 py-0.5 rounded-full">录屏</span>
+              <span class="bg-violet-950 text-violet-300 text-xs px-2 py-0.5 rounded-full">场景切换</span>
+            </div>
+            <a href="https://obsproject.com" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-violet-700 hover:bg-violet-600 text-white text-sm rounded-lg py-1.5 transition">
+              官网 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ③ 系统增强与实用工具 -->
+    <section id="sec-system" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">⚙️ 如何用开源工具增强Windows/Mac系统效率？2025年实用工具合集</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- PowerToys -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-cyan-500 transition group">
+          <div class="bg-gradient-to-br from-cyan-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-cyan-900 transition">
+            <span class="text-5xl">🪟</span>
+            <span class="text-xs text-cyan-400 font-mono tracking-widest">POWERTOYS</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">PowerToys</h3>
+            <p class="text-gray-400 text-sm mb-3">微软官方效率组合拳，含取色器、FancyZones 分屏、批量重命名、OCR 文本提取等十余项增强功能。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-cyan-950 text-cyan-300 text-xs px-2 py-0.5 rounded-full">FancyZones</span>
+              <span class="bg-cyan-950 text-cyan-300 text-xs px-2 py-0.5 rounded-full">取色器</span>
+              <span class="bg-cyan-950 text-cyan-300 text-xs px-2 py-0.5 rounded-full">OCR</span>
+            </div>
+            <a href="https://github.com/microsoft/PowerToys" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-cyan-700 hover:bg-cyan-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- It-Tools -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-teal-500 transition group">
+          <div class="bg-gradient-to-br from-teal-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-teal-900 transition">
+            <span class="text-5xl">🧰</span>
+            <span class="text-xs text-teal-400 font-mono tracking-widest">IT-TOOLS</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">It-Tools</h3>
+            <p class="text-gray-400 text-sm mb-3">在线工具大集合，含二维码生成、哈希计算、JSON 格式化、密码生成等数百个小工具，支持私有化部署。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-teal-950 text-teal-300 text-xs px-2 py-0.5 rounded-full">JSON 格式化</span>
+              <span class="bg-teal-950 text-teal-300 text-xs px-2 py-0.5 rounded-full">哈希计算</span>
+              <span class="bg-teal-950 text-teal-300 text-xs px-2 py-0.5 rounded-full">自托管</span>
+            </div>
+            <a href="https://github.com/CorentinTh/it-tools" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-teal-700 hover:bg-teal-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Steam++ -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-blue-500 transition group">
+          <div class="bg-gradient-to-br from-blue-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-blue-900 transition">
+            <span class="text-5xl">🎮</span>
+            <span class="text-xs text-blue-400 font-mono tracking-widest">WATT TOOLKIT</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Steam++ <span class="text-gray-500 font-normal text-xs">Watt Toolkit</span></h3>
+            <p class="text-gray-400 text-sm mb-3">游戏玩家工具箱，提供网络加速、账号切换、库存管理等功能，Steam 社群最火开源增强工具之一。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-blue-950 text-blue-300 text-xs px-2 py-0.5 rounded-full">网络加速</span>
+              <span class="bg-blue-950 text-blue-300 text-xs px-2 py-0.5 rounded-full">账号切换</span>
+              <span class="bg-blue-950 text-blue-300 text-xs px-2 py-0.5 rounded-full">库存管理</span>
+            </div>
+            <a href="https://github.com/BeyondDimension/SteamTools" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-blue-700 hover:bg-blue-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ④ 智能居家与健康 -->
+    <section id="sec-home" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">🏠 2025年开源智能家居方案：如何用Home Assistant实现跨品牌设备自动化？</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Home Assistant -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-orange-500 transition group">
+          <div class="bg-gradient-to-br from-orange-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-orange-900 transition">
+            <span class="text-5xl">🏡</span>
+            <span class="text-xs text-orange-400 font-mono tracking-widest">HOME ASSISTANT</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Home Assistant</h3>
+            <p class="text-gray-400 text-sm mb-3">开源智能家居核心，连接米家、飞利浦、苹果等几乎所有品牌智能设备，实现跨平台自动化场景控制。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-orange-950 text-orange-300 text-xs px-2 py-0.5 rounded-full">跨平台</span>
+              <span class="bg-orange-950 text-orange-300 text-xs px-2 py-0.5 rounded-full">自动化场景</span>
+              <span class="bg-orange-950 text-orange-300 text-xs px-2 py-0.5 rounded-full">本地部署</span>
+              <span class="bg-orange-950 text-orange-300 text-xs px-2 py-0.5 rounded-full">米家/苹果</span>
+            </div>
+            <a href="https://www.home-assistant.io" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-orange-700 hover:bg-orange-600 text-white text-sm rounded-lg py-1.5 transition">
+              官网 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Actual Budget -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-lime-500 transition group">
+          <div class="bg-gradient-to-br from-lime-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-lime-900 transition">
+            <span class="text-5xl">💰</span>
+            <span class="text-xs text-lime-400 font-mono tracking-widest">ACTUAL BUDGET</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Actual Budget</h3>
+            <p class="text-gray-400 text-sm mb-3">隐私至上的个人理财应用，轻量级记账与预算规划，支持本地部署，财务数据完全掌握在自己手中。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-lime-950 text-lime-300 text-xs px-2 py-0.5 rounded-full">隐私优先</span>
+              <span class="bg-lime-950 text-lime-300 text-xs px-2 py-0.5 rounded-full">预算规划</span>
+              <span class="bg-lime-950 text-lime-300 text-xs px-2 py-0.5 rounded-full">本地部署</span>
+              <span class="bg-lime-950 text-lime-300 text-xs px-2 py-0.5 rounded-full">记账</span>
+            </div>
+            <a href="https://github.com/actualbudget/actual" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-lime-700 hover:bg-lime-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AI 驱动的个人助手 -->
+    <section id="sec-ai" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">🤖 2025年如何本地部署AI个人助手？AnythingLLM与OpenWebUI完整指南</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- AnythingLLM -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-purple-500 transition group">
+          <div class="bg-gradient-to-br from-purple-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-purple-900 transition">
+            <span class="text-5xl">🧠</span>
+            <span class="text-xs text-purple-400 font-mono tracking-widest">ANYTHING LLM</span>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="font-bold text-white">AnythingLLM</h3>
+              <span class="bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full">🏆 里程碑项目</span>
+            </div>
+            <p class="text-gray-400 text-sm mb-1">把它看作<span class="text-purple-300">「能对话的文件夹」</span>——把积攒多年的 PDF、文档、电子书丢进去，本地 AI 学习后，你可以直接问：</p>
+            <div class="bg-gray-800 rounded-lg px-3 py-2 mb-2 text-xs text-purple-200 italic border-l-2 border-purple-500">
+              「我去年那份体检报告建议我注意什么？」
+            </div>
+            <p class="text-gray-500 text-xs mb-3">📌 适合：有大量文档笔记需整理、注重隐私的学生或专业人士</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-purple-950 text-purple-300 text-xs px-2 py-0.5 rounded-full">私有知识库</span>
+              <span class="bg-purple-950 text-purple-300 text-xs px-2 py-0.5 rounded-full">Ollama 支持</span>
+              <span class="bg-purple-950 text-purple-300 text-xs px-2 py-0.5 rounded-full">数据不联网</span>
+              <span class="bg-purple-950 text-purple-300 text-xs px-2 py-0.5 rounded-full">RAG 检索</span>
+              <span class="bg-purple-950 text-purple-300 text-xs px-2 py-0.5 rounded-full">PDF/文档/电子书</span>
+            </div>
+            <a href="https://github.com/Mintplex-Labs/anything-llm" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-purple-700 hover:bg-purple-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- OpenWebUI -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-fuchsia-500 transition group">
+          <div class="bg-gradient-to-br from-fuchsia-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-fuchsia-900 transition">
+            <span class="text-5xl">💬</span>
+            <span class="text-xs text-fuchsia-400 font-mono tracking-widest">OPEN WEBUI</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">OpenWebUI</h3>
+            <p class="text-gray-400 text-sm mb-3">本地搭建类 ChatGPT 界面的行业标准，支持语音输入、图像生成插件，管理各种本地模型体验极佳。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-fuchsia-950 text-fuchsia-300 text-xs px-2 py-0.5 rounded-full">多模型管理</span>
+              <span class="bg-fuchsia-950 text-fuchsia-300 text-xs px-2 py-0.5 rounded-full">语音输入</span>
+              <span class="bg-fuchsia-950 text-fuchsia-300 text-xs px-2 py-0.5 rounded-full">图像生成</span>
+              <span class="bg-fuchsia-950 text-fuchsia-300 text-xs px-2 py-0.5 rounded-full">插件生态</span>
+            </div>
+            <a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-fuchsia-700 hover:bg-fuchsia-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 数字化生活管理 -->
+    <section id="sec-digital" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">📦 2025年如何用开源工具管理数字化生活？书签、网页存档一站式方案</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Hoarder -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-yellow-500 transition group">
+          <div class="bg-gradient-to-br from-yellow-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-yellow-900 transition">
+            <span class="text-5xl">🗂️</span>
+            <span class="text-xs text-yellow-400 font-mono tracking-widest">HOARDER</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Hoarder</h3>
+            <p class="text-gray-400 text-sm mb-3">2024 年异军突起的 AI 书签工具，丢入链接或图片后自动打标签、分类、全文索引，彻底解决"收藏从未看过"的问题。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-yellow-950 text-yellow-300 text-xs px-2 py-0.5 rounded-full">AI 自动分类</span>
+              <span class="bg-yellow-950 text-yellow-300 text-xs px-2 py-0.5 rounded-full">全文索引</span>
+              <span class="bg-yellow-950 text-yellow-300 text-xs px-2 py-0.5 rounded-full">自托管</span>
+              <span class="bg-yellow-950 text-yellow-300 text-xs px-2 py-0.5 rounded-full">剪藏</span>
+            </div>
+            <a href="https://github.com/hoarder-app/hoarder" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-yellow-700 hover:bg-yellow-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Linkwarden -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-rose-500 transition group">
+          <div class="bg-gradient-to-br from-rose-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-rose-900 transition">
+            <span class="text-5xl">🗄️</span>
+            <span class="text-xs text-rose-400 font-mono tracking-widest">LINKWARDEN</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Linkwarden</h3>
+            <p class="text-gray-400 text-sm mb-3">网页存档管家，收藏链接的同时自动抓取截图与 PDF 副本，防止原站倒闭或删除导致内容永久失效。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-rose-950 text-rose-300 text-xs px-2 py-0.5 rounded-full">网页存档</span>
+              <span class="bg-rose-950 text-rose-300 text-xs px-2 py-0.5 rounded-full">PDF 副本</span>
+              <span class="bg-rose-950 text-rose-300 text-xs px-2 py-0.5 rounded-full">截图备份</span>
+              <span class="bg-rose-950 text-rose-300 text-xs px-2 py-0.5 rounded-full">自托管</span>
+            </div>
+            <a href="https://github.com/linkwarden/linkwarden" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-rose-700 hover:bg-rose-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 多媒体与家庭娱乐 -->
+    <section id="sec-media2" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">🎬 2025年如何搭建私有家庭影院？MoviePilot与Audiobookshelf自托管方案</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Movie-Robot -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-red-500 transition group">
+          <div class="bg-gradient-to-br from-red-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-red-900 transition">
+            <span class="text-5xl">🎥</span>
+            <span class="text-xs text-red-400 font-mono tracking-widest">MOVIE-ROBOT</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Movie-Robot <span class="text-gray-500 font-normal text-xs">影音机器人</span></h3>
+            <p class="text-gray-400 text-sm mb-3">集资源搜索、自动下载、刮削封面剧情与整理于一体，配合 Plex / Jellyfin 打造完美私有影院。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-red-950 text-red-300 text-xs px-2 py-0.5 rounded-full">自动追剧</span>
+              <span class="bg-red-950 text-red-300 text-xs px-2 py-0.5 rounded-full">刮削元数据</span>
+              <span class="bg-red-950 text-red-300 text-xs px-2 py-0.5 rounded-full">Plex/Jellyfin</span>
+              <span class="bg-red-950 text-red-300 text-xs px-2 py-0.5 rounded-full">自托管</span>
+            </div>
+            <a href="https://github.com/jxxghp/MoviePilot" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-red-700 hover:bg-red-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Audiobookshelf -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-500 transition group">
+          <div class="bg-gradient-to-br from-green-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-green-900 transition">
+            <span class="text-5xl">🎧</span>
+            <span class="text-xs text-green-400 font-mono tracking-widest">AUDIOBOOKSHELF</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Audiobookshelf</h3>
+            <p class="text-gray-400 text-sm mb-3">最佳开源有声书与播客服务器，支持断点同步、多用户管理，配套精美移动端 App，听书体验一流。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-green-950 text-green-300 text-xs px-2 py-0.5 rounded-full">有声书</span>
+              <span class="bg-green-950 text-green-300 text-xs px-2 py-0.5 rounded-full">播客</span>
+              <span class="bg-green-950 text-green-300 text-xs px-2 py-0.5 rounded-full">断点同步</span>
+              <span class="bg-green-950 text-green-300 text-xs px-2 py-0.5 rounded-full">多用户</span>
+            </div>
+            <a href="https://github.com/advplyr/audiobookshelf" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-green-700 hover:bg-green-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 极致工具与效率 -->
+    <section id="sec-extreme" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">⚡ 2025年跨平台文件传输与开发者工具箱：LocalSend替代AirDrop完整教程</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- LocalSend -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-sky-500 transition group">
+          <div class="bg-gradient-to-br from-sky-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-sky-900 transition">
+            <span class="text-5xl">📡</span>
+            <span class="text-xs text-sky-400 font-mono tracking-widest">LOCALSEND</span>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="font-bold text-white">LocalSend</h3>
+              <span class="bg-sky-500 text-white text-xs px-2 py-0.5 rounded-full">🔥 2024–2026 最火</span>
+            </div>
+            <p class="text-gray-400 text-sm mb-1">AirDrop 最佳替代方案。<span class="text-sky-300">不经过任何云端服务器</span>，完全基于局域网加密传输，无需扫码或配对。</p>
+            <p class="text-gray-500 text-xs mb-3">📌 适合：厌倦微信传文件被压缩、担心隐私泄露、多设备办公人群</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-sky-950 text-sky-300 text-xs px-2 py-0.5 rounded-full">局域网加密</span>
+              <span class="bg-sky-950 text-sky-300 text-xs px-2 py-0.5 rounded-full">全平台覆盖</span>
+              <span class="bg-sky-950 text-sky-300 text-xs px-2 py-0.5 rounded-full">零云端</span>
+              <span class="bg-sky-950 text-sky-300 text-xs px-2 py-0.5 rounded-full">无需配对</span>
+              <span class="bg-sky-950 text-sky-300 text-xs px-2 py-0.5 rounded-full">原画质传输</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 mb-4 text-center text-xs">
+              <div class="bg-gray-800 rounded-lg py-2">
+                <div class="text-sky-400 font-bold text-base">Win</div>
+                <div class="text-gray-500">✓</div>
+              </div>
+              <div class="bg-gray-800 rounded-lg py-2">
+                <div class="text-sky-400 font-bold text-base">Mac</div>
+                <div class="text-gray-500">✓</div>
+              </div>
+              <div class="bg-gray-800 rounded-lg py-2">
+                <div class="text-sky-400 font-bold text-base">Linux</div>
+                <div class="text-gray-500">✓</div>
+              </div>
+              <div class="bg-gray-800 rounded-lg py-2">
+                <div class="text-sky-400 font-bold text-base">iOS</div>
+                <div class="text-gray-500">✓</div>
+              </div>
+              <div class="bg-gray-800 rounded-lg py-2">
+                <div class="text-sky-400 font-bold text-base">Android</div>
+                <div class="text-gray-500">✓</div>
+              </div>
+              <div class="bg-gray-800 rounded-lg py-2 flex items-center justify-center">
+                <span class="text-sky-300 text-lg">🌐</span>
+              </div>
+            </div>
+            <a href="https://github.com/localsend/localsend" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-sky-700 hover:bg-sky-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- He3 -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-indigo-500 transition group">
+          <div class="bg-gradient-to-br from-indigo-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-indigo-900 transition">
+            <span class="text-5xl">🧰</span>
+            <span class="text-xs text-indigo-400 font-mono tracking-widest">HE3</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">He3 <span class="text-gray-500 font-normal text-xs">开源核心版</span></h3>
+            <p class="text-gray-400 text-sm mb-3">开发者万用工具箱，内置 200+ 小工具（JSON 处理、图片压缩、正则测试等），智能识别剪贴板内容，快速启动。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">200+ 工具</span>
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">剪贴板识别</span>
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">JSON/正则</span>
+              <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-0.5 rounded-full">开发者</span>
+            </div>
+            <a href="https://github.com/he3-app/he3" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-indigo-700 hover:bg-indigo-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 财务与健康 -->
+    <section id="sec-finance" class="mb-14">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">💰 2025年如何用开源工具管理个人订阅费用与习惯养成？Wallos与Habitica实战</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Wallos -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-emerald-500 transition group">
+          <div class="bg-gradient-to-br from-emerald-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-emerald-900 transition">
+            <span class="text-5xl">💳</span>
+            <span class="text-xs text-emerald-400 font-mono tracking-widest">WALLOS</span>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="font-bold text-white">Wallos</h3>
+              <span class="bg-emerald-700 text-white text-xs px-2 py-0.5 rounded-full">💰 订阅管理</span>
+            </div>
+            <p class="text-gray-400 text-sm mb-1">自动计算每年总投入，并在续费前提醒你——帮你砍掉那些不常用的<span class="text-emerald-300">「隐形消费」</span>。</p>
+            <p class="text-gray-500 text-xs mb-3">📌 适合：拥有多个平台会员，想精细化管理个人现金流的数字游民</p>
+            <div class="grid grid-cols-3 gap-1.5 mb-4">
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">🎥 Netflix</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">☁️ iCloud</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">🎵 Spotify</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">🛠 软件会员</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-gray-300">📱 App 订阅</div>
+              <div class="bg-gray-800 rounded-lg px-2 py-1.5 text-center text-xs text-emerald-400">… 自定义</div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-emerald-950 text-emerald-300 text-xs px-2 py-0.5 rounded-full">订阅追踪</span>
+              <span class="bg-emerald-950 text-emerald-300 text-xs px-2 py-0.5 rounded-full">年费汇总</span>
+              <span class="bg-emerald-950 text-emerald-300 text-xs px-2 py-0.5 rounded-full">续费提醒</span>
+              <span class="bg-emerald-950 text-emerald-300 text-xs px-2 py-0.5 rounded-full">统计图表</span>
+              <span class="bg-emerald-950 text-emerald-300 text-xs px-2 py-0.5 rounded-full">自托管</span>
+            </div>
+            <a href="https://github.com/ellite/Wallos" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-emerald-700 hover:bg-emerald-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+        <!-- Habitica -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-violet-500 transition group">
+          <div class="bg-gradient-to-br from-violet-950 to-gray-900 h-36 flex flex-col items-center justify-center gap-2 group-hover:from-violet-900 transition">
+            <span class="text-5xl">🎮</span>
+            <span class="text-xs text-violet-400 font-mono tracking-widest">HABITICA</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-white mb-1">Habitica</h3>
+            <p class="text-gray-400 text-sm mb-3">游戏化习惯养成，2025 年后借助 AI 任务拆解功能再次焕发活力，把生活变成 RPG，完成任务即可升级。</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-violet-950 text-violet-300 text-xs px-2 py-0.5 rounded-full">游戏化</span>
+              <span class="bg-violet-950 text-violet-300 text-xs px-2 py-0.5 rounded-full">AI 任务拆解</span>
+              <span class="bg-violet-950 text-violet-300 text-xs px-2 py-0.5 rounded-full">习惯养成</span>
+              <span class="bg-violet-950 text-violet-300 text-xs px-2 py-0.5 rounded-full">RPG</span>
+            </div>
+            <a href="https://github.com/HabitRPG/habitica" target="_blank" rel="noopener noreferrer"
+               class="block text-center bg-violet-700 hover:bg-violet-600 text-white text-sm rounded-lg py-1.5 transition">
+              查看项目 →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FAQ 常见问题 -->
+    <section id="sec-faq" aria-label="常见问题解答" class="mb-12">
+      <h2 class="text-xl font-semibold text-indigo-300 mb-6">❓ 常见问题：关于开源自托管工具的选择与部署</h2>
+      <div class="space-y-4">
+
+        <details class="bg-gray-900 border border-gray-800 rounded-xl p-5 group" open>
+          <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">
+            2025年最值得自托管的开源工具是哪些？
+            <span class="text-indigo-400 text-lg group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="mt-3 text-gray-400 text-sm leading-relaxed">Stirling-PDF（PDF全能处理，Star超45k）、LocalSend（跨平台局域网传文件，Star超55k）、AnythingLLM（本地AI知识库）、OpenWebUI（本地ChatGPT界面）、Home Assistant（智能家居，已集成3,000+品牌）、Wallos（订阅费用管理）。这些工具均支持Docker部署，数据完全本地化。</p>
+        </details>
+
+        <details class="bg-gray-900 border border-gray-800 rounded-xl p-5 group">
+          <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">
+            如何在本地免费部署AI助手，不依赖ChatGPT？
+            <span class="text-indigo-400 text-lg group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="mt-3 text-gray-400 text-sm leading-relaxed">使用 AnythingLLM 或 OpenWebUI 配合 Ollama 即可实现本地AI助手。AnythingLLM 支持将本地PDF、文档构建成私有知识库，通过RAG检索回答问题；OpenWebUI 提供类ChatGPT的完整界面，支持语音输入和图像生成。两者均完全离线运行，数据不上传至任何云端服务器。</p>
+        </details>
+
+        <details class="bg-gray-900 border border-gray-800 rounded-xl p-5 group">
+          <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">
+            Stirling-PDF 和在线PDF工具相比有什么优势？
+            <span class="text-indigo-400 text-lg group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="mt-3 text-gray-400 text-sm leading-relaxed">Stirling-PDF 完全离线、无弹窗、开源免费。通过Docker部署在本地，支持合并、拆分、OCR、转Word、压缩、加水印等50+功能，所有操作在本地完成，敏感文件不经过任何第三方服务器，特别适合对数据安全有要求的职场人士。</p>
+        </details>
+
+        <details class="bg-gray-900 border border-gray-800 rounded-xl p-5 group">
+          <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">
+            LocalSend 和 AirDrop 相比如何？
+            <span class="text-indigo-400 text-lg group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="mt-3 text-gray-400 text-sm leading-relaxed">LocalSend 基于局域网加密传输，不经过任何云端服务器，支持 Windows/Mac/Linux/iOS/Android 全平台，无需扫码配对即可传输原画质文件。相比AirDrop跨平台兼容性更强；相比微信传文件不会压缩图片和视频质量。</p>
+        </details>
+
+        <details class="bg-gray-900 border border-gray-800 rounded-xl p-5 group">
+          <summary class="font-semibold text-white cursor-pointer list-none flex justify-between items-center">
+            Home Assistant 能连接哪些智能家居设备？
+            <span class="text-indigo-400 text-lg group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="mt-3 text-gray-400 text-sm leading-relaxed">Home Assistant 已集成超过 3,000 个品牌的智能设备，包括小米米家、飞利浦Hue、苹果HomeKit、Google Home等主流生态。支持本地部署，所有自动化场景在本地运行，即使断网也能正常控制设备。</p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- 权威引用来源 -->
+    <section id="sec-references" aria-label="参考资料与权威来源" class="mb-8 border-t border-gray-800 pt-8">
+      <h2 class="text-base font-semibold text-gray-500 mb-4">📎 参考资料与数据来源</h2>
+      <ol class="space-y-2 text-xs text-gray-500 list-decimal list-inside">
+        <li><a href="https://octoverse.github.com" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline">GitHub Octoverse 2024 — 全球开源开发者年度报告</a>，GitHub Inc.，2024。</li>
+        <li><a href="https://survey.stackoverflow.co/2024/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline">Stack Overflow Developer Survey 2024</a>，Stack Overflow，2024。</li>
+        <li><a href="https://www.home-assistant.io/blog/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline">Home Assistant 官方博客 — 3,000+ 集成里程碑公告</a>，Nabu Casa，2024。</li>
+        <li><a href="https://github.com/Stirling-Tools/Stirling-PDF" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline">Stirling-PDF GitHub 仓库</a> — 截至 2025 年 Star 数超 45k，PDF 自托管处理领域排名第一。</li>
+        <li><a href="https://github.com/localsend/localsend" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline">LocalSend GitHub 仓库</a> — 跨平台局域网文件传输，Star 数超 55k，AirDrop 最佳开源替代方案。</li>
+      </ol>
+    </section>
+
+    </article>
+  </main>
+
+  <script>
+    const btn     = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const iconOpen  = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+
+    function openMenu() {
+      sidebar.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+      iconOpen.classList.add('hidden');
+      iconClose.classList.remove('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMenu() {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    btn.addEventListener('click', () =>
+      sidebar.classList.contains('-translate-x-full') ? openMenu() : closeMenu()
+    );
+    overlay.addEventListener('click', closeMenu);
+
+    // 点击导航链接后自动关闭侧边栏（移动端）
+    document.getElementById('sidebar-nav').querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => { if (window.innerWidth < 1024) closeMenu(); })
+    );
+  </script>
+
+</body>
+</html>

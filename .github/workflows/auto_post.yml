@@ -1,0 +1,121 @@
+name: Financial AI Auto Post
+
+on:
+  schedule:
+    - cron: '10 8 * * 1-5'   # 北京时间周一至周五 16:10（UTC 08:10）
+  workflow_dispatch:           # 保留手动触发按钮，方便调试
+    inputs:
+      force:
+        description: '强制重新生成（覆盖当天已有文章）'
+        type: boolean
+        default: false
+
+# 启用 Node.js 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: auto-post
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      # ── 1. 检出代码 ────────────────────────────────────────────────────────
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      # ── 2. 幂等检查：当天文章已存在则跳过 ────────────────────────────────
+      - name: Check duplicate
+        id: check
+        run: |
+          TODAY=$(TZ=Asia/Shanghai date +'%Y-%m-%d')
+          FILE="source/_posts/${TODAY}-financial-report.md"
+          echo "today=${TODAY}" >> "$GITHUB_OUTPUT"
+          if [ -f "$FILE" ] && [ "${{ inputs.force }}" != "true" ]; then
+            echo "skip=true"  >> "$GITHUB_OUTPUT"
+            echo "⏭ 今日文章已存在，跳过：$FILE"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ── 3. 配置 Python ─────────────────────────────────────────────────────
+      - name: Setup Python
+        if: steps.check.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+
+      # ── 4. 安装 Python 依赖 ────────────────────────────────────────────────
+      - name: Install Deps
+        if: steps.check.outputs.skip == 'false'
+        run: pip install yfinance requests python-dotenv
+
+      # ── 5. 运行 main.py 生成财经文章（失败重试 3 次）─────────────────────
+      - name: Run AI Script
+        if: steps.check.outputs.skip == 'false'
+        env:
+          DEEP_SEEK_KEY: ${{ secrets.DEEP_SEEK_KEY }}
+          AI_API_KEY:    ${{ secrets.AI_API_KEY }}
+        run: |
+          for i in 1 2 3; do
+            echo "→ 第 ${i} 次尝试..."
+            python main.py && break
+            [ $i -lt 3 ] && sleep 30 || exit 1
+          done
+
+      # ── 6. 配置 Node.js ────────────────────────────────────────────────────
+      - name: Setup Node.js
+        if: steps.check.outputs.skip == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      # ── 7. 构建并部署 Hexo ────────────────────────────────────────────────
+      - name: Deploy Hexo
+        if: steps.check.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm install -g hexo-cli
+          npm install
+          mkdir -p themes
+          [ -L themes/next ] || ln -sf ../node_modules/hexo-theme-next themes/next
+
+          git config --global user.name  "AI-Bot"
+          git config --global user.email "bot@yourblog.com"
+          git remote set-url origin \
+            https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
+
+          hexo clean
+          hexo generate
+          hexo deploy
+
+      # ── 8. 将新文章源文件 commit 回 main ──────────────────────────────────
+      - name: Commit post source
+        if: steps.check.outputs.skip == 'false'
+        run: |
+          git add source/_posts/
+          git diff --cached --quiet && echo "无新文件" && exit 0
+          git commit -m "🤖 AI财经日报 ${{ steps.check.outputs.today }}"
+          git push origin master
+
+      # ── 9. 输出摘要 ────────────────────────────────────────────────────────
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 📊 Financial AI Auto Post"                                   >> $GITHUB_STEP_SUMMARY
+          echo "| 项目 | 值 |"                                                   >> $GITHUB_STEP_SUMMARY
+          echo "|------|-----|"                                                   >> $GITHUB_STEP_SUMMARY
+          echo "| 日期 | ${{ steps.check.outputs.today }} |"                     >> $GITHUB_STEP_SUMMARY
+          echo "| 跳过 | ${{ steps.check.outputs.skip }} |"                      >> $GITHUB_STEP_SUMMARY
+          echo "| 站点 | https://zzw868.github.io |"                             >> $GITHUB_STEP_SUMMARY
+          echo "| 时间 | $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M:%S') BJT |"   >> $GITHUB_STEP_SUMMARY
