@@ -1,5 +1,1 @@
-# Track large TensorFlow library file
-financial-ai-dashboard/backend/venv312/lib/python3.12/site-packages/tensorflow/libtensorflow_cc.2.dylib filter=lfs diff=lfs merge=lfs -text
-.cache/* filter=lfs diff=lfs merge=lfs -text
-*.dylib filter=lfs diff=lfs merge=lfs -text
-*.pack filter=lfs diff=lfs merge=lfs -text
+# This file is intentionally kept but empty to prevent LFS usage
