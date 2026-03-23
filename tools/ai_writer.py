@@ -37,11 +37,14 @@ class Config:
     POSTS_DIR = "source/_posts"
     
     # 默认模型配置
-    DEFAULT_MODEL = "qwen-max"  # 可切换：gpt-4o, qwen-max, ernie-4.0
+    DEFAULT_MODEL = "qwen-max"  # 可切换：gpt-4o, qwen-max, ernie-4.0, deepseek-chat
     
     # API 配置（从环境变量读取）
     API_KEY = os.getenv("AI_API_KEY", "")
     BASE_URL = os.getenv("AI_BASE_URL", "https://api.openai.com/v1")
+    
+    # 百度文心配置
+    BAIDU_API_KEY = os.getenv("BAIDU_API_KEY", "")
     
     # 文章生成参数
     MIN_WORDS = 1200
@@ -271,18 +274,31 @@ class AIClient:
         self.api_key = api_key or Config.API_KEY
         self.base_url = base_url or Config.BASE_URL
         self.model = model or Config.DEFAULT_MODEL
+        self.baidu_api_key = Config.BAIDU_API_KEY
         
-        if not self.api_key:
-            raise ValueError("❌ 未设置 AI_API_KEY 环境变量")
+        if not self.api_key and not self.baidu_api_key:
+            raise ValueError("❌ 未设置 AI_API_KEY 或 BAIDU_API_KEY 环境变量")
         
-        self.client = OpenAI(
-            api_key=self.api_key,
-            base_url=self.base_url
-        )
+        # 如果是百度文心，使用特殊处理
+        if self.model.startswith("ernie") or (self.baidu_api_key and not self.api_key):
+            self.use_baidu = True
+        else:
+            self.use_baidu = False
+            self.client = OpenAI(
+                api_key=self.api_key,
+                base_url=self.base_url
+            )
     
     def generate(self, prompt, model=None, temperature=0.7, max_tokens=3000):
         """生成内容"""
+        if self.use_baidu:
+            return self._generate_baidu(prompt)
+        
+        # OpenAI 兼容接口
         try:
+            print(f"🔧 调用 API: {self.model}")
+            print(f"🌐 Base URL: {self.base_url}")
+            
             response = self.client.chat.completions.create(
                 model=model or self.model,
                 messages=[
@@ -298,8 +314,17 @@ class AIClient:
             
             # 调试输出：检查响应类型
             print(f"🔍 响应类型：{type(response)}")
+            
+            # 如果响应是字符串，说明是错误
             if isinstance(response, str):
-                print(f"⚠️  警告：API 返回字符串而非对象：{response[:200]}...")
+                print(f"⚠️  警告：API 返回字符串而非对象")
+                print(f"❌ 响应内容：{response[:500]}...")
+                return None
+            
+            # 检查是否有 choices 属性
+            if not hasattr(response, 'choices'):
+                print(f"⚠️  响应缺少 choices 属性")
+                print(f"📄 响应内容：{response}")
                 return None
             
             return response.choices[0].message.content
@@ -321,6 +346,56 @@ class AIClient:
             elif "Connection" in error_msg or "Network" in error_msg:
                 print("\n🌐 提示：网络连接问题，请检查网络")
             
+            return None
+    
+    def _generate_baidu(self, prompt):
+        """使用百度文心生成内容"""
+        try:
+            import requests
+            
+            # 获取 access_token
+            token_url = f"https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={self.baidu_api_key}&client_secret={self.baidu_api_key}"
+            response = requests.post(token_url)
+            token_data = response.json()
+            access_token = token_data.get("access_token")
+            
+            if not access_token:
+                print(f"❌ 无法获取百度 Access Token: {token_data}")
+                return None
+            
+            # 调用文心一言 API
+            api_url = f"https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions?access_token={access_token}"
+            
+            headers = {
+                "Content-Type": "application/json"
+            }
+            
+            payload = {
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": "你是一位专业的金融分析师，擅长用数据说话，观点客观中立。"
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            }
+            
+            response = requests.post(api_url, headers=headers, json=payload)
+            result = response.json()
+            
+            print(f"🔍 百度响应类型：{type(result)}")
+            
+            if "result" in result:
+                return result["result"]
+            else:
+                print(f"❌ 百度 API 返回错误：{result}")
+                return None
+                
+        except Exception as e:
+            print(f"❌ 百度 AI 调用失败：{str(e)}")
             return None
 
 
