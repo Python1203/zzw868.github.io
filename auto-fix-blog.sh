@@ -45,7 +45,7 @@ echo ""
 
 # 5. 推送到 GitHub
 echo "🚀 推送到 GitHub..."
-git push origin master
+git push origin main
 echo "✓ 推送成功"
 echo ""
 

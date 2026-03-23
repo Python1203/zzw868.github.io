@@ -27,7 +27,7 @@ else
     
     # 推送
     echo "📤 推送到 GitHub..."
-    git push origin master
+    git push origin main
     
     if [ $? -eq 0 ]; then
         echo "\n✅ 推送成功！"

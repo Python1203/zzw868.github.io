@@ -269,7 +269,7 @@ update_theme() {
             if [ -d "$THEME_DIR/.git" ]; then
                 # 如果是 git 克隆的，直接 pull
                 cd "$THEME_DIR"
-                git pull origin master
+                git pull origin main
                 cd - > /dev/null
                 success "主题已通过 git 更新"
             else

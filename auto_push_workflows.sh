@@ -40,7 +40,7 @@ git commit -m "✨ Add AI auto blog workflows (finance_auto_blog, seo-submit, ai
 
 echo ""
 echo "📤 推送到 GitHub..."
-git push origin master
+git push origin main
 
 if [ $? -eq 0 ]; then
     echo ""
