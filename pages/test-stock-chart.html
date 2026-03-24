@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
+    <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -215,8 +215,13 @@
     </div>
 
     <script type="text/babel">
+        // 安全检查：确保 Recharts 已加载
+        if (typeof Recharts === 'undefined') {
+            console.error('❌ Recharts 未加载！请检查网络或 CDN');
+        }
+        
         const { useState, useEffect, useRef, useCallback } = React;
-        const { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } = Recharts;
+        const { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } = Recharts || {};
 
         // 原始组件代码
         const RealTimeStockChart = () => {

@@ -7,6 +7,49 @@
 
 {% block content %}
 
+  {# ====== 金融 AI 组件展示区 ====== #}
+  <div class="widget-section">
+    <div class="widget-container">
+      <h2 class="widget-title">🚀 实时金融数据看板</h2>
+      <p class="widget-subtitle">React + Vue3 驱动的交互式金融数据可视化组件</p>
+      
+      <div class="widget-tabs">
+        <button class="tab-btn active" data-tab="stock">📊 股票预测</button>
+        <button class="tab-btn" data-tab="crypto">₿ 加密货币</button>
+      </div>
+
+      <div class="tab-content active" id="stock-tab">
+        <iframe src="/components/stock-chart-widget.html" loading="lazy" class="widget-iframe"></iframe>
+      </div>
+
+      <div class="tab-content" id="crypto-tab">
+        <iframe src="/components/crypto-dashboard-widget.html" loading="lazy" class="widget-iframe"></iframe>
+      </div>
+
+      <div class="widget-features">
+        <div class="feature-grid">
+          <div class="feature-item">
+            <i class="fas fa-bolt"></i>
+            <span>实时更新</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <span>AI 预测</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-mobile-alt"></i>
+            <span>响应式设计</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>安全可靠</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# ====== 文章列表区 ====== #}
   {%- for post in page.posts.toArray() %}
     {{ partial('_macro/post.njk', {post: post, is_index: true}) }}
   {%- endfor %}

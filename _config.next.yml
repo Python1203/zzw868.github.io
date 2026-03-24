@@ -102,6 +102,7 @@ custom_file_path:
   sidebar: source/_data/sidebar.njk
   bodyEnd: source/_data/body-end.njk
   style: source/_data/custom.styl
+  head: source/_data/head.njk
 motion:
   enable: true
   async: false
@@ -111,6 +112,17 @@ motion:
     post_body: fadeInDown
     coll_header: fadeInLeft
     sidebar: fadeInDown
+
+# TradingView 行情条配置
+tradingview_ticker:
+  enable: true  # 启用顶部行情滚动条
+  show_symbol_logo: true  # 显示币种/资产 logo
+  color_theme: dark  # 主题：dark / light
+  is_transparent: false  # 是否透明
+  display_mode: adaptive  # 显示模式：adaptive / regular
+  locale: zh_CN  # 语言：zh_CN / en
+  height: 68  # 高度（像素）
+  mobile_height: 58  # 移动端高度
 note:
   style: flat
   icons: true
@@ -120,15 +132,16 @@ vendors:
   _internal: static
 cache:
   enable: true
-pwa:
-  manifest: /manifest.json
-  serviceWorker: /sw.js
-  enable: true
-  theme_color: '#ffffff'
-  start_url: /
-  display: standalone
-  caching: all
-  offline_page: /offline.html
-  maximunFileSizeCacheable: 5242880
+# PWA 临时禁用以修复部署
+# pwa:
+#   manifest: /manifest.json
+#   serviceWorker: /sw.js
+#   enable: true
+#   theme_color: '#ffffff'
+#   start_url: /
+#   display: standalone
+#   caching: all
+#   offline_page: /offline.html
+#   maximunFileSizeCacheable: 5242880
 
 minify: false

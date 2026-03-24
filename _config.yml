@@ -29,6 +29,7 @@ skip_render:
   - "financial-ai-dashboard/**"
   - "ai-friendly/**"
   - "scripts/**"       # 忽略 scripts 目录，不作为 Hexo 脚本加载
+  - "components/**"    # 忽略组件文件，不进行 Nunjucks 渲染
 
 # ── 写作 ──────────────────────────────────────────────────────────────────────
 new_post_name: :year-:month-:day-:title.md
@@ -93,3 +94,24 @@ feed:
   type: atom
   path: atom.xml
   limit: 20
+
+# ── PWA（hexo-pwa）─────────────────────────────────────────────────────────────
+# 注意：serviceWorker 临时禁用以修复构建错误
+# 原因：hexo-pwa 插件与当前 Hexo 版本存在兼容性问题
+pwa:
+  manifest: 
+    path: /manifest.json
+  # serviceWorker:
+  #   path: /sw.js
+  #   preload:
+  #     urls:
+  #       - /
+  #       - /css/main.css
+  #       - /js/next-boot.js
+  #     posts: 10
+  #   opts: {}
+  #   routes: []
+  enable: false  # 临时禁用 service worker 生成
+  theme_color: '#ffffff'
+  start_url: /
+  display: standalone

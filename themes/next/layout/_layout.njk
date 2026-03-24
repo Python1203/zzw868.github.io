@@ -17,6 +17,9 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage"{% if theme.motion.enable %} class="use-motion"{% endif %}>
+  {# ====== TradingView 行情组件置顶 ====== #}
+  {%- include '_partials/tradingview-ticker.njk' -%}
+  
   <div class="headband"></div>
 
   <main class="main">

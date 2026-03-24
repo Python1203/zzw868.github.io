@@ -1,0 +1,478 @@
+<!-- 
+========================================
+加密货币仪表板组件 - 独立嵌入版
+技术栈：Vue 3 + ECharts + Pinia
+用途：嵌入博客主页展示多币种实时数据
+========================================
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密货币仪表板组件</title>
+    <!-- 使用生产版本的 Vue 和 Pinia，解决 CSP 和兼容性问题 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/pinia@2.1.7/dist/pinia.iife.min.js" crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: transparent;
+        }
+
+        .dashboard {
+            width: 100%;
+            min-height: 600px;
+            padding: 20px;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            color: #fff;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        .filter-select {
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            color: #00ffff;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-select:hover,
+        .filter-select:focus {
+            border-color: #ff00ff;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ff00ff;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 250px;
+        }
+
+        .price-display {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .price-display {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .price-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .price-label {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .price-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .price-change {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .positive {
+            color: #00ff00;
+        }
+
+        .negative {
+            color: #ff0000;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="dashboard">
+            <!-- 头部 -->
+            <div class="header">
+                <h2 class="title">₿ 加密货币实时监测</h2>
+                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <!-- 数据源指示器 -->
+                    <span :style="{ 
+                        fontSize: '12px', 
+                        padding: '4px 10px', 
+                        borderRadius: '12px',
+                        background: wsConnected ? 'rgba(0, 255, 0, 0.2)' : 'rgba(255, 165, 0, 0.2)',
+                        color: wsConnected ? '#00ff00' : '#ffa500',
+                        border: `1px solid ${wsConnected ? '#00ff00' : '#ffa500'}`
+                    }">
+                        {{ wsConnected ? '● 实时连接' : '○ 连接中...' }}
+                    </span>
+                    
+                    <!-- 过滤器 -->
+                    <div class="filter-group">
+                        <span class="filter-label">主币:</span>
+                        <select v-model="mainSymbol" class="filter-select">
+                            <option value="btcusdt">BTC</option>
+                            <option value="ethusdt">ETH</option>
+                            <option value="solusdt">SOL</option>
+                            <option value="bnbusdt">BNB</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <span class="filter-label">热门:</span>
+                        <select v-model="altSymbol" class="filter-select">
+                            <option value="xrpusdt">XRP</option>
+                            <option value="cardanusdt">ADA</option>
+                            <option value="dogeusdt">DOGE</option>
+                            <option value="maticusdt">MATIC</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 价格显示 -->
+            <div class="price-display">
+                <div class="price-item">
+                    <div class="price-label">{{ mainSymbol.toUpperCase() }}</div>
+                    <div class="price-value">${{ formatPrice(mainPrice) }}</div>
+                    <div :class="['price-change', mainChange >= 0 ? 'positive' : 'negative']">
+                        {{ mainChange >= 0 ? '+' : '' }}{{ mainChange.toFixed(2) }}%
+                    </div>
+                </div>
+                <div class="price-item">
+                    <div class="price-label">{{ altSymbol.toUpperCase() }}</div>
+                    <div class="price-value">${{ formatPrice(altPrice) }}</div>
+                    <div :class="['price-change', altChange >= 0 ? 'positive' : 'negative']">
+                        {{ altChange >= 0 ? '+' : '' }}{{ altChange.toFixed(2) }}%
+                    </div>
+                </div>
+                <div class="price-item">
+                    <div class="price-label">BTC  dominance</div>
+                    <div class="price-value">52.3%</div>
+                    <div class="price-change" style="color: #aaa;">--</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-label">ETH Dominance</div>
+                    <div class="price-value">17.8%</div>
+                    <div class="price-change" style="color: #aaa;">--</div>
+                </div>
+            </div>
+
+            <!-- 图表网格 -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">{{ mainSymbol.toUpperCase() }}/USDT 实时走势</h3>
+                    <div ref="mainChart" class="chart-container"></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">{{ altSymbol.toUpperCase() }}/USDT 实时走势</h3>
+                    <div ref="altChart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, computed, onMounted, watch } = Vue;
+        const { defineStore, createPinia } = Pinia;
+
+        // Pinia Store - 管理加密货币数据
+        const useCryptoStore = defineStore('crypto', () => {
+            const tickerData = ref({});
+            const wsConnection = ref(null);
+            const isConnected = ref(false);
+            const MAX_HISTORY_LENGTH = 50;
+
+            // 连接 Binance WebSocket 组合流
+            function connectMultiStream(symbols = ['btcusdt', 'ethusdt', 'solusdt', 'bnbusdt', 'xrpusdt']) {
+                const streams = symbols.map(s => `${s.toLowerCase()}@kline_1s`).join('/');
+                const wsUrl = `wss://stream.binance.com:9443/ws/${streams}`;
+                
+                wsConnection.value = new WebSocket(wsUrl);
+                
+                wsConnection.value.onopen = () => {
+                    console.log('WebSocket 连接成功');
+                    isConnected.value = true;
+                };
+                
+                wsConnection.value.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.k) {
+                        const symbol = data.s.toLowerCase();
+                        const kline = data.k;
+                        
+                        const priceData = {
+                            symbol: symbol,
+                            price: parseFloat(kline.c),
+                            open: parseFloat(kline.o),
+                            high: parseFloat(kline.h),
+                            low: parseFloat(kline.l),
+                            volume: parseFloat(kline.v),
+                            time: new Date(kline.t).getTime(),
+                            change: ((parseFloat(kline.c) - parseFloat(kline.o)) / parseFloat(kline.o) * 100)
+                        };
+                        
+                        tickerData.value[symbol] = priceData;
+                    }
+                };
+                
+                wsConnection.value.onclose = () => {
+                    console.log('WebSocket 连接关闭');
+                    isConnected.value = false;
+                    // 3 秒后重连
+                    setTimeout(() => {
+                        console.log('尝试重新连接...');
+                        connectMultiStream(symbols);
+                    }, 3000);
+                };
+                
+                wsConnection.value.onerror = (error) => {
+                    console.error('WebSocket 错误:', error);
+                };
+            }
+
+            function getPrice(symbol) {
+                return tickerData.value[symbol]?.price || 0;
+            }
+
+            function getChange(symbol) {
+                return tickerData.value[symbol]?.change || 0;
+            }
+
+            return {
+                tickerData,
+                wsConnection,
+                isConnected,
+                connectMultiStream,
+                getPrice,
+                getChange
+            };
+        });
+
+        // Vue 应用
+        const app = createApp({
+            setup() {
+                const store = useCryptoStore(createPinia());
+                const mainChart = ref(null);
+                const altChart = ref(null);
+                const mainSymbol = ref('btcusdt');
+                const altSymbol = ref('ethusdt');
+                let mainEchart = null;
+                let altEchart = null;
+
+                const wsConnected = computed(() => store.isConnected);
+                const mainPrice = computed(() => store.getPrice(mainSymbol.value));
+                const altPrice = computed(() => store.getPrice(altSymbol.value));
+                const mainChange = computed(() => store.getChange(mainSymbol.value));
+                const altChange = computed(() => store.getChange(altSymbol.value));
+
+                const formatPrice = (price) => {
+                    if (!price || price === 0) return '0.00';
+                    if (price >= 1000) return price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    if (price >= 1) return price.toFixed(2);
+                    return price.toFixed(4);
+                };
+
+                const initChart = (element, symbol) => {
+                    const chart = echarts.init(element);
+                    const option = {
+                        backgroundColor: 'transparent',
+                        tooltip: {
+                            trigger: 'axis',
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            borderColor: '#00ffff',
+                            textStyle: { color: '#fff' }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: [],
+                            axisLine: { lineStyle: { color: '#00ffff' } },
+                            axisLabel: { color: '#aaa' }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            axisLine: { show: false },
+                            splitLine: { lineStyle: { color: 'rgba(0, 255, 255, 0.1)' } },
+                            axisLabel: { color: '#aaa' }
+                        },
+                        series: [{
+                            data: [],
+                            type: 'line',
+                            smooth: true,
+                            symbol: 'none',
+                            lineStyle: { color: '#ff00ff', width: 2 },
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    { offset: 0, color: 'rgba(255, 0, 255, 0.3)' },
+                                    { offset: 1, color: 'rgba(255, 0, 255, 0.05)' }
+                                ])
+                            }
+                        }],
+                        grid: { top: 10, right: 10, bottom: 20, left: 10 }
+                    };
+                    chart.setOption(option);
+                    return chart;
+                };
+
+                const updateChartData = (chart, symbol) => {
+                    const data = store.tickerData[symbol];
+                    if (!data) return;
+
+                    const currentTime = new Date().getTime();
+                    const timeLabels = [];
+                    const priceData = [];
+                    
+                    for (let i = 49; i >= 0; i--) {
+                        const time = currentTime - (i * 1000);
+                        timeLabels.push(new Date(time).toLocaleTimeString());
+                        priceData.push('-');
+                    }
+
+                    chart.setOption({
+                        xAxis: { data: timeLabels },
+                        series: [{ data: priceData }]
+                    });
+                };
+
+                onMounted(() => {
+                    store.connectMultiStream([mainSymbol.value, altSymbol.value]);
+                    
+                    if (mainChart.value) {
+                        mainEchart = initChart(mainChart.value, mainSymbol.value);
+                    }
+                    if (altChart.value) {
+                        altEchart = initChart(altChart.value, altSymbol.value);
+                    }
+
+                    setInterval(() => {
+                        if (mainEchart) updateChartData(mainEchart, mainSymbol.value);
+                        if (altEchart) updateChartData(altEchart, altSymbol.value);
+                    }, 1000);
+
+                    window.addEventListener('resize', () => {
+                        mainEchart?.resize();
+                        altEchart?.resize();
+                    });
+                });
+
+                watch([mainSymbol, altSymbol], () => {
+                    store.connectMultiStream([mainSymbol.value, altSymbol.value]);
+                });
+
+                return {
+                    mainChart,
+                    altChart,
+                    mainSymbol,
+                    altSymbol,
+                    wsConnected,
+                    mainPrice,
+                    altPrice,
+                    mainChange,
+                    altChange,
+                    formatPrice
+                };
+            }
+        });
+
+        app.use(createPinia());
+        app.mount('#app');
+    </script>
+</body>
+</html>
