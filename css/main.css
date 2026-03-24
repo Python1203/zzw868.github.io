@@ -1498,7 +1498,7 @@ pre code {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #11b0f7;
+  background: #ffcd9e;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2947,71 +2947,5 @@ header.header {
   }
   .sidebar-active .footer-fixed {
     left: 320px;
-  }
-}
-.sidebar-finance-widget {
-  margin-top: 20px;
-  padding: 0 10px;
-}
-.sidebar-finance-widget .widget-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--link-color, #6366f1);
-  margin-bottom: 10px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.1));
-  letter-spacing: 0.05em;
-}
-.sidebar-finance-widget .widget-title i {
-  margin-right: 6px;
-}
-.sidebar-finance-widget .tradingview-widget-container {
-  border-radius: 8px;
-  overflow: hidden;
-  background: rgba(99,102,241,0.04);
-  border: 1px solid rgba(99,102,241,0.15);
-  transition: border-color 0.2s ease;
-}
-.sidebar-finance-widget .tradingview-widget-container:hover {
-  border-color: rgba(99,102,241,0.4);
-}
-.tradingview-ticker-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  height: 46px;
-  background: rgba(15,15,25,0.92);
-  backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(99,102,241,0.2);
-}
-.tradingview-ticker-container .tradingview-widget-container {
-  height: 46px;
-}
-#footer {
-  padding-bottom: 56px;
-}
-.reading-progress-bar {
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-}
-.post-title a:hover {
-  color: #6366f1;
-}
-.highlight {
-  border-radius: 8px;
-  overflow: hidden;
-}
-@media (max-width: 991px) {
-  .tradingview-ticker-container {
-    display: none;
-  }
-}
-@media (max-width: 991px) {
-  .tradingview-ticker-container {
-    display: none;
-  }
-  .sidebar-finance-widget .tradingview-widget-container {
-    height: 120px;
   }
 }
