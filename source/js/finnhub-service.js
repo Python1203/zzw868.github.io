@@ -56,25 +56,40 @@ class FinnhubService {
 
       this.ws.onerror = (error) => {
         console.error('❌ Finnhub WebSocket 错误:', error);
+        console.warn('⚠️ 可能原因：1) API Key 无效 2) 网络问题 3) Finnhub 服务限制');
         this.notifyListeners({ 
           type: 'error', 
           error: 'WebSocket 连接错误' 
         });
+        
+        // 立即标记为失败，触发降级
+        this.isConnected = false;
       };
 
       this.ws.onclose = (event) => {
         this.isConnected = false;
-        console.warn('⚠️ Finnhub WebSocket 关闭:', event.code, event.reason);
+        console.warn('⚠️ Finnhub WebSocket 关闭:', event.code, event.reason || '');
+        
+        // 根据关闭代码判断是否重连
+        const shouldReconnect = !event.wasClean && 
+                                this.reconnectAttempts < this.maxReconnectAttempts &&
+                                event.code !== 1000; // 1000 表示正常关闭
+        
+        if (shouldReconnect) {
+          console.log(`🔄 ${this.reconnectDelay}ms 后尝试第 ${this.reconnectAttempts + 1}/${this.maxReconnectAttempts} 次重连...`);
+          setTimeout(() => {
+            console.log('🔄 开始重连 Finnhub...');
+            this.connect();
+          }, this.reconnectDelay);
+        } else {
+          console.log('ℹ️ Finnhub WebSocket 已正常关闭，不再重连');
+        }
+        
         this.notifyListeners({ 
           type: 'disconnected',
           code: event.code,
-          reason: event.reason
+          reason: event.reason || ''
         });
-        
-        // 自动重连
-        if (!event.wasClean && this.reconnectAttempts < this.maxReconnectAttempts) {
-          this.scheduleReconnect();
-        }
       };
 
     } catch (error) {

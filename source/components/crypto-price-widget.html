@@ -11,10 +11,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>加密货币实时价格</title>
+    <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+    <!-- Recharts - 使用双 CDN 备份 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.15.0/Recharts.min.js"></script>
+    <script>
+        // 如果 cdnjs 加载失败，尝试 unpkg 作为备用
+        if (typeof Recharts === 'undefined') {
+            console.warn('⚠️ cdnjs Recharts 加载失败，尝试备用 CDN...');
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/recharts/umd/Recharts.min.js';
+            document.head.appendChild(script);
+        }
+    </script>
     
     <!-- 引入 useBinanceWS Hook -->
     <script type="text/babel" data-type="module">

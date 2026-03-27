@@ -11,9 +11,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>加密货币仪表板组件</title>
-    <!-- 使用生产版本的 Vue 和 Pinia，解决 CSP 和兼容性问题 -->
+    <!-- 使用生产版本的 Vue 和 Pinia -->
     <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js" crossorigin></script>
-    <script src="https://cdn.jsdelivr.net/npm/pinia@2.1.7/dist/pinia.iife.min.js" crossorigin></script>
+    <!-- 手动设置 VueDemi，解决 Pinia IIFE 版本依赖问题 -->
+    <script>
+        // 为 Pinia IIFE 版本提供完整的 VueDemi 兼容层
+        (function() {
+            const Vue = window.Vue;
+            window.VueDemi = {
+                isVue2: false,
+                isVue3: true,
+                Vue: Vue,
+                version: Vue.version,
+                // 响应式核心 API
+                effectScope: Vue.effectScope.bind(Vue),
+                getCurrentScope: Vue.getCurrentScope.bind(Vue),
+                onScopeDispose: Vue.onScopeDispose.bind(Vue),
+                ref: Vue.ref.bind(Vue),
+                shallowRef: Vue.shallowRef.bind(Vue),
+                triggerRef: Vue.triggerRef.bind(Vue),
+                customRef: Vue.customRef.bind(Vue),
+                computed: Vue.computed.bind(Vue),
+                reactive: Vue.reactive.bind(Vue),
+                shallowReactive: Vue.shallowReactive.bind(Vue),
+                markRaw: Vue.markRaw.bind(Vue),
+                toRaw: Vue.toRaw.bind(Vue),
+                toRef: Vue.toRef.bind(Vue),
+                toRefs: Vue.toRefs.bind(Vue),
+                unref: Vue.unref.bind(Vue),
+                proxyRefs: Vue.proxyRefs.bind(Vue),
+                isRef: Vue.isRef.bind(Vue),
+                isReactive: Vue.isReactive.bind(Vue),
+                isReadonly: Vue.isReadonly.bind(Vue),
+                isProxy: Vue.isProxy.bind(Vue),
+                isShallow: Vue.isShallow.bind(Vue),
+                readonly: Vue.readonly.bind(Vue),
+                shallowReadonly: Vue.shallowReadonly.bind(Vue),
+                // 生命周期钩子
+                watch: Vue.watch.bind(Vue),
+                watchEffect: Vue.watchEffect.bind(Vue),
+                watchPostEffect: Vue.watchPostEffect.bind(Vue),
+                watchSyncEffect: Vue.watchSyncEffect.bind(Vue),
+                onMounted: Vue.onMounted.bind(Vue),
+                onUnmounted: Vue.onUnmounted.bind(Vue),
+                onBeforeMount: Vue.onBeforeMount.bind(Vue),
+                onBeforeUnmount: Vue.onBeforeUnmount.bind(Vue),
+                onUpdated: Vue.onUpdated.bind(Vue),
+                onBeforeUpdate: Vue.onBeforeUpdate.bind(Vue),
+                onActivated: Vue.onActivated.bind(Vue),
+                onDeactivated: Vue.onDeactivated.bind(Vue),
+                onErrorCaptured: Vue.onErrorCaptured.bind(Vue),
+                onRenderTracked: Vue.onRenderTracked.bind(Vue),
+                onRenderTriggered: Vue.onRenderTriggered.bind(Vue),
+                // 组件 API
+                defineComponent: Vue.defineComponent.bind(Vue),
+                getCurrentInstance: Vue.getCurrentInstance.bind(Vue),
+                hasInjectionContext: Vue.hasInjectionContext.bind(Vue),
+                h: Vue.h.bind(Vue),
+                mergeProps: Vue.mergeProps.bind(Vue),
+                cloneVNode: Vue.cloneVNode.bind(Vue),
+                resolveComponent: Vue.resolveComponent.bind(Vue),
+                // 依赖注入
+                provide: Vue.provide.bind(Vue),
+                inject: Vue.inject.bind(Vue),
+                // 其他工具函数
+                nextTick: Vue.nextTick.bind(Vue),
+                useSlots: Vue.useSlots.bind(Vue),
+                useAttrs: Vue.useAttrs.bind(Vue)
+            };
+            console.log('✅ VueDemi 已初始化（Vue 3 模式）');
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/pinia@2.2.0/dist/pinia.iife.prod.js" crossorigin></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" crossorigin></script>
     <style>
         * {
@@ -415,14 +484,29 @@
                     const data = store.tickerData[symbol];
                     if (!data) return;
 
+                    // 从 store 获取当前价格
+                    const currentPrice = data.price || 0;
                     const currentTime = new Date().getTime();
+                    
+                    // 生成时间标签和价格数据
                     const timeLabels = [];
                     const priceData = [];
                     
+                    // 生成过去 50 秒的时间点
                     for (let i = 49; i >= 0; i--) {
                         const time = currentTime - (i * 1000);
                         timeLabels.push(new Date(time).toLocaleTimeString());
-                        priceData.push('-');
+                        
+                        // 如果是最新的数据点，使用真实价格
+                        if (i === 0 && currentPrice > 0) {
+                            priceData.push(currentPrice);
+                        } else {
+                            // 其他时间点使用模拟数据（基于当前价格的波动）
+                            // 实际应用中应该从 API 获取历史数据
+                            const basePrice = currentPrice > 0 ? currentPrice : 100;
+                            const randomChange = (Math.random() - 0.5) * (basePrice * 0.02); // ±2% 波动
+                            priceData.push(basePrice + randomChange);
+                        }
                     }
 
                     chart.setOption({

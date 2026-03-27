@@ -11,10 +11,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>实时股票价格预测组件</title>
+    <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+    <!-- Recharts - 使用双 CDN 备份 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.15.0/Recharts.min.js"></script>
+    <script>
+        // 如果 cdnjs 加载失败，尝试 unpkg 作为备用
+        if (typeof Recharts === 'undefined') {
+            console.warn('⚠️ cdnjs Recharts 加载失败，尝试备用 CDN...');
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/recharts/umd/Recharts.min.js';
+            document.head.appendChild(script);
+        }
+    </script>
     <!-- 金融数据服务 -->
     <script src="/js/financial-data-service.js"></script>
     <!-- Finnhub WebSocket 服务 -->
@@ -197,21 +208,69 @@
             const [data, setData] = useState([]);
             const [latestPrediction, setLatestPrediction] = useState(null);
             const [connectionStatus, setConnectionStatus] = useState('connecting');
-            const [dataSource, setDataSource] = useState('mock'); // 'mock' | 'itick' | 'finnhub'
+            const [dataSource, setDataSource] = useState('mock'); // 'mock' | 'finnhub'
             const [selectedSymbol, setSelectedSymbol] = useState('AAPL'); // 默认股票
             const ws = useRef(null);
             const reconnectTimeout = useRef(null);
             const removeListenerRef = useRef(null); // 存储监听器移除函数
             const MAX_DATA_POINTS = 30;
+            
+            // 支持的股票代码列表
+            const symbolList = [
+                // === 美股科技巨头 ===
+                { code: 'AAPL', name: '苹果 Apple', type: 'stock' },
+                { code: 'MSFT', name: '微软 Microsoft', type: 'stock' },
+                { code: 'GOOGL', name: '谷歌 Google', type: 'stock' },
+                { code: 'AMZN', name: '亚马逊 Amazon', type: 'stock' },
+                { code: 'TSLA', name: '特斯拉 Tesla', type: 'stock' },
+                { code: 'META', name: 'Meta (Facebook)', type: 'stock' },
+                { code: 'NVDA', name: '英伟达 NVIDIA', type: 'stock' },
+                { code: 'NFLX', name: '奈飞 Netflix', type: 'stock' },
+                
+                // === 全球主要股指 ===
+                { code: 'SPY', name: '标普 500 指数 ETF', type: 'index' },
+                { code: 'DIA', name: '道琼斯指数 ETF', type: 'index' },
+                { code: 'QQQ', name: '纳斯达克 100ETF', type: 'index' },
+                { code: 'IWM', name: '罗素 2000ETF', type: 'index' },
+                { code: 'VIX', name: '恐慌指数 VIX', type: 'index' },
+                { code: '^GSPC', name: '标普 500', type: 'index' },
+                { code: '^DJI', name: '道琼斯工业平均', type: 'index' },
+                { code: '^IXIC', name: '纳斯达克综合', type: 'index' },
+                { code: '^N225', name: '日经 225', type: 'index' },
+                { code: '^HSI', name: '恒生指数', type: 'index' },
+                { code: '000001.SS', name: '上证指数', type: 'index' },
+                { code: '399001.SZ', name: '深证成指', type: 'index' },
+                
+                // === 热门 ETF ===
+                { code: 'VTI', name: '全美市场 ETF', type: 'etf' },
+                { code: 'VOO', name: '标普 500 ETF(Vanguard)', type: 'etf' },
+                { code: 'ARKK', name: 'ARK 创新 ETF', type: 'etf' },
+                { code: 'GDXJ', name: '小盘金矿 ETF', type: 'etf' },
+                { code: 'USO', name: '原油 ETF', type: 'etf' },
+                { code: 'GLD', name: '黄金 ETF', type: 'etf' },
+                { code: 'SLV', name: '白银 ETF', type: 'etf' },
+                { code: 'TLT', name: '20 年 + 国债 ETF', type: 'etf' },
+                { code: 'XLF', name: '金融板块 ETF', type: 'etf' },
+                { code: 'XLE', name: '能源板块 ETF', type: 'etf' },
+                { code: 'XLK', name: '科技板块 ETF', type: 'etf' },
+                
+                // === 中概股 ===
+                { code: 'BABA', name: '阿里巴巴', type: 'stock' },
+                { code: 'JD', name: '京东', type: 'stock' },
+                { code: 'PDD', name: '拼多多', type: 'stock' },
+                { code: 'NIO', name: '蔚来汽车', type: 'stock' },
+                { code: 'XPEV', name: '小鹏汽车', type: 'stock' },
+                { code: 'LI', name: '理想汽车', type: 'stock' }
+            ];
 
             // ====== 数据源切换 ======
             const toggleDataSource = useCallback(() => {
-                const sources = ['mock', 'itick', 'finnhub'];
+                const sources = ['mock', 'finnhub'];
                 const currentIndex = sources.indexOf(dataSource);
                 const nextSource = sources[(currentIndex + 1) % sources.length];
                 
                 setDataSource(nextSource);
-                console.log(`🔄 切换到 ${nextSource === 'mock' ? '模拟' : nextSource === 'itick' ? 'iTick' : 'Finnhub'} 数据源`);
+                console.log(`🔄 切换到 ${nextSource === 'mock' ? '模拟' : 'Finnhub'} 数据源`);
                 
                 // 重置连接状态
                 setConnectionStatus('connecting');
@@ -224,12 +283,36 @@
                 
                 if (nextSource === 'mock') {
                     startMockData();
-                } else if (nextSource === 'itick') {
-                    connectITick();
                 } else if (nextSource === 'finnhub') {
                     connectFinnhub();
                 }
             }, [dataSource]);
+            
+            // ====== 股票切换 ======
+            const changeSymbol = useCallback((newSymbol) => {
+                setSelectedSymbol(newSymbol);
+                console.log(`📊 切换到股票：${newSymbol}`);
+                
+                // 如果当前是 Finnhub 模式，重新订阅
+                if (dataSource === 'finnhub' && ws.current?.isConnected) {
+                    try {
+                        // 取消旧订阅
+                        if (ws.current.unsubscribe) {
+                            ws.current.unsubscribe(selectedSymbol);
+                        }
+                        // 订阅新股票
+                        setTimeout(() => {
+                            ws.current.subscribe(newSymbol);
+                            console.log(`📡 已订阅 ${newSymbol}`);
+                        }, 300);
+                    } catch (error) {
+                        console.error('❌ 切换股票失败:', error);
+                    }
+                }
+                
+                // 清空图表数据
+                setData([]);
+            }, [dataSource, selectedSymbol]);
 
             // ====== WebSocket 连接管理 ======
             const connectWebSocket = useCallback(() => {
@@ -254,50 +337,6 @@
                 } catch (error) {
                     console.error('❌ WebSocket 连接失败:', error);
                     setConnectionStatus('error');
-                }
-            }, []);
-
-            // ====== iTick WebSocket 连接 ======
-            const connectITick = useCallback(() => {
-                setConnectionStatus('connecting');
-                
-                try {
-                    // 使用全局 iTick 服务（如果存在）
-                    if (window.itickService) {
-                        ws.current = window.itickService;
-                        
-                        // 添加数据监听器
-                        const removeListener = window.itickService.addListener((tickData) => {
-                            if (tickData.type === 'connected') {
-                                setConnectionStatus('connected');
-                                console.log('✅ iTick 已连接');
-                            } else if (tickData.type === 'error') {
-                                setConnectionStatus('error');
-                                console.error('❌ iTick 错误:', tickData.error);
-                            } else if (tickData.type === 'disconnected') {
-                                setConnectionStatus('disconnected');
-                                console.warn('⚠️ iTick 断开连接');
-                            } else if (tickData && tickData.price) {
-                                // 收到实时交易数据
-                                handleRealtimeData(tickData);
-                            }
-                        });
-                        
-                        // 连接 WebSocket
-                        window.itickService.connect();
-                        
-                    } else {
-                        throw new Error('iTick 服务未加载');
-                    }
-                } catch (error) {
-                    console.error('❌ iTick 连接失败:', error);
-                    setConnectionStatus('error');
-                    // 降级到模拟模式
-                    setTimeout(() => {
-                        console.log('⚠️ 降级到模拟数据模式');
-                        setDataSource('mock');
-                        startMockData();
-                    }, 2000);
                 }
             }, []);
 
@@ -330,23 +369,34 @@
                             setConnectionStatus('connected');
                             console.log('✅ Finnhub 已连接');
                             
-                            // 订阅默认股票（AAPL）
-                            const defaultSymbol = selectedSymbol || 'AAPL';
-                            window.finnhubService.subscribe(defaultSymbol);
-                            console.log(`📡 已订阅 ${defaultSymbol}`);
+                            // 等待一小段时间确保 WebSocket 完全建立后再订阅
+                            setTimeout(() => {
+                                try {
+                                    const defaultSymbol = selectedSymbol || 'AAPL';
+                                    if (window.finnhubService && window.finnhubService.isConnected) {
+                                        window.finnhubService.subscribe(defaultSymbol);
+                                        console.log(`📡 已订阅 ${defaultSymbol}`);
+                                    } else {
+                                        console.warn('⚠️ WebSocket 未完全连接，延迟订阅...');
+                                    }
+                                } catch (error) {
+                                    console.error('❌ 订阅失败:', error.message);
+                                }
+                            }, 500); // 延迟 500ms 订阅
                             
                         } else if (tickData.type === 'error') {
                             setConnectionStatus('error');
                             console.error('❌ Finnhub 错误:', tickData.error);
                             
-                            // 5 秒后降级到模拟模式
+                            // 立即降级到模拟模式（不再等待）
+                            console.warn('⚠️ Finnhub 连接失败，1 秒后切换到模拟数据模式...');
                             setTimeout(() => {
                                 if (dataSource === 'finnhub') {
-                                    console.log('⚠️ 降级到模拟数据模式');
+                                    console.log('📉 已降级到模拟数据模式');
                                     setDataSource('mock');
                                     startMockData();
                                 }
-                            }, 5000);
+                            }, 1000);
                             
                         } else if (tickData.type === 'disconnected') {
                             setConnectionStatus('disconnected');
@@ -415,8 +465,6 @@
             useEffect(() => {
                 if (dataSource === 'finnhub') {
                     connectFinnhub();
-                } else if (dataSource === 'itick') {
-                    connectITick();
                 } else {
                     connectWebSocket();
                 }
@@ -436,18 +484,27 @@
                     // 断开 WebSocket 连接
                     if (ws.current) {
                         if (dataSource === 'finnhub') {
-                            // Finnhub 服务不断开，只取消订阅
+                            // Finnhub 服务不断开连接，只取消订阅
                             const symbolToUnsubscribe = selectedSymbol || 'AAPL';
-                            ws.current.unsubscribe(symbolToUnsubscribe);
-                            console.log(`📡 已取消订阅 ${symbolToUnsubscribe}`);
-                        } else if (dataSource === 'itick') {
-                            ws.current.disconnect();
+                            try {
+                                ws.current.unsubscribe(symbolToUnsubscribe);
+                                console.log(`📡 已取消订阅 ${symbolToUnsubscribe}`);
+                            } catch (error) {
+                                console.warn('⚠️ 取消订阅失败:', error.message);
+                            }
                         } else {
-                            ws.current?.close();
+                            // 模拟 WebSocket 或原生 WebSocket
+                            try {
+                                if (typeof ws.current.close === 'function') {
+                                    ws.current.close();
+                                }
+                            } catch (error) {
+                                console.warn('⚠️ 关闭 WebSocket 失败:', error.message);
+                            }
                         }
                     }
                 };
-            }, [dataSource, connectWebSocket, connectITick, connectFinnhub]);
+            }, [dataSource, connectWebSocket, connectFinnhub]);
 
             // ====== 模拟数据生成 ======
             const startMockData = useCallback(() => {
@@ -541,7 +598,45 @@
                     {/* 头部 */}
                     <div className="header">
                         <h2 className="title">📊 实时股票价格预测</h2>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                            {/* 股票选择器 */}
+                            <select 
+                                value={selectedSymbol}
+                                onChange={(e) => changeSymbol(e.target.value)}
+                                style={{
+                                    padding: '8px 12px',
+                                    borderRadius: '6px',
+                                    border: '2px solid #667eea',
+                                    background: 'white',
+                                    color: '#333',
+                                    fontSize: '14px',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                    outline: 'none'
+                                }}
+                            >
+                                <optgroup label="🇺🇸 美股科技巨头">
+                                    {symbolList.filter(s => s.type === 'stock' && !s.code.includes('.')).slice(0, 8).map(s => (
+                                        <option key={s.code} value={s.code}>{s.name} ({s.code})</option>
+                                    ))}
+                                </optgroup>
+                                <optgroup label="🌏 全球主要股指">
+                                    {symbolList.filter(s => s.type === 'index').map(s => (
+                                        <option key={s.code} value={s.code}>{s.name} ({s.code})</option>
+                                    ))}
+                                </optgroup>
+                                <optgroup label="💰 热门 ETF">
+                                    {symbolList.filter(s => s.type === 'etf').map(s => (
+                                        <option key={s.code} value={s.code}>{s.name} ({s.code})</option>
+                                    ))}
+                                </optgroup>
+                                <optgroup label="🇨🇳 中概股">
+                                    {symbolList.filter(s => s.type === 'stock' && (s.code === 'BABA' || s.code === 'JD' || s.code === 'PDD' || s.code.includes('NIO') || s.code.includes('XPEV') || s.code === 'LI')).map(s => (
+                                        <option key={s.code} value={s.code}>{s.name} ({s.code})</option>
+                                    ))}
+                                </optgroup>
+                            </select>
+                            
                             {/* 数据源指示器 */}
                             <span style={{ 
                                 fontSize: '12px', 
@@ -549,8 +644,7 @@
                                 padding: '4px 8px',
                                 background: dataSource === 'mock' ? 'rgba(82,196,26,0.1)' : dataSource === 'itick' ? 'rgba(24,144,255,0.1)' : 'rgba(250,140,22,0.1)',
                                 borderRadius: '4px',
-                                fontWeight: 600,
-                                marginRight: '8px'
+                                fontWeight: 600
                             }}>
                                 {dataSource === 'mock' ? '🔧 模拟数据' : dataSource === 'itick' ? '⚡ iTick' : '🇺🇸 Finnhub'}
                             </span>

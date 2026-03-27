@@ -11,6 +11,14 @@
   {%- include '_third-party/math/index.njk' -%}
   {%- include '_third-party/quicklink.njk' -%}
   {{- next_inject('head') }}
+  
+  {# Page-specific CSS #}
+  {%- if page.slug === 'about' or page.path === 'about.html' %}
+    <link rel="stylesheet" href="/css/about-page.css">
+  {%- elif page.slug === 'cases' or page.path === 'cases.html' %}
+    <link rel="stylesheet" href="/css/cases-page.css">
+  {%- endif %}
+  
   <noscript>
     <link rel="stylesheet" href="{{ url_for(theme.css) }}/noscript.css">
   </noscript>
