@@ -192,7 +192,8 @@ categories: 财经
 """
     
     # 添加实时行情表格
-    quotes_table = f"""## 📌 实时行情 · 数据更新于 {now.strftime('%Y-%m-%d %H:%M')} BJT
+    time_str = now.strftime('%Y-%m-%d %H:%M')
+    quotes_table = f"""## 📌 实时行情 · 数据更新于 {time_str} BJT
 
 > **数据来源**: Bloomberg Terminal | **免责声明**: 仅供参考，不构成投资建议
 >
@@ -206,9 +207,9 @@ categories: 财经
 > | **WTI 原油** | {market_data['commodities']['wti_crude']['price']:.2f} | {market_data['commodities']['wti_crude']['change']:+.2f}% | {'🚀' if market_data['commodities']['wti_crude']['change'] > 0.5 else '🔻' if market_data['commodities']['wti_crude']['change'] < -0.5 else '➡️'} |
 > | **布伦特原油** | {market_data['commodities']['brent_crude']['price']:.2f} | {market_data['commodities']['brent_crude']['change']:+.2f}% | {'🚀' if market_data['commodities']['brent_crude']['change'] > 0.5 else '🔻' if market_data['commodities']['brent_crude']['change'] < -0.5 else '➡️'} |
 > | **黄金** | {market_data['commodities']['gold']['price']:.2f} | {market_data['commodities']['gold']['change']:+.2f}% | {'🚀' if market_data['commodities']['gold']['change'] > 0.5 else '🔻' if market_data['commodities']['gold']['change'] < -0.5 else '➡️'} |
-> | **美元指数** | {market_data['forex']['dxy']:.2f} | {market_data['forex']['dxy']['change']:+.2f}% | {'🚀' if market_data['forex']['dxy']['change'] > 0.5 else '🔻' if market_data['forex']['dxy']['change'] < -0.5 else '➡️'} |
-> | **离岸人民币** | {market_data['forex']['usdcnh']:.4f} | {market_data['forex']['usdcnh']['change']:+.2f}% | {'🚀' if market_data['forex']['usdcnh']['change'] > 0.5 else '🔻' if market_data['forex']['usdcnh']['change'] < -0.5 else '➡️'} |
-> | **10 年期美债** | {market_data['bonds']['us_10y']['yield']:.3f}% | {market_data['bonds']['us_10y']['change']*100:+.1f}bp | {'🔻' if market_data['bonds']['us_10y']['change'] > 0 else '🚀'} |
+> | **美元指数** | {market_data['forex']['dxy']['price']:.2f} | {market_data['forex']['dxy']['change']:+.2f}% | {'🚀' if market_data['forex']['dxy']['change'] > 0.5 else '🔻' if market_data['forex']['dxy']['change'] < -0.5 else '➡️'} |
+> | **离岸人民币** | {market_data['forex']['usdcnh']['price']:.4f} | {market_data['forex']['usdcnh']['change']:+.2f}% | {'🚀' if market_data['forex']['usdcnh']['change'] > 0.5 else '🔻' if market_data['forex']['usdcnh']['change'] < -0.5 else '➡️'} |
+> | **10 年期美债** | {market_data['bonds']['us_10y']['yield']:.3f}% | {market_data['bonds']['us_10y']['change']*100:+.1f}bp | {{'🔻' if market_data['bonds']['us_10y']['change'] > 0 else '🚀'}} |
 >
 > *以上数据仅供参考，不构成投资建议。*
 
@@ -230,22 +231,25 @@ categories: 财经
     return file_path
 
 
-def check_should_run():
+def check_should_run(force=False):
     """
     检查今天是否已运行过脚本（避免重复生成）
     """
     now = datetime.datetime.now()
     date_str = now.strftime("%Y-%m-%d")
     
-    # 检查是否是工作日
-    if now.weekday() >= 5:
-        print(f"⏭ 今天是{['周一','周二','周三','周四','周五','周六','周日'][now.weekday()]}，跳过。")
-        return False
+    # 如果强制模式，跳过周末检查
+    if not force:
+        # 检查是否是工作日
+        if now.weekday() >= 5:
+            print(f"⏭ 今天是{['周一','周二','周三','周四','周五','周六','周日'][now.weekday()]}，跳过。")
+            print("💡 如需周末也生成文章，请使用 --force 参数")
+            return False
     
     # 检查当天文章是否已存在
-    existing_files = [f for f in os.listdir(POSTS_PATH) if date_str in f and f.endswith('.md')]
+    existing_files = [f for f in os.listdir(POSTS_PATH) if date_str in f and f.endswith('.md') and '彭博' in f]
     if existing_files:
-        print(f"⏭ 今日文章已存在：{existing_files[0]}")
+        print(f"⏭ 今日彭博文章已存在：{existing_files[0]}")
         print("💡 如需重新生成，请先删除已有文章或使用 --force 参数")
         return False
     
@@ -254,13 +258,19 @@ def check_should_run():
 
 def main():
     """主函数"""
+    import argparse
+    parser = argparse.ArgumentParser(description="彭博金融财经 AI 自动创作系统")
+    parser.add_argument("--force", action="store_true", help="强制生成（包括周末）")
+    args = parser.parse_args()
+    
     print("=" * 80)
     print("📊 彭博金融财经 AI 自动创作系统")
     print("=" * 80)
     
     # 检查是否应该运行
-    if not check_should_run():
-        sys.exit(0)
+    if not check_should_run(force=args.force):
+        if not args.force:
+            sys.exit(0)
     
     # 检查 API Key
     if not AI_API_KEY:
